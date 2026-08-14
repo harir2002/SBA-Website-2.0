@@ -1,0 +1,54 @@
+/* SBA Website 2.0 brand tokens
+   Strict palette: red / white / black (opacity variations only). */
+
+@theme {
+  --color-primary-red: #E7000B;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --font-heading: Arial, Helvetica, sans-serif;
+  --font-body: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --color-primary-red: #E7000B;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --font-heading: Arial, Helvetica, sans-serif;
+  --font-body: Arial, Helvetica, sans-serif;
+}
+
+.home-v2 {
+  font-family: var(--font-body);
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.home-v2 h1,
+.home-v2 h2,
+.home-v2 h3,
+.home-v2 h4,
+.home-v2 h5,
+.home-v2 h6 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+}
+
+.home-v2 .swiper-pagination-bullet {
+  background: var(--color-white);
+  opacity: 0.35;
+}
+
+.home-v2 .swiper-pagination-bullet-active {
+  background: var(--color-primary-red);
+  opacity: 1;
+}
+
+.home-v2 .swiper-button-next,
+.home-v2 .swiper-button-prev {
+  color: var(--color-primary-red);
+}
+
+.home-v2 .swiper-button-next::after,
+.home-v2 .swiper-button-prev::after {
+  font-size: 1.25rem;
+}

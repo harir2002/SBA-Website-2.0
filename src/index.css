@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@import "./styles/brand-tokens.css";
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-family: var(--font-body);
+}
+
+/* ─── Animated background keyframes ─────────────────────────── */
+
+@keyframes sba-float-a {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(30px, -20px) scale(1.08); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes sba-float-b {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-25px, 18px) scale(0.94); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes sba-float-c {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  50%  { transform: translate(15px, 25px) rotate(8deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes sba-grid-drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+@keyframes sba-pulse-glow {
+  0%, 100% { opacity: 0.08; }
+  50%       { opacity: 0.18; }
+}
+
+.sba-bg-shape-a {
+  animation: sba-float-a 18s ease-in-out infinite;
+}
+.sba-bg-shape-b {
+  animation: sba-float-b 14s ease-in-out infinite;
+}
+.sba-bg-shape-c {
+  animation: sba-float-c 20s ease-in-out infinite;
+}
+.sba-bg-grid {
+  animation: sba-grid-drift 16s linear infinite;
+}
+.sba-bg-pulse {
+  animation: sba-pulse-glow 12s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sba-bg-shape-a,
+  .sba-bg-shape-b,
+  .sba-bg-shape-c,
+  .sba-bg-grid,
+  .sba-bg-pulse {
+    animation: none;
+  }
+}
+
+/* Simplify on small screens */
+@media (max-width: 390px) {
+  .sba-bg-shape-b,
+  .sba-bg-shape-c {
+    display: none;
+  }
+}

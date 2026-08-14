@@ -1,0 +1,32 @@
+{
+  "name": "sba-website-2-0",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
+    "@react-three/postprocessing": "^2.16.4",
+    "framer-motion": "^13.1.0",
+    "lucide-react": "^0.525.0",
+    "react": "^19.2.8",
+    "react-countup": "^6.5.3",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2",
+    "swiper": "^14.1.0",
+    "three": "^0.177.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.0.5",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.2.0"
+  }
+}

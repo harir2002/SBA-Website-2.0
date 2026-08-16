@@ -11,7 +11,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative flex min-h-[100svh] items-center overflow-hidden bg-black"
+      className="relative flex min-h-screen items-center overflow-hidden bg-black"
       aria-labelledby="hero-heading"
     >
       <Background3D />

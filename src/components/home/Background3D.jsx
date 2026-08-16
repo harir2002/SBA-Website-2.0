@@ -1,46 +1,40 @@
 /**
- * Background3D — lazy-loaded Three.js 3D line network for the Hero section.
+ * Background3D — Three.js 3D line network for the Hero section.
  * Colors: #E7000B (red), #FFFFFF (white), #000000 (black) only.
- * Respects prefers-reduced-motion by pausing animation.
+ * Respects prefers-reduced-motion.
+ *
+ * Performance notes:
+ * - EffectComposer/Bloom removed: multi-pass postprocessing caused frame-drop flicker
+ * - useIsMobile reads once on mount only — no resize listener to avoid Canvas remounts
+ * - Wrapped in React.memo so parent re-renders never hit the Canvas
+ * - Mouse handler is passive to avoid blocking the render thread
  */
 
-import { Suspense, useRef, useMemo, useEffect, useState } from 'react'
+import { memo, Suspense, useRef, useMemo, useEffect, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import * as THREE from 'three'
 
 const RED   = new THREE.Color('#E7000B')
 const WHITE = new THREE.Color('#FFFFFF')
 
 function usePrefersReducedMotion() {
-  const [reduced, setReduced] = useState(
-    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  const [reduced] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   )
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const handler = (e) => setReduced(e.matches)
-    mq.addEventListener('change', handler)
-    return () => mq.removeEventListener('change', handler)
-  }, [])
   return reduced
 }
 
 function useIsMobile() {
-  const [mobile, setMobile] = useState(() => window.innerWidth <= 768)
-  useEffect(() => {
-    const handler = () => setMobile(window.innerWidth <= 768)
-    window.addEventListener('resize', handler)
-    return () => window.removeEventListener('resize', handler)
-  }, [])
+  const [mobile] = useState(() => typeof window !== 'undefined' && window.innerWidth <= 768)
   return mobile
 }
 
 // ─── 3D Line Network ──────────────────────────────────────────────────────────
 
 function NodeNetwork({ mobile, reduced }) {
-  const groupRef = useRef()
-  const pointCount = mobile ? 30 : 60
-  const mouse = useRef({ x: 0, y: 0 })
+  const groupRef   = useRef()
+  const pointCount = mobile ? 28 : 55
+  const mouse      = useRef({ x: 0, y: 0 })
 
   const nodes = useMemo(() => {
     return Array.from({ length: pointCount }, () => ({
@@ -54,7 +48,7 @@ function NodeNetwork({ mobile, reduced }) {
 
   const linePositions = useMemo(() => {
     const positions = []
-    const maxDist = 4.5
+    const maxDist   = 4.5
     for (let i = 0; i < nodes.length; i++) {
       for (let j = i + 1; j < nodes.length; j++) {
         if (nodes[i].pos.distanceTo(nodes[j].pos) < maxDist) {
@@ -75,67 +69,67 @@ function NodeNetwork({ mobile, reduced }) {
     return arr
   }, [nodes])
 
+  const accentNodes = useMemo(() => nodes.filter((_, i) => i % 5 === 0), [nodes])
+
   useEffect(() => {
-    const handleMouse = (e) => {
-      mouse.current.x = (e.clientX / window.innerWidth - 0.5) * 2
+    const handler = (e) => {
+      mouse.current.x = (e.clientX / window.innerWidth  - 0.5) * 2
       mouse.current.y = -(e.clientY / window.innerHeight - 0.5) * 2
     }
-    window.addEventListener('mousemove', handleMouse)
-    return () => window.removeEventListener('mousemove', handleMouse)
+    window.addEventListener('mousemove', handler, { passive: true })
+    return () => window.removeEventListener('mousemove', handler)
   }, [])
 
   useFrame(({ clock }) => {
     if (!groupRef.current || reduced) return
     const t = clock.getElapsedTime()
-    groupRef.current.rotation.y = t * 0.03 + mouse.current.x * 0.04
-    groupRef.current.rotation.x = Math.sin(t * 0.015) * 0.12 + mouse.current.y * 0.025
+    groupRef.current.rotation.y = t * 0.025 + mouse.current.x * 0.035
+    groupRef.current.rotation.x = Math.sin(t * 0.012) * 0.10 + mouse.current.y * 0.02
   })
 
   return (
     <group ref={groupRef}>
+      {/* Connection lines */}
       <lineSegments>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
         </bufferGeometry>
-        <lineBasicMaterial color={RED} transparent opacity={0.18} depthWrite={false} />
+        <lineBasicMaterial color={RED} transparent opacity={0.22} depthWrite={false} />
       </lineSegments>
 
+      {/* Red dots */}
       <points>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[dotPositions, 3]} />
         </bufferGeometry>
-        <pointsMaterial color={RED} size={0.06} transparent opacity={0.9} sizeAttenuation />
+        <pointsMaterial color={RED} size={0.07} transparent opacity={0.85} sizeAttenuation />
       </points>
 
-      {nodes
-        .filter((_, i) => i % 4 === 0)
-        .map((n, i) => (
-          <mesh key={i} position={n.pos.toArray()}>
-            <sphereGeometry args={[0.04, 6, 6]} />
-            <meshBasicMaterial color={WHITE} transparent opacity={0.55} />
-          </mesh>
-        ))}
+      {/* Accent white nodes */}
+      {accentNodes.map((n, i) => (
+        <mesh key={i} position={n.pos.toArray()}>
+          <sphereGeometry args={[0.045, 5, 5]} />
+          <meshBasicMaterial color={WHITE} transparent opacity={0.5} />
+        </mesh>
+      ))}
     </group>
   )
 }
 
-// ─── Scene ────────────────────────────────────────────────────────────────────
+// ─── Scene — no postprocessing, single render pass ────────────────────────────
 
 function Scene({ mobile, reduced }) {
   return (
     <>
       <color attach="background" args={['#000000']} />
       <NodeNetwork mobile={mobile} reduced={reduced} />
-      <EffectComposer>
-        <Bloom intensity={1.4} luminanceThreshold={0.05} luminanceSmoothing={0.9} radius={0.85} />
-      </EffectComposer>
     </>
   )
 }
 
-// ─── Public component ─────────────────────────────────────────────────────────
+// ─── Public component — memoized so Hero parent re-renders never touch Canvas ──
 
-export default function Background3D() {
+const Background3D = memo(function Background3D() {
   const reduced = usePrefersReducedMotion()
   const mobile  = useIsMobile()
 
@@ -148,24 +142,32 @@ export default function Background3D() {
       <Suspense fallback={<div style={{ background: '#000', width: '100%', height: '100%' }} />}>
         <Canvas
           camera={{ position: [0, 0, 10], fov: 60 }}
-          dpr={[1, mobile ? 1.5 : 2]}
+          dpr={mobile ? 1 : [1, 1.5]}
           style={{ width: '100%', height: '100%' }}
-          gl={{ antialias: false, powerPreference: 'high-performance', alpha: false }}
+          gl={{
+            antialias:        false,
+            powerPreference:  'high-performance',
+            alpha:            false,
+            stencil:          false,
+            depth:            false,
+          }}
+          frameloop="always"
         >
           <Scene mobile={mobile} reduced={reduced} />
         </Canvas>
       </Suspense>
 
-      {/* Gradient overlay to keep text readable */}
+      {/* Readability overlay — CSS, not postprocessing */}
       <div
         style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.15) 100%)',
+          position:      'absolute',
+          inset:         0,
+          background:    'linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.12) 100%)',
           pointerEvents: 'none',
         }}
       />
     </div>
   )
-}
+})
+
+export default Background3D

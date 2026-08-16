@@ -1,8 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination, Navigation, A11y } from 'swiper/modules'
+import { Pagination, A11y } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
-import 'swiper/css/navigation'
 
 const INSIGHTS = [
   {
@@ -43,7 +42,9 @@ export default function InsightsCarousel() {
       className="border-t border-white/10 bg-black"
       aria-labelledby="insights-heading"
     >
-      <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-10 lg:py-20">
+      {/* Full-bleed: no max-width, minimal side padding so the track
+          runs to both edges of the viewport */}
+      <div className="w-full px-4 py-16 sm:px-6 lg:py-20">
         <h2
           id="insights-heading"
           className="mb-10 font-heading text-3xl font-extrabold text-white sm:text-4xl"
@@ -52,15 +53,15 @@ export default function InsightsCarousel() {
         </h2>
 
         <Swiper
-          modules={[Pagination, Navigation, A11y]}
+          modules={[Pagination, A11y]}
           spaceBetween={24}
           slidesPerView={1}
           pagination={{ clickable: true }}
-          navigation
           a11y={{ enabled: true }}
           breakpoints={{
             640:  { slidesPerView: 2 },
             1024: { slidesPerView: 3 },
+            1536: { slidesPerView: 4 },
           }}
           className="pb-12"
         >

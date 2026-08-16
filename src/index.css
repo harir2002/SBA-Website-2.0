@@ -51,18 +51,26 @@ body {
 
 .sba-bg-shape-a {
   animation: sba-float-a 18s ease-in-out infinite;
+  will-change: transform;
+  contain: layout style;
 }
 .sba-bg-shape-b {
   animation: sba-float-b 14s ease-in-out infinite;
+  will-change: transform;
+  contain: layout style;
 }
 .sba-bg-shape-c {
   animation: sba-float-c 20s ease-in-out infinite;
+  will-change: transform;
+  contain: layout style;
 }
 .sba-bg-grid {
   animation: sba-grid-drift 16s linear infinite;
+  will-change: background-position;
 }
 .sba-bg-pulse {
   animation: sba-pulse-glow 12s ease-in-out infinite;
+  will-change: opacity;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -81,4 +89,9 @@ body {
   .sba-bg-shape-c {
     display: none;
   }
+}
+
+/* GPU compositing hints — isolate each section's paint layer */
+.home-v2 section {
+  isolation: isolate;
 }

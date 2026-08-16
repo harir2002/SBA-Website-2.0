@@ -1,3 +1,8 @@
+/**
+ * Header — solid black bar, always at the top.
+ * Hero carousel sits below it (page content padded by header height).
+ */
+
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
 
@@ -16,9 +21,8 @@ export default function Header() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/90 backdrop-blur-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black">
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-10">
-        {/* Logo */}
         <a href="/" className="flex items-center gap-2" aria-label="SBA Info Solutions home">
           <img
             src="/src/assets/sba-logo.png"
@@ -31,13 +35,12 @@ export default function Header() {
           </span>
         </a>
 
-        {/* Desktop nav */}
         <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
           {NAV_LINKS.map((link) => (
             <button
               key={link.label}
               onClick={() => scrollTo(link.href.slice(1))}
-              className="font-heading text-sm font-bold tracking-wide text-white/75 uppercase transition-colors hover:text-primary-red"
+              className="font-heading text-sm font-bold tracking-wide text-white/80 uppercase transition-colors hover:text-primary-red"
             >
               {link.label}
             </button>
@@ -50,7 +53,6 @@ export default function Header() {
           </button>
         </nav>
 
-        {/* Mobile menu toggle */}
         <button
           className="inline-flex items-center justify-center p-2 text-white md:hidden"
           onClick={() => setOpen((v) => !v)}
@@ -61,7 +63,6 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile nav drawer */}
       {open && (
         <nav
           className="border-t border-white/10 bg-black px-4 pb-6 pt-4 md:hidden"

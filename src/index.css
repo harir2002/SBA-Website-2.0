@@ -3,6 +3,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -14,12 +15,119 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: clip;
   background-color: var(--color-black);
   color: var(--color-white);
   font-family: var(--font-body);
 }
 
-/* ─── Animated background keyframes ─────────────────────────── */
+/* ─── About section glow orbs (Option A) ─────────────────────── */
+
+@keyframes sba-about-orb-a {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(32px, -28px, 0) scale(1.08); }
+}
+
+@keyframes sba-about-orb-b {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(-36px, 22px, 0) scale(1.1); }
+}
+
+@keyframes sba-about-orb-c {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(18px, 30px, 0) scale(1.06); }
+}
+
+.sba-about-orb-a {
+  animation: sba-about-orb-a 22s ease-in-out infinite;
+}
+.sba-about-orb-b {
+  animation: sba-about-orb-b 18s ease-in-out infinite;
+  animation-direction: alternate;
+}
+.sba-about-orb-c {
+  animation: sba-about-orb-c 26s ease-in-out infinite;
+}
+
+/* Pause when section is off-screen (toggled via IntersectionObserver) */
+.sba-about-bg.is-paused .sba-about-orb-a,
+.sba-about-bg.is-paused .sba-about-orb-b,
+.sba-about-bg.is-paused .sba-about-orb-c {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sba-about-orb-a,
+  .sba-about-orb-b,
+  .sba-about-orb-c {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .sba-about-orb-c {
+    display: none;
+  }
+}
+
+/* ─── Horizontal logo marquee ─────────────────────────────────── */
+
+@keyframes sba-logo-marquee-left {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes sba-logo-marquee-right {
+  from { transform: translate3d(-50%, 0, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+
+.sba-logo-marquee-track {
+  width: max-content;
+  will-change: transform;
+  animation: sba-logo-marquee-left var(--marquee-duration, 32s) linear infinite;
+}
+
+.sba-logo-marquee-track--reverse {
+  animation-name: sba-logo-marquee-right;
+}
+
+.sba-logo-marquee-viewport:hover .sba-logo-marquee-track {
+  animation-play-state: paused;
+}
+
+.sba-logo-img {
+  max-width: 160px;
+  max-height: 56px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  /* White asset backgrounds → black; dark logo art → light (fits black page) */
+  filter: grayscale(1) invert(1);
+  opacity: 0.85;
+  transition: opacity 0.25s ease, filter 0.25s ease;
+}
+
+.sba-logo-box:hover .sba-logo-img {
+  opacity: 1;
+  filter: grayscale(1) invert(1)
+    drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+}
+
+@media (min-width: 640px) {
+  .sba-logo-img {
+    max-width: 180px;
+    max-height: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sba-logo-marquee-track {
+    animation: none;
+  }
+}
+
+/* ─── Animated background keyframes (shared) ─────────────────── */
 
 @keyframes sba-float-a {
   0%   { transform: translate(0, 0) scale(1); }
@@ -51,26 +159,18 @@ body {
 
 .sba-bg-shape-a {
   animation: sba-float-a 18s ease-in-out infinite;
-  will-change: transform;
-  contain: layout style;
 }
 .sba-bg-shape-b {
   animation: sba-float-b 14s ease-in-out infinite;
-  will-change: transform;
-  contain: layout style;
 }
 .sba-bg-shape-c {
   animation: sba-float-c 20s ease-in-out infinite;
-  will-change: transform;
-  contain: layout style;
 }
 .sba-bg-grid {
   animation: sba-grid-drift 16s linear infinite;
-  will-change: background-position;
 }
 .sba-bg-pulse {
   animation: sba-pulse-glow 12s ease-in-out infinite;
-  will-change: opacity;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -89,9 +189,4 @@ body {
   .sba-bg-shape-c {
     display: none;
   }
-}
-
-/* GPU compositing hints — isolate each section's paint layer */
-.home-v2 section {
-  isolation: isolate;
 }

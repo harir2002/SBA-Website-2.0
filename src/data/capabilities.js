@@ -1,109 +1,116 @@
 /**
  * Capability data for the CapabilityCarousel.
  *
- * Images are loaded via import.meta.glob so filenames with spaces
- * never need to be manually imported one-by-one.
- *
- * ═══════════════════════════════════════════════════════════════════
- * IMAGE REQUIREMENT — TEXT-FREE ASSETS ONLY
- * ═══════════════════════════════════════════════════════════════════
- * Every PNG in src/assets/capabilities/ must be TEXT-FREE.
- * All slide copy (eyebrow, heading, description, CTA) is rendered by
- * CapabilityCarousel.jsx — never bake that copy into the image.
- *
- * If an image still contains Canva text, the UI will show duplicate
- * headings/descriptions. Re-export visuals only (art / 3D graphic /
- * connecting lines) on a dark background with no left-column copy.
- *
- * PRODUCTION NOTE: Before final build, convert all PNGs to WebP for
- * optimal LCP (expected ~60–80% size reduction at equivalent quality).
+ * Images are text-free visuals only (same filenames as before).
+ * All eyebrow / heading / description / CTA copy is rendered by
+ * CapabilityCarousel.jsx as DOM text — never baked into the image.
  */
 
-// Eagerly import all PNGs from the capabilities folder.
-// Keys will be: "/src/assets/capabilities/<filename>.png"
 const imageModules = import.meta.glob(
-  '/src/assets/capabilities/*.png',
+  '/src/assets/capabilities/*.{png,jpg,jpeg,PNG,JPG,JPEG}',
   { eager: true },
 )
 
 /**
- * Resolve an image URL by matching the slide title to the filename.
- * Case-insensitive: works even if the PNG file uses different capitalisation.
- * Returns null if the file hasn't been placed yet (fallback handled in UI).
+ * Resolve an image URL by filename stem. Case-insensitive.
  */
-function getImage(title) {
-  // Try exact match first
-  const exact = `/src/assets/capabilities/${title}.png`
-  if (imageModules[exact]) return imageModules[exact].default
-
-  // Fall back to case-insensitive search
-  const lowerTitle = title.toLowerCase()
-  const match = Object.keys(imageModules).find(
-    (k) => k.toLowerCase() === `/src/assets/capabilities/${lowerTitle}.png`,
-  )
-  return match ? imageModules[match].default : null
+function getImage(...candidates) {
+  const keys = Object.keys(imageModules)
+  for (const name of candidates) {
+    const stem = name.replace(/\.(png|jpe?g)$/i, '').toLowerCase()
+    const match = keys.find((k) => {
+      const file = k.split('/').pop().replace(/\.(png|jpe?g)$/i, '').toLowerCase()
+      return file === stem
+    })
+    if (match) return imageModules[match].default
+  }
+  return null
 }
 
 export const CAPABILITIES = [
   {
-    id:          'modernize-the-core',
-    title:       'Modernize the Core',
-    description: 'Modernise legacy systems and strengthen your technology foundation.',
-    ctaShort:    'Explore Modernization',
-    link:        '/capabilities/modernize-the-core',
-    // This image must be text-free — all text is rendered by the component, not baked into the image.
-    image:       getImage('Modernize the Core'),
-    alt:         'Modernize the Core',
+    id: 'modernize-the-core',
+    eyebrow: 'SBA Info Solutions',
+    title: 'Modernize the Core',
+    description:
+      "Legacy systems shouldn't hold back tomorrow's ambitions. We re-engineer your technology foundation for the speed, scale, and agility modern enterprises demand.",
+    ctaShort: 'Explore Modernization',
+    link: '/capabilities/modernize-the-core',
+    image: getImage('Modernize the core', 'Modernize the Core'),
+    alt: 'Modernize the Core visual',
+    objectPosition: '85% 25%',
+    imageZoom: 1.16,
+    imageOrigin: 'right center',
   },
   {
-    id:          'protect-and-recover',
-    title:       'Protect and Recover',
-    description: 'Strengthen security, resilience, and recovery to keep critical business operations running.',
-    ctaShort:    'Explore Security',
-    link:        '/capabilities/protect-and-recover',
-    // This image must be text-free — all text is rendered by the component, not baked into the image.
-    image:       getImage('Protect and Recover'),
-    alt:         'Protect and Recover',
+    id: 'protect-and-recover',
+    eyebrow: 'SBA Info Solutions',
+    title: 'Protect and Recover',
+    description:
+      "Downtime isn't an option. We build resilient, secure enterprises that anticipate threats, withstand disruption, and recover without missing a beat.",
+    ctaShort: 'Explore Cyber Resilience',
+    link: '/capabilities/protect-and-recover',
+    image: getImage('Protect and Recover'),
+    alt: 'Protect and Recover visual',
+    objectPosition: '70% center',
+    imageZoom: 1.16,
+    imageOrigin: 'right center',
   },
   {
-    id:          'make-data-actionable',
-    title:       'Make Data Actionable',
-    description: 'Turn complex data into meaningful insights that support smarter business decisions.',
-    ctaShort:    'Explore Data & AI',
-    link:        '/capabilities/make-data-actionable',
-    // This image must be text-free — all text is rendered by the component, not baked into the image.
-    image:       getImage('Make Data Actionable'),
-    alt:         'Make Data Actionable',
+    id: 'make-data-actionable',
+    eyebrow: 'SBA Info Solutions',
+    title: 'Make Data Actionable',
+    description:
+      "Your data holds answers you haven't asked yet. We turn scattered, complex information into clear, trusted intelligence that drives every decision.",
+    ctaShort: 'Explore Data Intelligence',
+    link: '/capabilities/make-data-actionable',
+    image: getImage('Make Data Actionable'),
+    alt: 'Make Data Actionable visual',
+    objectPosition: '75% center',
+    imageZoom: 1.16,
+    imageOrigin: 'right center',
   },
   {
-    id:          'build-and-connect',
-    title:       'Build and Connect',
-    description: 'Connect applications, systems, and platforms to create a more integrated digital ecosystem.',
-    ctaShort:    'Explore Integration',
-    link:        '/capabilities/build-and-connect',
-    // This image must be text-free — all text is rendered by the component, not baked into the image.
-    image:       getImage('Build and Connect'),
-    alt:         'Build and Connect',
+    id: 'build-and-connect',
+    eyebrow: 'SBA Info Solutions',
+    title: 'Build and Connect',
+    description:
+      'From product strategy and digital engineering to cloud-native delivery and integration, we turn ambitious ideas into secure, scalable experiences built to evolve.',
+    ctaShort: 'Explore Integration',
+    link: '/capabilities/build-and-connect',
+    image: getImage('Build and Connect'),
+    alt: 'Build and Connect visual',
+    objectPosition: '65% center',
+    imageZoom: 1.16,
+    imageOrigin: 'right center',
   },
   {
-    id:          'operate-with-assurance',
-    title:       'Operate with Assurance',
-    description: 'Improve reliability, performance, and visibility through smarter technology operations.',
-    ctaShort:    'Explore Operations',
-    link:        '/capabilities/operate-with-assurance',
-    // This image must be text-free — all text is rendered by the component, not baked into the image.
-    image:       getImage('Operate with Assurance'),
-    alt:         'Operate with Assurance',
+    id: 'engineered-for-your-industry',
+    eyebrow: 'SBA Info Solutions',
+    title: 'Engineered for Your Industry',
+    description:
+      "Generic technology creates generic outcomes. We deliver solutions purpose-built for your sector's regulations, risks, and realities.",
+    ctaShort: 'Explore Industry Solutions',
+    link: '/capabilities/operate-with-assurance',
+    image: getImage('Engineered for Your Industry'),
+    alt: 'Engineered for Your Industry visual',
+    objectPosition: 'right center',
+    /* Already balanced — keep near-native scale */
+    imageZoom: 1.04,
+    imageOrigin: 'center center',
   },
   {
-    id:          'accelerate-business-ai',
-    title:       'Accelerate Business AI',
-    description: 'Harness AI to automate processes, unlock new possibilities, and accelerate business growth.',
-    ctaShort:    'Explore Business AI',
-    link:        '/capabilities/accelerate-business-ai',
-    // This image must be text-free — all text is rendered by the component below, not baked into the image.
-    // Current asset still has Canva left-column copy; replace with visual-only export (AI process cards, checkmarks, lines — no heading/description).
-    image:       getImage('Accelerate Business AI'),
-    alt:         'Accelerate Business AI',
+    id: 'accelerate-business-ai',
+    eyebrow: 'SBA Info Solutions',
+    title: 'Accelerate Business AI',
+    description:
+      "AI's real value isn't the technology - it's the outcome. We deploy governed, enterprise-ready AI that automates work, elevates experience, and compounds ROI.",
+    ctaShort: 'Explore AI Solutions',
+    link: '/capabilities/accelerate-business-ai',
+    image: getImage('Accelerate Business AI'),
+    alt: 'Accelerate Business AI visual',
+    objectPosition: '68% center',
+    imageZoom: 1.16,
+    imageOrigin: 'right center',
   },
 ]

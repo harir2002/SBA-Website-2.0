@@ -107,7 +107,7 @@ export default function CapabilityDiagram() {
           <text
             x={CX} y={CY - 2}
             textAnchor="middle" dominantBaseline="middle"
-            fontSize="4.5" fontFamily="Arial, Helvetica, sans-serif" fontWeight="800"
+            fontSize="4.5" fontFamily="Poppins, sans-serif" fontWeight="800"
             fill="#ffffff"
           >
             SBA
@@ -115,7 +115,7 @@ export default function CapabilityDiagram() {
           <text
             x={CX} y={CY + 3}
             textAnchor="middle" dominantBaseline="middle"
-            fontSize="2.6" fontFamily="Arial, Helvetica, sans-serif" fontWeight="600"
+            fontSize="2.6" fontFamily="Poppins, sans-serif" fontWeight="600"
             fill="rgba(255,255,255,0.75)"
           >
             Capabilities
@@ -144,7 +144,7 @@ export default function CapabilityDiagram() {
             <text
               x={node.x} y={node.y - 2.4}
               textAnchor="middle" dominantBaseline="middle"
-              fontSize="2.6" fontFamily="Arial, Helvetica, sans-serif" fontWeight="700"
+              fontSize="2.6" fontFamily="Poppins, sans-serif" fontWeight="700"
               fill="#E7000B"
             >
               {node.line1}
@@ -153,7 +153,7 @@ export default function CapabilityDiagram() {
             <text
               x={node.x} y={node.y + 2.4}
               textAnchor="middle" dominantBaseline="middle"
-              fontSize="2.4" fontFamily="Arial, Helvetica, sans-serif" fontWeight="400"
+              fontSize="2.4" fontFamily="Inter, sans-serif" fontWeight="400"
               fill="rgba(255,255,255,0.75)"
             >
               {node.line2}

@@ -1,24 +1,26 @@
 /* SBA Website 2.0 brand tokens
-   Strict palette: red / white / black (opacity variations only). */
+   Strict palette: red / white / black (opacity variations only).
+   Typography: Poppins (headings) + Inter (body). */
 
 @theme {
   --color-primary-red: #E7000B;
   --color-white: #FFFFFF;
   --color-black: #000000;
-  --font-heading: Arial, Helvetica, sans-serif;
-  --font-body: Arial, Helvetica, sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
 }
 
 :root {
   --color-primary-red: #E7000B;
   --color-white: #FFFFFF;
   --color-black: #000000;
-  --font-heading: Arial, Helvetica, sans-serif;
-  --font-body: Arial, Helvetica, sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
 }
 
 .home-v2 {
   font-family: var(--font-body);
+  font-weight: 400;
   background-color: var(--color-black);
   color: var(--color-white);
 }
@@ -28,9 +30,40 @@
 .home-v2 h3,
 .home-v2 h4,
 .home-v2 h5,
-.home-v2 h6 {
+.home-v2 h6,
+.home-v2 .font-heading,
+.home-v2 .heading,
+.home-v2 .eyebrow {
   font-family: var(--font-heading);
+}
+
+.home-v2 h1,
+.home-v2 h2 {
   font-weight: 800;
+}
+
+.home-v2 h3,
+.home-v2 h4 {
+  font-weight: 700;
+}
+
+.home-v2 .eyebrow {
+  font-weight: 600;
+}
+
+.home-v2 p,
+.home-v2 span,
+.home-v2 li,
+.home-v2 label,
+.home-v2 input,
+.home-v2 textarea,
+.home-v2 .font-body {
+  font-family: var(--font-body);
+}
+
+.home-v2 button,
+.home-v2 a {
+  font-family: inherit;
 }
 
 .home-v2 .swiper-pagination-bullet {

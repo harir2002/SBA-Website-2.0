@@ -1,9 +1,10 @@
 /**
- * CapabilityCarousel — image-only hero banner.
+ * CapabilityCarousel — two-column hero slides.
  *
- * All capability PNGs are 1366×768 (16:9). Hero uses that aspect-ratio
- * so the full image is visible with no crop and no Swiper autoHeight
- * (autoHeight + update() caused a max call stack crash).
+ * Left: DOM text (eyebrow → heading → description → CTA)
+ * Right: slightly shrunk text-free capability image
+ *
+ * Uses rewind (not loop) to avoid clone black-flashes.
  */
 
 import { useRef, useEffect, useState } from 'react'
@@ -11,10 +12,11 @@ import { useReducedMotion } from 'framer-motion'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Keyboard, A11y } from 'swiper/modules'
 import { CAPABILITIES } from '../../data/capabilities'
+import SlideCTAButton from './SlideCTAButton'
 
 import 'swiper/css'
 
-const HERO_AUTO_PLAY_INTERVAL = 3000 // 3 seconds
+const HERO_AUTO_PLAY_INTERVAL = 5000
 
 export default function CapabilityCarousel() {
   const reduceMotion = useReducedMotion()
@@ -29,9 +31,10 @@ export default function CapabilityCarousel() {
       ([entry]) => {
         const sw = swiperRef.current
         if (!sw?.autoplay) return
-        entry.isIntersecting ? sw.autoplay.start() : sw.autoplay.stop()
+        if (entry.isIntersecting) sw.autoplay.start()
+        else sw.autoplay.stop()
       },
-      { threshold: 0.12 },
+      { threshold: 0.2 },
     )
     io.observe(el)
     return () => io.disconnect()
@@ -46,24 +49,104 @@ export default function CapabilityCarousel() {
       style={{ marginTop: '72px' }}
     >
       <style>{`
-        /* Match native image ratio (1366×768) — full image, no crop */
         .hero-cap {
           width: 100%;
-          aspect-ratio: 16 / 9;
           background-color: #000000;
         }
+
+        /* Shared full-height chain: section → swiper → slide → row */
+        .hero-cap,
         .hero-cap .swiper,
-        .hero-cap .swiper-slide {
-          width: 100%;
-          height: 100%;
+        .hero-cap .swiper-wrapper,
+        .hero-cap .swiper-slide,
+        .hero-slide {
+          height: auto;
+          min-height: 0;
           background-color: #000000;
         }
+
+        .hero-slide {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          align-items: stretch;
+          gap: 0;
+        }
+
+        @media (min-width: 768px) {
+          .hero-cap,
+          .hero-cap .swiper,
+          .hero-cap .swiper-wrapper,
+          .hero-cap .swiper-slide,
+          .hero-slide {
+            height: 80vh;
+            min-height: 600px;
+            max-height: 820px;
+          }
+          .hero-slide {
+            flex-direction: row;
+            align-items: stretch;
+            gap: 0;
+          }
+        }
+
+        /* Left text — ~46% (closer to midpoint, less center gap) */
+        .hero-text-col {
+          width: 100%;
+          padding: 28px 20px 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin: 0;
+        }
+        @media (min-width: 768px) {
+          .hero-text-col {
+            width: 46%;
+            flex-shrink: 0;
+            height: 100%;
+            padding: 40px 16px 48px 40px;
+          }
+        }
+        @media (min-width: 1280px) {
+          .hero-text-col {
+            padding: 48px 20px 56px 56px;
+          }
+        }
+
+        /* Right image — ~54%, starts nearer center, no outer gap */
+        .hero-image-col {
+          position: relative;
+          width: 100%;
+          height: 340px;
+          padding: 0;
+          margin: 0;
+          overflow: hidden;
+          background: #000000;
+        }
+        @media (min-width: 768px) {
+          .hero-image-col {
+            width: 54%;
+            height: 100%;
+            min-height: 100%;
+            flex: 1 1 54%;
+            align-self: stretch;
+            margin: 0;
+          }
+        }
+
+        /* Cover + slight zoom crops empty left/right padding in source art */
         .hero-cap-img {
+          position: absolute;
+          inset: 0;
           display: block;
           width: 100%;
           height: 100%;
-          object-fit: contain;
+          object-fit: cover;
           object-position: center center;
+          border-radius: 0;
+          background: #000000;
+          transform: scale(var(--hero-img-zoom, 1.14));
+          transform-origin: var(--hero-img-origin, right center);
         }
       `}</style>
 
@@ -71,8 +154,10 @@ export default function CapabilityCarousel() {
         modules={[Autoplay, Keyboard, A11y]}
         onSwiper={(sw) => { swiperRef.current = sw }}
         onRealIndexChange={(sw) => setActiveIndex(sw.realIndex)}
-        loop
-        speed={700}
+        rewind
+        speed={450}
+        allowTouchMove
+        watchOverflow
         autoplay={
           reduceMotion
             ? false
@@ -88,33 +173,75 @@ export default function CapabilityCarousel() {
           prevSlideMessage: 'Previous capability',
           nextSlideMessage: 'Next capability',
         }}
-        className="h-full w-full"
+        className="w-full"
       >
-        {CAPABILITIES.map((cap, i) => (
+        {CAPABILITIES.map((cap) => (
           <SwiperSlide key={cap.id}>
-            {cap.image ? (
-              <img
-                src={cap.image}
-                alt={cap.alt}
-                loading={i === 0 ? 'eager' : 'lazy'}
-                fetchPriority={i === 0 ? 'high' : 'auto'}
-                className="hero-cap-img"
-                draggable={false}
-              />
-            ) : (
-              <div
-                className="h-full w-full bg-black"
-                role="img"
-                aria-label={cap.alt}
-              />
-            )}
+            <div className="hero-slide">
+              {/* LEFT — DOM text stack */}
+              <div className="hero-text-col">
+                <p className="mb-3 font-heading text-xs font-bold tracking-[0.28em] text-primary-red uppercase sm:text-sm">
+                  {cap.eyebrow}
+                </p>
+
+                <h2
+                  className="font-heading font-extrabold leading-[1.12] text-white"
+                  style={{ fontSize: 'clamp(1.5rem, 3.2vw, 3rem)' }}
+                >
+                  {cap.title}
+                </h2>
+
+                <p
+                  className="mt-4 font-body leading-relaxed text-white/75"
+                  style={{
+                    fontSize: 'clamp(0.9rem, 1.15vw, 1.0625rem)',
+                    maxWidth: '100%',
+                  }}
+                >
+                  {cap.description}
+                </p>
+
+                <div className="mt-6">
+                  <SlideCTAButton label={cap.ctaShort} href={cap.link} />
+                </div>
+              </div>
+
+              {/* RIGHT — full-height image, starts nearer center */}
+              <div className="hero-image-col">
+                {cap.image ? (
+                  <img
+                    src={cap.image}
+                    alt={cap.alt}
+                    loading="eager"
+                    decoding="async"
+                    className="hero-cap-img"
+                    style={{
+                      objectPosition: cap.objectPosition || 'center center',
+                      '--hero-img-zoom': cap.imageZoom ?? 1.14,
+                      '--hero-img-origin': cap.imageOrigin || 'right center',
+                    }}
+                    draggable={false}
+                  />
+                ) : (
+                  <div
+                    className="hero-cap-img bg-black"
+                    style={{
+                      background:
+                        'linear-gradient(135deg, rgba(231,0,11,0.15) 0%, rgba(0,0,0,0.95) 70%)',
+                    }}
+                    role="img"
+                    aria-label={cap.alt}
+                  />
+                )}
+              </div>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
 
       {/* Dots */}
       <div
-        className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2.5"
+        className="absolute bottom-4 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2.5"
         role="tablist"
         aria-label="Capability slides"
       >
@@ -124,7 +251,7 @@ export default function CapabilityCarousel() {
             role="tab"
             aria-selected={activeIndex === i}
             aria-label={`Go to ${cap.title}`}
-            onClick={() => swiperRef.current?.slideToLoop(i)}
+            onClick={() => swiperRef.current?.slideTo(i)}
             className="flex h-6 w-6 items-center justify-center"
             style={{ border: 'none', background: 'transparent', cursor: 'pointer', padding: 0 }}
           >
@@ -139,25 +266,11 @@ export default function CapabilityCarousel() {
                 border: activeIndex === i
                   ? '1px solid #E7000B'
                   : '1px solid rgba(255,255,255,0.55)',
-                transition: 'all 0.3s ease',
+                transition: 'width 0.25s ease, background 0.25s ease',
               }}
             />
           </button>
         ))}
-      </div>
-
-      {/* Bottom cut */}
-      <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-10"
-        aria-hidden="true"
-      >
-        <div
-          className="h-px w-full"
-          style={{
-            background:
-              'linear-gradient(to right, transparent 0%, #E7000B 18%, #E7000B 82%, transparent 100%)',
-          }}
-        />
       </div>
     </section>
   )

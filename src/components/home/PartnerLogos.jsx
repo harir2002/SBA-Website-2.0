@@ -12,7 +12,7 @@ const PARTNERS = [
 export default function PartnerLogos() {
   return (
     <section
-      className="border-t border-white/10 bg-black"
+      className="bg-black"
       aria-labelledby="partners-heading"
     >
       <div className="mx-auto max-w-[1440px] px-4 py-12 sm:px-6 lg:px-10">

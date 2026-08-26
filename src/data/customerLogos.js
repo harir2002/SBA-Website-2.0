@@ -1,42 +1,72 @@
 /**
- * Customer logos — files live in /public/logos/customers/
+ * Customer logos — every image in /public/logos/customers/
+ * Drop a new file in that folder and add an entry here (or ask to resync).
  */
 
-export const CUSTOMER_LOGOS = [
-  { id: 'chola', name: 'Chola', src: '/logos/customers/Chola.png' },
-  { id: 'cub', name: 'CUB', src: '/logos/customers/CUB.png' },
-  {
-    id: 'dhanalaxmi',
-    name: 'Dhanalaxmi Bank',
-    src: '/logos/customers/Dhanalaxmi Bank.png',
-  },
-  { id: 'dvara', name: 'Dvara', src: '/logos/customers/Dvara.png' },
-  {
-    id: 'equitas',
-    name: 'Equitas Bank',
-    src: '/logos/customers/Equitas Bank.png',
-  },
-  { id: 'esaf', name: 'ESAF', src: '/logos/customers/ESAF.png' },
-  { id: 'kvb', name: 'KVB', src: '/logos/customers/KVB.png' },
-  {
-    id: 'repco',
-    name: 'Repco Bank',
-    src: '/logos/customers/Repco Bank.png',
-  },
-  {
-    id: 'royal-sundaram',
-    name: 'Royal Sundaram',
-    src: '/logos/customers/Royal Sundaram.jpg',
-  },
-  {
-    id: 'shriram',
-    name: 'Shriram Life Insurance',
-    src: '/logos/customers/Shriram Life Insurance.png',
-  },
-  {
-    id: 'star-health',
-    name: 'Star Health Insurance',
-    src: '/logos/customers/Star Health Insurance.png',
-  },
-  { id: 'tmb', name: 'TMB', src: '/logos/customers/TMB.png' },
+function entry(filename) {
+  const name = filename
+    .replace(/\.(png|jpe?g|webp|svg)$/i, '')
+    .replace(/[_-]+/g, ' ')
+    .replace(/\blogo\b/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+  const id = name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+  return {
+    id,
+    name,
+    src: `/logos/customers/${filename}`,
+  }
+}
+
+/** Filenames must match files in public/logos/customers exactly (case-sensitive on Linux). */
+const CUSTOMER_LOGO_FILES = [
+  'Accesshealthcare.png',
+  'Accord.png',
+  'BHEL.png',
+  'Brakes India Private Limited.png',
+  'Cavinkare.png',
+  'Chola.png',
+  'CRN.png',
+  'CUB.png',
+  'Dhanalaxmi Bank.png',
+  'Dvara.png',
+  'Equitas Bank.png',
+  'ESAF.png',
+  'FICHTNER.png',
+  'FIS.png',
+  'Hindu.png',
+  'Hyundai.png',
+  'IIT.png',
+  'IITM Pravartak.png',
+  'Indian Express.png',
+  'Keltron.png',
+  'kia.png',
+  'KVB.png',
+  'L&T Shipbuilding.png',
+  'Latentview.png',
+  'Lezdo.png',
+  'Movate logo.png',
+  'neurealm_logo.jpg',
+  'Novac.png',
+  'Ntrust.jpg',
+  'Ramco.png',
+  'Repco Bank.png',
+  'Royal Sundaram.jpg',
+  'Shriram Life Insurance.png',
+  'Star Health Insurance.png',
+  'Straive.png',
+  'TAFE.png',
+  'TMB.png',
+  'TNPL.png',
+  'TVS supply Chain.png',
+  'ViewZen Labs.png',
+  'WAVE.png',
+  'Wheels India limited.png',
+  'williamslea.jpg',
+  'Yalamanchili.png',
 ]
+
+export const CUSTOMER_LOGOS = CUSTOMER_LOGO_FILES.map(entry)

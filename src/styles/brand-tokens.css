@@ -85,3 +85,67 @@
 .home-v2 .swiper-button-prev::after {
   font-size: 1.25rem;
 }
+
+/* About page — same brand type system */
+.about-page {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+.about-page h1,
+.about-page h2,
+.about-page h3,
+.about-page h4,
+.about-page h5,
+.about-page h6,
+.about-page .font-heading {
+  font-family: var(--font-heading);
+}
+
+.about-page h1,
+.about-page h2 {
+  font-weight: 800;
+}
+
+.about-page h3,
+.about-page h4 {
+  font-weight: 700;
+}
+
+.about-page p,
+.about-page span,
+.about-page li,
+.about-page .font-body {
+  font-family: var(--font-body);
+}
+
+.contact-page {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+.contact-page h1,
+.contact-page h2,
+.contact-page h3,
+.contact-page h4,
+.contact-page .font-heading {
+  font-family: var(--font-heading);
+}
+
+.contact-page h1,
+.contact-page h2 {
+  font-weight: 800;
+}
+
+.contact-page h3,
+.contact-page h4 {
+  font-weight: 700;
+}
+
+.contact-page p,
+.contact-page span,
+.contact-page li,
+.contact-page label,
+.contact-page .font-body {
+  font-family: var(--font-body);
+}

@@ -1,6 +1,5 @@
 /**
- * CareersBanner — full-bleed darkened visual with centered CTA.
- * Swap careersBg once a final photo is approved (data-placeholder="careers-bg").
+ * CareersBanner — full-bleed original team photo with left-aligned CTA.
  */
 
 import { motion, useReducedMotion } from 'framer-motion'
@@ -17,37 +16,124 @@ export default function CareersBanner() {
   return (
     <section
       id="careers"
-      className="relative scroll-mt-[72px] flex min-h-[420px] items-center justify-center overflow-hidden sm:min-h-[480px]"
+      className="join-team-section relative scroll-mt-[72px] flex items-center"
       aria-labelledby="careers-banner-heading"
-      data-placeholder="careers-bg"
     >
-      {/* Placeholder visual texture (replace with photo when ready) */}
-      <div
-        className="absolute inset-0"
-        aria-hidden="true"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.88)),
-            radial-gradient(ellipse at 30% 40%, rgba(231,0,11,0.18) 0%, transparent 50%),
-            radial-gradient(ellipse at 70% 60%, rgba(255,255,255,0.06) 0%, transparent 45%),
-            linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0d0d0d 100%)
-          `,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
-      {/* Subtle grid texture */}
-      <div
-        className="absolute inset-0 opacity-30"
-        aria-hidden="true"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-        }}
-      />
+      <style>{`
+        .join-team-section {
+          position: relative;
+          min-height: 580px;
+          overflow: hidden;
+          isolation: isolate;
+          background: #070707;
+        }
 
-      <div className="relative z-10 mx-auto max-w-[1280px] px-5 py-20 text-center sm:px-6 sm:py-24 lg:px-10">
+        .join-team-image {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: 78% top;
+          z-index: -2;
+          transform: scale(1.04);
+          transition: transform 8s ease-out;
+        }
+
+        .join-team-section:hover .join-team-image {
+          transform: scale(1.1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .join-team-image {
+            transform: none;
+            transition: none;
+          }
+          .join-team-section:hover .join-team-image {
+            transform: none;
+          }
+        }
+
+        .join-team-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: -1;
+          background:
+            linear-gradient(
+              90deg,
+              rgba(5, 5, 5, 0.96) 0%,
+              rgba(5, 5, 5, 0.84) 38%,
+              rgba(5, 5, 5, 0.42) 65%,
+              rgba(5, 5, 5, 0.12) 100%
+            ),
+            linear-gradient(
+              180deg,
+              rgba(0, 0, 0, 0.18) 0%,
+              rgba(0, 0, 0, 0.42) 100%
+            );
+        }
+
+        .join-team-content {
+          position: relative;
+          z-index: 1;
+          max-width: 680px;
+          padding: 88px 56px;
+        }
+
+        @media (max-width: 1024px) {
+          .join-team-section {
+            min-height: 540px;
+          }
+
+          .join-team-image {
+            object-position: 72% top;
+          }
+
+          .join-team-content {
+            padding: 72px 40px;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .join-team-section {
+            min-height: 560px;
+          }
+
+          .join-team-image {
+            object-position: 65% top;
+          }
+
+          .join-team-overlay {
+            background:
+              linear-gradient(
+                90deg,
+                rgba(5, 5, 5, 0.94) 0%,
+                rgba(5, 5, 5, 0.80) 58%,
+                rgba(5, 5, 5, 0.38) 100%
+              ),
+              linear-gradient(
+                180deg,
+                rgba(0, 0, 0, 0.22) 0%,
+                rgba(0, 0, 0, 0.52) 100%
+              );
+          }
+
+          .join-team-content {
+            max-width: 100%;
+            padding: 64px 24px;
+          }
+        }
+      `}</style>
+
+      <img
+        className="join-team-image"
+        src="/images/join-sba-team-original.png"
+        alt=""
+        aria-hidden="true"
+      />
+      <div className="join-team-overlay" aria-hidden="true" />
+
+      <div className="join-team-content">
         <motion.h2
           id="careers-banner-heading"
           className="font-heading text-[2.25rem] font-extrabold leading-tight text-white sm:text-5xl"
@@ -60,13 +146,13 @@ export default function CareersBanner() {
         </motion.h2>
 
         <motion.p
-          className="mx-auto mt-4 max-w-xl font-body text-base text-white/65 sm:text-lg"
+          className="mt-3 font-body text-base text-white/65 sm:text-lg"
           initial={reduceMotion ? false : { opacity: 0, y: 20 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.55, delay: 0.12, ease: EASE }}
         >
-          Join a team shaping the future of technology, AI, and enterprise solutions.
+          Let&apos;s engineer your modern, secure and Intelligent enterprise.
         </motion.p>
 
         <motion.div
@@ -78,7 +164,7 @@ export default function CareersBanner() {
           <button
             type="button"
             onClick={() => scrollTo('contact')}
-            className="group mt-8 inline-flex items-center justify-center gap-2 rounded-md border-[1.75px] border-primary-red bg-primary-red px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 ease-out hover:scale-[1.03] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            className="group mt-5 inline-flex items-center justify-center gap-2 rounded-md border-[1.75px] border-primary-red bg-primary-red px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 ease-out hover:scale-[1.03] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             Join the SBA Team
             <span

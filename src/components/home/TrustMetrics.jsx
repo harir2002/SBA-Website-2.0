@@ -1,9 +1,12 @@
 /**
- * TrustMetrics / About SBA — heading + stats with subtle Option A glow orbs.
+ * TrustMetrics — about copy + stats with subtle Option A glow orbs.
  */
 
 import { useEffect, useRef, useState } from 'react'
-import { useInView, useReducedMotion } from 'framer-motion'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { ScrollStagger } from './ScrollReveal'
+
+const EASE = [0.16, 1, 0.3, 1]
 
 const STATS = [
   { value: 30, suffix: '+', label: 'Years of Enterprise Trust', numeric: true },
@@ -41,11 +44,24 @@ function StatCard({ stat, inView, reduceMotion }) {
     : stat.value
 
   return (
-    <article>
-      <p className="font-heading text-3xl font-extrabold text-white sm:text-4xl">{display}</p>
+    <motion.article
+      className="group/stat"
+      whileHover={reduceMotion ? undefined : { y: -3 }}
+      transition={{ duration: 0.25, ease: EASE }}
+    >
+      <p className="font-heading text-3xl font-extrabold text-white transition-colors duration-300 group-hover/stat:text-primary-red sm:text-4xl">
+        {display}
+      </p>
       <p className="mt-2 font-body text-sm text-white/70">{stat.label}</p>
-      <span className="mt-3 block h-px w-12 bg-primary-red" aria-hidden="true" />
-    </article>
+      <motion.span
+        className="mt-3 block h-px origin-left bg-primary-red"
+        aria-hidden="true"
+        initial={reduceMotion ? false : { scaleX: 0 }}
+        animate={inView || reduceMotion ? { scaleX: 1 } : { scaleX: 0 }}
+        transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+        style={{ width: 48 }}
+      />
+    </motion.article>
   )
 }
 
@@ -130,28 +146,34 @@ export default function TrustMetrics() {
     <section
       ref={ref}
       id="about"
-      className="relative scroll-mt-[72px] overflow-hidden border-t border-primary-red bg-black"
+      className="relative scroll-mt-[72px] overflow-hidden bg-black"
       aria-labelledby="about-sba-heading"
     >
       <AboutGlowBackground reduceMotion={reduceMotion} />
 
-      <div className="relative z-10 mx-auto max-w-[1440px] px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
-        <div className="mb-12 max-w-[880px] sm:mb-14 lg:mb-16">
-          <p className="font-heading text-sm font-bold tracking-[0.18em] uppercase sm:text-base">
-            <span className="text-white/85">About </span>
-            <span className="text-primary-red">SBA</span>
-          </p>
+      <div className="relative z-10 mx-auto max-w-[1440px] px-5 pt-10 pb-16 sm:px-6 sm:pt-12 sm:pb-20 lg:px-10 lg:pt-14 lg:pb-24">
+        <motion.div
+          className="mb-10 max-w-[880px] sm:mb-12 lg:mb-14"
+          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.6, ease: EASE }}
+        >
           <h2
             id="about-sba-heading"
-            className="mt-4 font-heading text-[22px] font-extrabold leading-[1.35] text-white/70 sm:text-[28px] lg:text-[34px]"
+            className="font-heading text-[22px] font-extrabold leading-[1.35] text-white/70 sm:text-[28px] lg:text-[34px]"
           >
             We partner with industry leaders to modernize core systems, protect
-            business continuity, and activate AI-driven intelligence so they can
-            operate at the speed of their best ideas.
+            business continuity, and activate AI-driven intelligence so they can{' '}
+            <span className="text-primary-red">operate at the speed of their best ideas</span>.
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <ScrollStagger
+          className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"
+          stagger={0.12}
+          y={20}
+        >
           {STATS.map((stat) => (
             <StatCard
               key={stat.label}
@@ -160,7 +182,7 @@ export default function TrustMetrics() {
               reduceMotion={reduceMotion}
             />
           ))}
-        </div>
+        </ScrollStagger>
       </div>
     </section>
   )

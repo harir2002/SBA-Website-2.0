@@ -6,53 +6,62 @@
 export const CAPABILITY_DETAIL_GRIDS = {
   'modernize-the-core': [
     {
-      heading: 'Datacenter & Hybrid Cloud',
+      heading: 'Datacenter and Hybrid Cloud',
       items: [
         {
-          title: 'Compute & Storage Modernization',
-          description: 'Modern infrastructure for enterprise workloads.',
+          title: 'Compute, Storage & HCI Modernization',
+          description:
+            'Right-sized infrastructure for core applications, databases, analytics, and virtual workloads',
         },
         {
           title: 'Data Center Transformation',
-          description: 'Consolidate and refresh core facilities with lower risk.',
+          description:
+            'Servers, storage, virtualization, network readiness, racks, power, and migration planning',
         },
         {
           title: 'Hybrid Cloud Enablement',
-          description: 'Connect on-prem and cloud with consistent operations.',
+          description:
+            'Connect on-premises environments with public cloud for controlled scalability and flexibility',
         },
       ],
     },
     {
-      heading: 'Platforms & Workload Mobility',
+      heading: 'Platforms and Workload Mobility',
       items: [
         {
           title: 'Virtualization & Container Platforms',
-          description: 'Standardize platforms for speed and portability.',
+          description:
+            'VMware, HCI, Kubernetes, OpenShift, and production-ready platform engineering',
         },
         {
           title: 'Workload Migration & Transformation',
-          description: 'Move and modernize applications with measurable outcomes.',
+          description:
+            'OS, application, storage, database, and platform migrations with phased transition planning',
         },
         {
           title: 'Cloud Foundation & Automation',
-          description: 'Build automated landing zones ready for scale.',
+          description:
+            'Landing zones, infrastructure automation, connectivity, policy guardrails, and workload deployment patterns',
         },
       ],
     },
     {
-      heading: 'Reliability & Resilience',
+      heading: 'Reliability and Resilience Engineering',
       items: [
         {
-          title: 'Performance & Availability',
-          description: 'Keep critical systems fast and always-on.',
+          title: 'Performance, Capacity & Availability Design',
+          description:
+            'Architecture aligned to workload behaviour, business growth, and service criticality',
         },
         {
-          title: 'Infrastructure Observability',
-          description: 'Full-stack visibility across hybrid estates.',
+          title: 'Observability & Infrastructure Health',
+          description:
+            'Monitoring across servers, storage, platforms, clusters, and hybrid environments',
         },
         {
-          title: 'Business Continuity & Recovery',
-          description: 'Protect operations with tested recovery pathways.',
+          title: 'Continuity-Ready Architecture',
+          description:
+            'Availability engineering, disaster-recovery integration, recovery objectives, and operational runbooks',
         },
       ],
     },
@@ -60,53 +69,62 @@ export const CAPABILITY_DETAIL_GRIDS = {
 
   'protect-and-recover': [
     {
-      heading: 'Threat Detection',
+      heading: 'Secure Access & Digital Perimeter',
       items: [
         {
-          title: 'Continuous Monitoring',
-          description: 'Detect anomalous activity across the enterprise.',
+          title: 'Network, Cloud & Application Protection',
+          description:
+            'Next-generation firewalls, web application firewalls, segmentation, cloud-security controls, and workload protection',
         },
         {
-          title: 'Endpoint & Network Defense',
-          description: 'Layered controls that reduce exposure and dwell time.',
+          title: 'Identity-Led Security',
+          description:
+            'Identity and access management, single sign-on, privileged-access controls, and zero-trust access design',
         },
         {
-          title: 'Security Analytics',
-          description: 'Correlate signals into actionable threat insight.',
+          title: 'Secure-by-Design Delivery',
+          description:
+            'Security assessments, vulnerability testing, threat modelling, and application-security checks embedded into change and release processes',
         },
       ],
     },
     {
-      heading: 'Incident Response',
+      heading: 'Threat Detection & Response',
       items: [
         {
-          title: 'Rapid Containment',
-          description: 'Stop threats before they cascade into downtime.',
+          title: '24x7 Security Monitoring',
+          description:
+            'Managed detection and response, security-event monitoring, log analytics, endpoint protection, and incident triage',
         },
         {
-          title: 'Forensics & Root Cause',
-          description: 'Understand impact and close gaps with evidence.',
+          title: 'Investigation & Containment',
+          description:
+            'Threat analysis, alert prioritization, incident coordination, forensic support, and response playbooks',
         },
         {
-          title: 'Recovery Playbooks',
-          description: 'Repeatable response that restores critical services.',
+          title: 'Risk Posture & Assurance',
+          description:
+            'Ransomware-readiness reviews, zero-trust posture assessments, vulnerability management, and regulatory-alignment support',
         },
       ],
     },
     {
-      heading: 'Compliance & Governance',
+      heading: 'Cyber Recovery & Continuity',
       items: [
         {
-          title: 'Policy & Controls',
-          description: 'Align security with regulatory and board expectations.',
+          title: 'Resilient Data Protection',
+          description:
+            'Managed backup, retention governance, policy enforcement, and protection across on-premises and cloud workloads',
         },
         {
-          title: 'Identity & Access Assurance',
-          description: 'Least-privilege access across hybrid environments.',
+          title: 'Clean Recovery Architecture',
+          description:
+            'Immutable backup, isolated recovery environments, and threat-aware recovery design',
         },
         {
-          title: 'Audit Readiness',
-          description: 'Evidence-ready reporting for continuous compliance.',
+          title: 'Tested Continuity Operations',
+          description:
+            'Disaster-recovery orchestration, RTO/RPO alignment, recovery validation, executive reporting, and ongoing readiness testing',
         },
       ],
     },
@@ -114,53 +132,62 @@ export const CAPABILITY_DETAIL_GRIDS = {
 
   'make-data-actionable': [
     {
-      heading: 'Data Foundations',
+      heading: 'Trusted Data Foundations',
       items: [
         {
-          title: 'Integration & Pipelines',
-          description: 'Connect sources into trusted, reusable data flows.',
+          title: 'Data Platform Modernization',
+          description:
+            'Data lakes, warehouses, lakehouses, data fabrics, and cloud-native data architectures',
         },
         {
-          title: 'Quality & Governance',
-          description: 'Make data reliable, catalogued, and accountable.',
+          title: 'Data Integration & Engineering',
+          description:
+            'Batch and streaming pipelines, data preparation, transformation, and feature engineering',
         },
         {
-          title: 'Platform Modernization',
-          description: 'Scale warehouses and lakes for enterprise demand.',
+          title: 'Data Management & Performance',
+          description:
+            'Database migration, administration, optimization, quality controls, and lifecycle management',
         },
       ],
     },
     {
-      heading: 'Analytics & Insights',
+      heading: 'Insight & Intelligent Automation',
       items: [
         {
-          title: 'Self-Serve BI',
-          description: 'Put clear answers in decision-makers\' hands.',
+          title: 'Analytics & Decision Intelligence',
+          description:
+            'Business reporting, self-service dashboards, augmented analytics, and BI modernization',
         },
         {
-          title: 'Advanced Analytics',
-          description: 'Uncover patterns that drive competitive advantage.',
+          title: 'Operational Intelligence',
+          description:
+            'Log analytics, full-stack visibility, cost insights, and predictive maintenance signals',
         },
         {
-          title: 'Real-Time Intelligence',
-          description: 'Act on events as they happen, not after the fact.',
+          title: 'Workflow Automation',
+          description:
+            'Document extraction, classification, sentiment analysis, alert prioritization, and rules-based workflow automation',
         },
       ],
     },
     {
-      heading: 'Decision Systems',
+      heading: 'Governed AI & Agentic Workflows',
       items: [
         {
-          title: 'Operational Dashboards',
-          description: 'Visibility that keeps teams aligned and accountable.',
+          title: 'Enterprise Knowledge AI',
+          description:
+            'Retrieval-augmented generation, enterprise search, knowledge assistants, and multilingual conversational experiences',
         },
         {
-          title: 'Embedded Insights',
-          description: 'Bring intelligence into the tools people already use.',
+          title: 'AI-Enabled Business Workflows',
+          description:
+            'Intelligent document processing, copilots, agentic task orchestration, and human-in-the-loop automation',
         },
         {
-          title: 'Data Products',
-          description: 'Package trusted data as reusable business assets.',
+          title: 'Responsible AI Delivery',
+          description:
+            'Model development, tuning, deployment, monitoring, data controls, governance, and AI-security alignment',
         },
       ],
     },
@@ -168,53 +195,62 @@ export const CAPABILITY_DETAIL_GRIDS = {
 
   'build-and-connect': [
     {
-      heading: 'Digital Product Engineering',
+      heading: 'Application Renewal & Architecture',
       items: [
         {
-          title: 'Product Strategy & Design',
-          description: 'Shape experiences that scale with the business.',
+          title: 'Friction Audit & Modernization Blueprint',
+          description:
+            'Workflow analysis, capability mapping, target architecture, and value-led transformation',
         },
         {
-          title: 'Application Development',
-          description: 'Build secure, cloud-ready applications that evolve.',
+          title: 'Legacy Application Renewal',
+          description:
+            'Monolith decomposition, cloud readiness, re-platforming, refactoring, and database modernization',
         },
         {
-          title: 'Quality & Delivery',
-          description: 'Ship faster with automated testing and CI/CD.',
+          title: 'AI-Ready Experience Design',
+          description:
+            'Enterprise copilot strategy, retrieval-augmented knowledge flows, and AI use-case design aligned to business workflows',
         },
       ],
     },
     {
-      heading: 'Integration & APIs',
+      heading: 'Product Build & Release Engineering',
       items: [
         {
-          title: 'API-First Platforms',
-          description: 'Connect ecosystems with durable, governed interfaces.',
+          title: 'Cloud-Native Application Delivery',
+          description:
+            'Custom enterprise applications, microservices, APIs, containerized deployments, and modern user experiences',
         },
         {
-          title: 'Enterprise Integration',
-          description: 'Unify systems across cloud, SaaS, and legacy cores.',
+          title: 'DevSecOps Delivery Automation',
+          description:
+            'CI/CD pipelines, infrastructure as code, repeatable environments, automated quality checks, and security scanning',
         },
         {
-          title: 'Event-Driven Architecture',
-          description: 'Respond in real time across distributed services.',
+          title: 'Data & AI Integration Build',
+          description:
+            'Vector databases, AI toolchains, intelligent workflows, digital human capabilities, and unstructured-data connections',
         },
       ],
     },
     {
-      heading: 'Cloud-Native Delivery',
+      heading: 'Integration & Workflow Intelligence',
       items: [
         {
-          title: 'Containers & Microservices',
-          description: 'Modular platforms for continuous change.',
+          title: 'Enterprise Systems Integration',
+          description:
+            'API-led integration across ERP, HRMS, LMS, CRM, ITSM, partner platforms, and communication channels',
         },
         {
-          title: 'DevOps & SRE Practices',
-          description: 'Operate reliably while releasing at speed.',
+          title: 'Application Observability & AIOps',
+          description:
+            'Full-stack telemetry, performance monitoring, AI-assisted root-cause analysis, and cloud-cost visibility',
         },
         {
-          title: 'Platform Engineering',
-          description: 'Give teams self-serve tools with guardrails.',
+          title: 'SLA-Driven Application Operations',
+          description:
+            'L1/L2 support, release and version management, proactive patching, ticket automation, and continuous improvement',
         },
       ],
     },
@@ -222,53 +258,62 @@ export const CAPABILITY_DETAIL_GRIDS = {
 
   'engineered-for-your-industry': [
     {
-      heading: 'Industry Solutions',
+      heading: 'Digital Workplace & Collaboration',
       items: [
         {
-          title: 'Sector Blueprints',
-          description: 'Playbooks shaped by your industry’s operating model.',
+          title: 'Managed Desktop & Endpoint Operations',
+          description:
+            'Endpoint lifecycle management, automated provisioning, zero-touch deployment, remote-user support, and SLA-backed service delivery',
         },
         {
-          title: 'Regulatory Alignment',
-          description: 'Design for compliance without slowing delivery.',
+          title: 'Messaging, Retention & Compliance',
+          description:
+            'Enterprise email administration, collaboration support, archival, eDiscovery, retention, and compliance workflows',
         },
         {
-          title: 'Domain Expertise',
-          description: 'Teams that understand your risks and realities.',
+          title: 'AI-Powered Service Desk',
+          description:
+            'ASK IT copilots for L1 request resolution, agent assist for faster triage, ticket automation, and service-performance reporting',
         },
       ],
     },
     {
-      heading: 'Risk & Resilience',
+      heading: 'Infrastructure & Cloud Operations',
       items: [
         {
-          title: 'Operational Continuity',
-          description: 'Keep critical processes running through disruption.',
+          title: '24x7 Infrastructure Operations',
+          description:
+            'Monitoring and administration across servers, storage, networking, databases, data centers, and hybrid-cloud environments',
         },
         {
-          title: 'Security by Design',
-          description: 'Embed controls into sector-specific workflows.',
+          title: 'Cloud & Database Assurance',
+          description:
+            'Managed AWS, Azure, and GCP operations; database administration; performance tuning; capacity planning; and FinOps cost governance',
         },
         {
-          title: 'Audit & Assurance',
-          description: 'Evidence that satisfies regulators and boards.',
+          title: 'AIOps & Full-Stack Observability',
+          description:
+            'Alert-storm suppression, log and metric analysis, AI-assisted root-cause analysis, predictive maintenance, and automated remediation',
         },
       ],
     },
     {
-      heading: 'Value Realization',
+      heading: 'Managed SecOps & Recovery Ops',
       items: [
         {
-          title: 'Outcome Mapping',
-          description: 'Tie technology investments to business KPIs.',
+          title: 'Managed Detection & Response (MDR)',
+          description:
+            '24x7 SOC operations, log analysis, endpoint-security monitoring, early-warning alerts, and incident triage',
         },
         {
-          title: 'Change Enablement',
-          description: 'Adopt new platforms with clear ownership.',
+          title: 'Security Automation & Posture Management',
+          description:
+            'SOAR playbooks, automated response workflows, forensic support, vulnerability management, and continuous posture assessment',
         },
         {
-          title: 'Continuous Improvement',
-          description: 'Iterate with measurable industry benchmarks.',
+          title: 'Backup, DR & Clean-Recovery Operations',
+          description:
+            'SLA-backed backup administration, retention enforcement, quarterly DR validation, isolated recovery execution, and recovery-readiness reporting',
         },
       ],
     },
@@ -276,53 +321,57 @@ export const CAPABILITY_DETAIL_GRIDS = {
 
   'accelerate-business-ai': [
     {
-      heading: 'AI Foundations',
+      heading: 'Customer, Clinical & Knowledge AI',
       items: [
         {
-          title: 'Data Readiness for AI',
-          description: 'Prepare trusted datasets for model and agent use.',
+          title: 'Conversax.ai',
+          description:
+            'Omnichannel contact-center modernization across voice, WhatsApp, webchat, and email — using Indian-accent speech AI, intent detection, and automated conversation scoring',
         },
         {
-          title: 'Model & Platform Selection',
-          description: 'Choose governed stacks that fit enterprise needs.',
+          title: 'Pravaah',
+          description:
+            'AI-driven medical transcription and summarization that reduces documentation effort and improves clinical workflow efficiency',
         },
         {
-          title: 'MLOps & Lifecycle',
-          description: 'Operate models with monitoring and repeatability.',
+          title: 'Enterprise Knowledge AI',
+          description:
+            'Retrieval-augmented enterprise search and knowledge assistants that make trusted internal content easier to find and use',
         },
       ],
     },
     {
-      heading: 'Intelligent Automation',
+      heading: 'Platform Reliability & Observability AI',
       items: [
         {
-          title: 'Process Automation',
-          description: 'Remove friction from high-volume workflows.',
+          title: 'Pulse Pilot',
+          description:
+            'Full-stack observability and SRE support with proactive incident prevention, AI-powered root-cause analysis, and automated alert triage',
         },
         {
-          title: 'AI Assistants & Agents',
-          description: 'Augment teams with reliable, guided intelligence.',
-        },
-        {
-          title: 'Document & Knowledge AI',
-          description: 'Turn unstructured content into usable insight.',
+          title: 'Quantum Leap',
+          description:
+            'Rapid migration of legacy virtualized workloads to cloud-native, containerized, Kubernetes-managed platforms',
         },
       ],
     },
     {
-      heading: 'Governed Outcomes',
+      heading: 'AI Security, Governance & Controls',
       items: [
         {
-          title: 'Responsible AI Controls',
-          description: 'Guardrails for privacy, bias, and accountability.',
+          title: 'SBA Continuum',
+          description:
+            'SLA-backed cyber resilience combining backup operations, immutable recovery, DR failover orchestration, and business-continuity governance',
         },
         {
-          title: 'Experience Elevation',
-          description: 'Improve customer and employee journeys with AI.',
+          title: 'AI Security Services',
+          description:
+            'Assessment and protection of LLMs, RAG systems, and AI supply chains, including prompt-injection testing, OWASP-aligned assessments, and model-vulnerability scanning',
         },
         {
-          title: 'ROI Measurement',
-          description: 'Prove value with clear adoption and impact metrics.',
+          title: 'Ethana — Internal AI Workspace & Control',
+          description:
+            'An ISO 27001-certified internal AI workspace and control suite for approved GenAI use, PII masking, and visibility into shadow-AI activity',
         },
       ],
     },

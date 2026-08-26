@@ -32,7 +32,7 @@ const CARDS = [
   {
     name: 'Operate with Assurance',
     description:
-      'Run, monitor, and sustain operations with the rigor enterprise environments demand.',
+      "Deliver solutions purpose-built for your sector's regulations, risks, and realities.",
     href: '#capabilities',
     Icon: Activity,
   },

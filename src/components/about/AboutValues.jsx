@@ -61,7 +61,7 @@ export default function AboutValues() {
       className="relative overflow-hidden bg-black"
       aria-labelledby="about-values-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-5 py-20 sm:px-6 sm:py-24 lg:px-10 lg:py-28">
+      <div className="mx-auto max-w-[1280px] px-5 py-12 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
         <motion.div
           className="max-w-3xl"
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
@@ -108,7 +108,7 @@ export default function AboutValues() {
         </div>
 
         {/* Desktop: editorial pentagon-like arc */}
-        <div className="relative mt-14 hidden md:block">
+        <div className="relative mt-10 hidden md:block">
           <svg
             className="pointer-events-none absolute inset-x-[8%] top-[42%] h-24 w-[84%]"
             viewBox="0 0 1000 80"
@@ -153,7 +153,7 @@ export default function AboutValues() {
         </div>
 
         <motion.p
-          className="mt-14 font-heading text-lg font-bold text-white sm:text-xl"
+          className="mt-10 font-heading text-lg font-bold text-white sm:text-xl"
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}

@@ -12,7 +12,7 @@ export default function AboutComplexity() {
       className="relative overflow-hidden bg-black"
       aria-labelledby="about-complexity-heading"
     >
-      <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-5 py-20 sm:px-6 sm:py-24 lg:grid-cols-2 lg:gap-16 lg:px-10 lg:py-28">
+      <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-10 px-5 py-12 sm:px-6 sm:py-14 lg:grid-cols-2 lg:gap-12 lg:px-10 lg:py-16">
         <div>
           <motion.p
             className="font-heading text-xs font-bold tracking-[0.24em] text-primary-red uppercase"

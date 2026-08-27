@@ -4,10 +4,22 @@ import { ABOUT_LEADERSHIP } from '../../data/aboutContent'
 
 const EASE = [0.16, 1, 0.3, 1]
 
+function initialsFor(name) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join('')
+    .toUpperCase()
+}
+
 function Portrait({ name }) {
-  const initials = name.slice(0, 2).toUpperCase()
   return (
-    <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#1a1c22]">
+    <div
+      className="relative w-full shrink-0 grow-0 overflow-hidden bg-[#1a1c22]"
+      style={{ aspectRatio: '4 / 5', height: 'auto' }}
+    >
       <div
         className="absolute inset-0 grayscale transition-[filter,opacity] duration-500 group-hover:grayscale-0"
         style={{
@@ -17,7 +29,7 @@ function Portrait({ name }) {
         aria-hidden="true"
       />
       <span className="absolute inset-0 flex items-center justify-center font-heading text-4xl font-extrabold tracking-widest text-white/25 transition-colors duration-500 group-hover:text-white/45">
-        {initials}
+        {initialsFor(name)}
       </span>
       <span
         className="absolute top-0 left-0 h-full w-[2.5px] origin-top scale-y-0 bg-primary-red transition-transform duration-300 group-hover:scale-y-100"
@@ -92,12 +104,12 @@ export default function AboutLeadership() {
       className="relative scroll-mt-[88px] bg-black"
       aria-labelledby="about-leadership-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-5 py-20 sm:px-6 sm:py-24 lg:px-10 lg:py-28">
+      <div className="mx-auto max-w-[1280px] px-5 py-12 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
         <motion.div
           className="max-w-3xl"
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.55, ease: EASE }}
         >
           <p className="font-heading text-xs font-bold tracking-[0.24em] text-primary-red uppercase">
@@ -122,28 +134,27 @@ export default function AboutLeadership() {
           </p>
         </motion.div>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-1 items-start gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {ABOUT_LEADERSHIP.map((leader, i) => (
             <motion.button
               key={leader.id}
               type="button"
-              className="group cursor-pointer border-0 bg-transparent p-0 text-left"
+              className="group flex w-full cursor-pointer flex-col border-0 bg-transparent p-0 text-left"
               onClick={() => setActive(leader)}
               initial={reduceMotion ? false : { opacity: 0, y: 20 }}
               whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: i * 0.07, ease: EASE }}
               aria-label={`View profile for ${leader.name}, ${leader.role}`}
             >
               <Portrait name={leader.name} />
-              <div className="mt-4">
-                <p className="font-heading text-lg font-bold text-white">
-                  <span className="border-b-2 border-primary-red pb-0.5">{leader.name}</span>
+              <div className="mt-4 flex flex-col">
+                <p className="font-heading text-[0.8125rem] font-bold leading-snug text-white sm:text-sm lg:text-[0.9375rem]">
+                  <span className="inline-block whitespace-nowrap border-b-2 border-primary-red pb-0.5">
+                    {leader.name}
+                  </span>
                 </p>
                 <p className="mt-1.5 font-body text-sm text-white/50">{leader.role}</p>
-                <p className="mt-3 max-h-0 overflow-hidden font-body text-sm leading-relaxed text-white/60 opacity-0 transition-all duration-300 group-hover:max-h-40 group-hover:opacity-100">
-                  {leader.profile}
-                </p>
                 <span className="mt-3 inline-flex font-heading text-[11px] font-bold tracking-[0.14em] text-primary-red uppercase">
                   View profile →
                 </span>

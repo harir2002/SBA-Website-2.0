@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { ABOUT_LAYERS } from '../../data/aboutContent'
-import { StackedLayers } from './ArchitectureVisuals'
+import { ConnectedEngineeringModel } from './ArchitectureVisuals'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -12,7 +11,7 @@ export default function AboutWhoWeAre() {
       className="relative bg-black text-white"
       aria-labelledby="about-who-heading"
     >
-      <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-5 py-20 sm:px-6 sm:py-24 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-10 lg:py-28">
+      <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-10 px-5 py-12 sm:px-6 sm:py-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 lg:px-10 lg:py-16">
         <div>
           <motion.p
             className="font-heading text-xs font-bold tracking-[0.24em] text-primary-red uppercase"
@@ -71,7 +70,7 @@ export default function AboutWhoWeAre() {
           </motion.blockquote>
         </div>
 
-        <StackedLayers layers={ABOUT_LAYERS} />
+        <ConnectedEngineeringModel />
       </div>
     </section>
   )

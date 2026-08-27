@@ -3,7 +3,7 @@
  * Visual: line-only fields, two-column desktop grid. Logic unchanged.
  */
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
 const EASE = [0.16, 1, 0.3, 1]
@@ -77,7 +77,14 @@ export default function ContactSection({ variant = 'page' }) {
   const [form, setForm] = useState(INITIAL)
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle') // idle | sent
+  const messageRef = useRef(null)
   const isFooter = variant === 'footer'
+
+  const resizeMessage = (el) => {
+    if (!el) return
+    el.style.height = 'auto'
+    el.style.height = `${el.scrollHeight}px`
+  }
 
   const handleChange = (event) => {
     const { name, type, value, checked } = event.target
@@ -85,6 +92,9 @@ export default function ContactSection({ variant = 'page' }) {
       ...prev,
       [name]: type === 'checkbox' ? checked : value,
     }))
+    if (name === 'message') {
+      resizeMessage(event.target)
+    }
     if (errors[name]) {
       setErrors((prev) => {
         const next = { ...prev }
@@ -202,8 +212,11 @@ export default function ContactSection({ variant = 'page' }) {
         }
 
         .sba-form-control textarea {
-          min-height: 96px;
-          resize: vertical;
+          min-height: 0;
+          height: auto;
+          overflow-y: hidden;
+          resize: none;
+          field-sizing: content;
         }
 
         /* Red focus line sits ON the field bottom border — not a separate layer below */
@@ -441,9 +454,10 @@ export default function ContactSection({ variant = 'page' }) {
                 className="sba-form-field--full"
               >
                 <textarea
+                  ref={messageRef}
                   id="message"
                   name="message"
-                  rows={4}
+                  rows={1}
                   value={form.message}
                   onChange={handleChange}
                 />

@@ -1,7 +1,9 @@
 /**
  * Site footer — link columns, contact form, badges/social, copyright.
+ * Same footer on Home, About, Contact, and Industry pages.
  */
 
+import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Linkedin } from 'lucide-react'
 import ContactSection from '../home/ContactSection'
@@ -9,19 +11,20 @@ import ContactSection from '../home/ContactSection'
 const EASE = [0.16, 1, 0.3, 1]
 
 const SOLUTIONS = [
-  { label: 'Modernize the Core', href: '#capabilities' },
-  { label: 'Protect & Recover', href: '#capabilities' },
-  { label: 'Make Data Actionable', href: '#capabilities' },
-  { label: 'Build & Connect', href: '#capabilities' },
-  { label: 'Operate with Assurance', href: '#engineered-for-your-industry' },
-  { label: 'Accelerate Business AI', href: '#capabilities' },
+  { label: 'Modernize the Core', to: '/#modernize-the-core' },
+  { label: 'Protect & Recover', to: '/#protect-and-recover' },
+  { label: 'Make Data Actionable', to: '/#make-data-actionable' },
+  { label: 'Build & Connect', to: '/#build-and-connect' },
+  { label: 'Operate with Assurance', to: '/#engineered-for-your-industry' },
+  { label: 'Accelerate Business AI', to: '/#accelerate-business-ai' },
 ]
 
 const EXPLORE = [
-  { label: 'Industries', href: '#capabilities' },
-  { label: 'Our Solutions', href: '#capabilities' },
-  { label: 'About SBA', href: '/about' },
-  { label: 'Careers', href: '#careers' },
+  { label: 'Industries', to: '/#capabilities' },
+  { label: 'Our Solutions', to: '/#capabilities' },
+  { label: 'About SBA', to: '/about' },
+  { label: 'Careers', to: '/#careers' },
+  { label: 'Contact Us', to: '/contact' },
 ]
 
 const SOCIAL = [
@@ -40,11 +43,33 @@ const certificationBadges = [
   { name: 'Stanford Seed', sub: 'Innovation Partnership', src: '/badges/stanford-seed.png' },
 ]
 
+function FooterNavLink({ to, children }) {
+  const isHashOnHome = to.startsWith('/#')
+  if (isHashOnHome) {
+    return (
+      <a
+        href={to}
+        className="font-body text-sm text-white/55 transition-colors duration-200 hover:text-primary-red"
+      >
+        {children}
+      </a>
+    )
+  }
+  return (
+    <Link
+      to={to}
+      className="font-body text-sm text-white/55 transition-colors duration-200 hover:text-primary-red"
+    >
+      {children}
+    </Link>
+  )
+}
+
 export default function Footer() {
   const reduceMotion = useReducedMotion()
 
   return (
-    <footer className="bg-gradient-to-b from-black to-[#0a0a0a]">
+    <footer className="bg-black">
       <motion.div
         className="mx-auto max-w-[1280px] px-5 pt-16 sm:px-6 sm:pt-20 lg:px-10"
         initial={reduceMotion ? false : { opacity: 0, y: 24 }}
@@ -56,42 +81,26 @@ export default function Footer() {
         <div className="grid grid-cols-1 items-start gap-12 pb-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-12 xl:gap-16">
           <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-8">
             <div>
-              <h3 className="font-heading text-xs font-bold tracking-[0.22em] text-white uppercase">
+              <h3 className="font-heading text-xs font-bold tracking-[0.22em] text-primary-red uppercase">
                 Solutions
               </h3>
               <ul className="mt-5 space-y-3">
                 {SOLUTIONS.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="group inline-flex items-center gap-2 font-body text-sm text-white/55 transition-colors duration-200 hover:text-white"
-                    >
-                      <span
-                        className="text-primary-red transition-transform duration-200 group-hover:translate-x-0.5"
-                        aria-hidden="true"
-                      >
-                        →
-                      </span>
-                      {link.label}
-                    </a>
+                    <FooterNavLink to={link.to}>{link.label}</FooterNavLink>
                   </li>
                 ))}
               </ul>
             </div>
 
             <div>
-              <h3 className="font-heading text-xs font-bold tracking-[0.22em] text-white uppercase">
+              <h3 className="font-heading text-xs font-bold tracking-[0.22em] text-primary-red uppercase">
                 Explore SBA
               </h3>
               <ul className="mt-5 space-y-3">
                 {EXPLORE.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="font-body text-sm text-white/55 transition-colors duration-200 hover:text-primary-red"
-                    >
-                      {link.label}
-                    </a>
+                    <FooterNavLink to={link.to}>{link.label}</FooterNavLink>
                   </li>
                 ))}
               </ul>

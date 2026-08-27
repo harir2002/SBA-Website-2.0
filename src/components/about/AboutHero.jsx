@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ABOUT_PROOF } from '../../data/aboutContent'
-import { HeroArchitecture } from './ArchitectureVisuals'
+import SolutionsOrbitPanel from '../shared/SolutionsOrbitPanel'
+import ProofStats from '../shared/ProofStats'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -10,7 +11,7 @@ export default function AboutHero() {
 
   return (
     <section
-      className="relative flex min-h-[100svh] items-center overflow-hidden bg-black"
+      className="relative flex items-center overflow-hidden bg-black"
       aria-labelledby="about-hero-heading"
     >
       <div
@@ -22,7 +23,7 @@ export default function AboutHero() {
         }}
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-5 pt-[108px] pb-16 sm:px-6 sm:pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:px-10 lg:pb-24">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-8 px-5 pt-[108px] pb-12 sm:px-6 sm:pb-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:px-10 lg:pb-16">
         <div>
           <motion.p
             className="font-heading text-xs font-bold tracking-[0.28em] text-primary-red uppercase"
@@ -83,28 +84,16 @@ export default function AboutHero() {
             </Link>
           </motion.div>
 
-          <motion.ul
-            className="mt-10 flex flex-wrap gap-x-8 gap-y-4 border-t border-white/10 pt-6"
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.55, delay: 0.4, ease: EASE }}
-          >
-            {ABOUT_PROOF.map((item) => (
-              <li key={item.label}>
-                <p className="font-heading text-2xl font-extrabold text-white">{item.value}</p>
-                <p className="mt-1 font-body text-xs text-white/50">{item.label}</p>
-              </li>
-            ))}
-          </motion.ul>
+          <ProofStats items={ABOUT_PROOF} className="mt-10" />
         </div>
 
         <motion.div
-          className="relative h-[380px] sm:h-[460px] lg:h-[540px]"
+          className="relative aspect-square w-full max-h-[min(100%,520px)] sm:max-h-[480px] lg:max-h-[520px]"
           initial={reduceMotion ? false : { opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
         >
-          <HeroArchitecture />
+          <SolutionsOrbitPanel className="h-full min-h-full" />
         </motion.div>
       </div>
     </section>

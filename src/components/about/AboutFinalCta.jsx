@@ -12,7 +12,7 @@ export default function AboutFinalCta() {
 
   return (
     <section
-      className="relative flex min-h-[78svh] items-center overflow-hidden bg-black"
+      className="relative flex items-center overflow-hidden bg-black"
       aria-labelledby="about-final-heading"
     >
       {/* Soft atmosphere only — no boxes or path overlays */}
@@ -30,7 +30,7 @@ export default function AboutFinalCta() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[820px] px-5 py-24 text-center sm:px-6 sm:py-28 lg:px-10 lg:py-32">
+      <div className="relative z-10 mx-auto w-full max-w-[820px] px-5 py-12 text-center sm:px-6 sm:py-14 lg:px-10 lg:py-16">
         <motion.p
           className="font-heading text-xs font-bold tracking-[0.28em] text-primary-red uppercase"
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}

@@ -12,13 +12,19 @@ const EASE = [0.16, 1, 0.3, 1]
 export default function IntelligenceVideoPlaceholder() {
   const videoRef = useRef(null)
   const [playing, setPlaying] = useState(false)
+  const [loadError, setLoadError] = useState(false)
   const reduceMotion = useReducedMotion()
 
-  const handlePlayClick = () => {
+  const handlePlayClick = async () => {
     const video = videoRef.current
     if (!video) return
-    video.play()
-    setPlaying(true)
+    try {
+      await video.play()
+      setPlaying(true)
+    } catch {
+      // Gesture/autoplay edge cases — show native controls so user can retry
+      setPlaying(true)
+    }
   }
 
   return (
@@ -55,11 +61,18 @@ export default function IntelligenceVideoPlaceholder() {
               onPlay={() => setPlaying(true)}
               onPause={() => setPlaying(false)}
               onEnded={() => setPlaying(false)}
+              onError={() => setLoadError(true)}
             >
               Your browser does not support the video tag.
             </video>
 
-            {!playing && (
+            {loadError ? (
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 px-6 text-center">
+                <p className="font-body text-sm text-white/70">
+                  Video could not be loaded. Please refresh and try again.
+                </p>
+              </div>
+            ) : !playing ? (
               <button
                 type="button"
                 onClick={handlePlayClick}
@@ -87,7 +100,7 @@ export default function IntelligenceVideoPlaceholder() {
                   </span>
                 </span>
               </button>
-            )}
+            ) : null}
           </motion.div>
         </ScrollReveal>
       </div>

@@ -4,9 +4,9 @@
  */
 
 export const ABOUT_PROOF = [
-  { value: '30+', label: 'Years of Enterprise Trust' },
-  { value: '300+', label: 'Enterprise Clients' },
-  { value: '60+', label: 'Tier-1 OEM Partnerships' },
+  { value: 30, suffix: '+', label: 'Years of Enterprise Trust' },
+  { value: 300, suffix: '+', label: 'Enterprise Clients' },
+  { value: 60, suffix: '+', label: 'Tier-1 OEM Partnerships' },
 ]
 
 export const ABOUT_PILLARS = [
@@ -154,29 +154,29 @@ export const ABOUT_VALUES = [
 
 export const ABOUT_LEADERSHIP = [
   {
-    id: 'ananath',
-    name: 'Ananath',
+    id: 'anantha',
+    name: 'Anantha Narayanan Varadharajan',
     role: 'Chief Executive Officer',
     profile:
       "Leads SBA's strategic direction and growth, with a focus on building enduring client partnerships and expanding SBA's role as a trusted enterprise engineering partner.",
   },
   {
     id: 'venkatesh',
-    name: 'Venkatesh',
-    role: 'Chief Technology Officer',
+    name: 'Venkatesh Anantha Narayanan',
+    role: 'Chief Growth Officer',
     profile:
-      "Leads SBA's technology vision, solution architecture, and innovation agenda across cloud, cybersecurity, data, AI, and digital engineering.",
+      "Leads SBA's growth agenda across markets and offerings—strengthening client relationships and expanding SBA's enterprise footprint.",
   },
   {
-    id: 'sathya',
-    name: 'Sathya',
-    role: 'Senior Vice President, Global Sales',
+    id: 'sathyanathan',
+    name: 'Sathyanathan Jayatheerthan',
+    role: 'Senior VP of Global Sales',
     profile:
       'Leads global sales and strategic client engagement, helping enterprises identify and execute technology initiatives aligned to their business priorities.',
   },
   {
     id: 'sadeesh',
-    name: 'Sadeesh',
+    name: 'Sadeesh Kumar Gopalan',
     role: 'Head of Delivery',
     profile:
       'Leads delivery excellence across SBA engagements, ensuring strong execution, governance, quality, operational accountability, and sustained client outcomes.',

@@ -11,8 +11,8 @@ export default function AboutPromise() {
       className="relative overflow-hidden bg-black"
       aria-labelledby="about-promise-heading"
     >
-      <div className="relative z-10 mx-auto max-w-[1280px] px-5 py-20 sm:px-6 sm:py-24 lg:px-10 lg:py-28">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+      <div className="relative z-10 mx-auto max-w-[1280px] px-5 py-12 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
           <motion.h2
             id="about-promise-heading"
             className="max-w-[11ch] font-heading text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl lg:text-[3.5rem]"
@@ -48,7 +48,7 @@ export default function AboutPromise() {
           </motion.div>
         </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5">
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5">
           {ABOUT_PILLARS.map((pillar, i) => (
             <motion.article
               key={pillar.id}

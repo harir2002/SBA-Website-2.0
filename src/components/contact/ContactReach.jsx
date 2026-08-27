@@ -1,18 +1,25 @@
 /**
- * ContactReach — locations only when approved.
- * No invented addresses or phone numbers.
+ * ContactReach — abstract network only until approved addresses exist.
  */
 
 import { motion, useReducedMotion } from 'framer-motion'
 
 const EASE = [0.16, 1, 0.3, 1]
 
+const NODES = [
+  { t: '24%', l: '22%' },
+  { t: '32%', l: '58%' },
+  { t: '52%', l: '38%' },
+  { t: '46%', l: '74%' },
+  { t: '68%', l: '52%' },
+]
+
 export default function ContactReach() {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section className="relative overflow-hidden bg-black" aria-labelledby="contact-reach-heading">
-      <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-14 lg:px-10 lg:py-24">
+    <section className="relative overflow-hidden bg-[#060606]" aria-labelledby="contact-reach-heading">
+      <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-10 px-5 py-14 sm:px-6 sm:py-16 lg:grid-cols-2 lg:gap-14 lg:px-10 lg:py-20">
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
@@ -33,65 +40,52 @@ export default function ContactReach() {
             together local engagement, cross-domain expertise, partner ecosystems,
             and accountable delivery teams.
           </p>
-
-          <div className="mt-8 rounded-xl border border-white/[0.08] bg-[#0d0f14] p-5 sm:p-6">
-            <p className="font-heading text-sm font-bold tracking-[0.16em] text-primary-red uppercase">
-              India Headquarters
-            </p>
-            <p className="mt-3 font-body text-sm leading-relaxed text-white/60">
-              Office address and phone details will appear here once confirmed for
-              public publication. Start a conversation through the enquiry form and
-              our team will connect you with the right specialist.
-            </p>
-          </div>
         </motion.div>
 
         <motion.div
-          className="relative min-h-[280px] overflow-hidden rounded-2xl border border-white/[0.08]"
+          className="relative min-h-[280px] overflow-hidden bg-black"
           aria-hidden="true"
-          style={{
-            background:
-              'radial-gradient(ellipse 50% 45% at 60% 40%, rgba(231,0,11,0.12) 0%, transparent 55%), linear-gradient(160deg, #0a0c10, #12151c)',
-          }}
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.08, ease: EASE }}
         >
           <div
-            className="absolute inset-0 opacity-35"
+            className="absolute inset-0 opacity-40"
             style={{
               backgroundImage:
-                'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-              backgroundSize: '36px 36px',
+                'linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)',
+              backgroundSize: '40px 40px',
             }}
           />
-          {[
-            { t: '22%', l: '28%' },
-            { t: '38%', l: '62%' },
-            { t: '58%', l: '40%' },
-            { t: '48%', l: '78%' },
-          ].map((node, i) => (
+          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path
+              d="M22 24 L58 32 L38 52 L74 46 L52 68"
+              fill="none"
+              stroke="rgba(255,255,255,0.12)"
+              strokeWidth="0.4"
+            />
+            {!reduceMotion && (
+              <circle r="1.1" fill="#E7000B">
+                <animateMotion
+                  dur="5s"
+                  repeatCount="indefinite"
+                  path="M22 24 L58 32 L38 52 L74 46 L52 68 L22 24"
+                />
+              </circle>
+            )}
+          </svg>
+          {NODES.map((node, i) => (
             <span
               key={i}
-              className="absolute h-2.5 w-2.5 rounded-full bg-white/50"
-              style={{ top: node.t, left: node.l, boxShadow: '0 0 10px rgba(255,255,255,0.25)' }}
+              className="absolute h-2 w-2 rounded-full bg-white/55"
+              style={{
+                top: node.t,
+                left: node.l,
+                boxShadow: '0 0 10px rgba(255,255,255,0.25)',
+              }}
             />
           ))}
-          <motion.span
-            className="absolute h-3 w-3 rounded-full bg-primary-red"
-            style={{
-              top: '40%',
-              left: '48%',
-              boxShadow: '0 0 16px rgba(231,0,11,0.75)',
-            }}
-            animate={
-              reduceMotion
-                ? undefined
-                : { scale: [1, 1.35, 1], opacity: [0.85, 1, 0.85] }
-            }
-            transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-          />
           <p className="absolute right-5 bottom-5 font-heading text-[10px] tracking-[0.2em] text-white/35 uppercase">
             Connected delivery
           </p>

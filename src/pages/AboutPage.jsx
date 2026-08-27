@@ -26,7 +26,7 @@ export default function AboutPage() {
   }, [])
 
   return (
-    <div className="about-page relative min-h-screen overflow-x-clip bg-black text-white">
+    <div className="about-page relative min-h-screen bg-black text-white">
       <Header />
 
       <main>

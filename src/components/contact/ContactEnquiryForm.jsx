@@ -1,5 +1,5 @@
 /**
- * ContactEnquiryForm — two-step progressive enquiry (client-ready for CRM wiring).
+ * ContactEnquiryForm — two-step progressive enquiry with SBA line-only inputs.
  */
 
 import { useEffect, useId, useState } from 'react'
@@ -36,16 +36,16 @@ const INITIAL = {
   scope: '',
   contactMethod: 'Email',
   consent: false,
-  website: '', // honeypot
+  website: '',
 }
 
-const inputClass =
-  'w-full rounded-lg border bg-[#16181f] px-3.5 py-3 font-body text-sm text-white outline-none transition-[border-color,box-shadow] placeholder:text-white/35 focus:border-primary-red focus:shadow-[0_0_0_3px_rgba(231,0,11,0.18)]'
+const lineClass =
+  'w-full appearance-none border-0 border-b border-white/35 bg-transparent px-0.5 py-2.5 font-body text-sm text-white outline-none transition-[border-color,box-shadow] placeholder:text-white/35 focus:border-transparent focus:shadow-[0_2px_0_0_#E7000B,0_6px_16px_-4px_rgba(231,0,11,0.45)]'
 
 function Field({ id, label, required, error, children }) {
   return (
     <div>
-      <label htmlFor={id} className="mb-2 block font-body text-sm text-white/85">
+      <label htmlFor={id} className="mb-2 block font-body text-sm text-white/80">
         {label}
         {required ? <span className="text-primary-red"> *</span> : null}
       </label>
@@ -111,8 +111,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
   const [errors, setErrors] = useState({})
   const [file, setFile] = useState(null)
   const [fileError, setFileError] = useState('')
-  const [status, setStatus] = useState('idle') // idle | submitting | sent
-  const [started, setStarted] = useState(false)
+  const [status, setStatus] = useState('idle')
 
   useEffect(() => {
     if (!preselectedCategory) return
@@ -121,11 +120,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
     setStatus('idle')
   }, [preselectedCategory])
 
-  const borderFor = (key) =>
-    errors[key] ? 'border-primary-red' : 'border-white/10'
-
   const update = (event) => {
-    if (!started) setStarted(true)
     const { name, type, value, checked } = event.target
     setForm((prev) => ({
       ...prev,
@@ -164,7 +159,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
 
   const submit = async (event) => {
     event.preventDefault()
-    if (form.website) return // honeypot
+    if (form.website) return
 
     const next = validateStep2(form, fileError)
     setErrors(next)
@@ -172,7 +167,6 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
 
     setStatus('submitting')
 
-    // Structured payload ready for CRM / API integration
     const payload = {
       ...form,
       phoneFull: `${form.phoneCode} ${form.phone}`.trim(),
@@ -183,8 +177,6 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
     }
 
     try {
-      // Frontend-only for now — wire to CRM endpoint when available
-      // await fetch('/api/contact', { method: 'POST', body: JSON.stringify(payload) })
       console.info('[SBA Contact enquiry]', payload)
       await new Promise((r) => setTimeout(r, 600))
       setStatus('sent')
@@ -198,7 +190,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
     return (
       <section
         id="enquiry"
-        className="relative scroll-mt-[100px] bg-black"
+        className="relative scroll-mt-[100px] bg-[#060606]"
         aria-labelledby="contact-success-heading"
       >
         <div className="mx-auto max-w-[820px] px-5 py-20 text-center sm:px-6 sm:py-24 lg:px-10">
@@ -239,21 +231,24 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
   return (
     <section
       id="enquiry"
-      className="relative scroll-mt-[100px] bg-black"
+      className="relative scroll-mt-[100px] bg-[#060606]"
       aria-labelledby="enquiry-heading"
     >
-      <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-5 py-16 sm:px-6 sm:py-20 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:px-10 lg:py-24">
+      <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-5 py-14 sm:px-6 sm:py-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:px-10 lg:py-20">
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: EASE }}
         >
+          <p className="font-heading text-xs font-bold tracking-[0.24em] text-primary-red uppercase">
+            Enquiry
+          </p>
           <h2
             id="enquiry-heading"
-            className="max-w-[14ch] font-heading text-3xl font-extrabold text-white sm:text-4xl"
+            className="mt-3 max-w-[16ch] font-heading text-3xl font-extrabold text-white sm:text-4xl"
           >
-            Start with the challenge in front of you.
+            Tell us what you are working toward.
           </h2>
           <p className="mt-4 font-body text-sm leading-relaxed text-white/55 sm:text-base">
             Tell us where you need to move forward. We will help engineer the
@@ -266,13 +261,12 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
         </motion.div>
 
         <motion.div
-          className="rounded-2xl border border-white/[0.08] bg-[#0d0f14] p-5 sm:p-8"
+          className="border border-white/15 bg-black p-5 sm:p-8"
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.08, ease: EASE }}
         >
-          {/* Progress */}
           <div className="mb-8" aria-label={`Step ${step} of 2`}>
             <div className="flex items-center justify-between gap-3">
               <p className="font-heading text-xs font-bold tracking-[0.16em] text-white/70 uppercase">
@@ -281,18 +275,14 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
               <p className="font-body text-xs text-white/40">{step} / 2</p>
             </div>
             <div className="mt-3 flex gap-2">
-              <span
-                className={`h-1 flex-1 rounded-full ${step >= 1 ? 'bg-primary-red' : 'bg-white/15'}`}
-              />
-              <span
-                className={`h-1 flex-1 rounded-full ${step >= 2 ? 'bg-primary-red' : 'bg-white/15'}`}
-              />
+              <span className={`h-1 flex-1 ${step >= 1 ? 'bg-primary-red' : 'bg-white/15'}`} />
+              <span className={`h-1 flex-1 ${step >= 2 ? 'bg-primary-red' : 'bg-white/15'}`} />
             </div>
           </div>
 
           {step === 1 ? (
-            <form onSubmit={goStep2} noValidate className="space-y-4">
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <form onSubmit={goStep2} noValidate className="space-y-5">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <Field id={`${formId}-first`} label="First Name" required error={errors.firstName}>
                   <input
                     id={`${formId}-first`}
@@ -300,7 +290,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                     autoComplete="given-name"
                     value={form.firstName}
                     onChange={update}
-                    className={`${inputClass} ${borderFor('firstName')}`}
+                    className={`${lineClass} ${errors.firstName ? 'border-primary-red' : ''}`}
                   />
                 </Field>
                 <Field id={`${formId}-last`} label="Last Name" required error={errors.lastName}>
@@ -310,51 +300,52 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                     autoComplete="family-name"
                     value={form.lastName}
                     onChange={update}
-                    className={`${inputClass} ${borderFor('lastName')}`}
+                    className={`${lineClass} ${errors.lastName ? 'border-primary-red' : ''}`}
                   />
                 </Field>
               </div>
 
-              <Field id={`${formId}-email`} label="Work Email" required error={errors.email}>
-                <input
-                  id={`${formId}-email`}
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  value={form.email}
-                  onChange={update}
-                  className={`${inputClass} ${borderFor('email')}`}
-                />
-              </Field>
-
-              <Field id={`${formId}-phone`} label="Phone Number" required error={errors.phone}>
-                <div className="flex gap-2">
-                  <select
-                    name="phoneCode"
-                    aria-label="Country code"
-                    value={form.phoneCode}
-                    onChange={update}
-                    className={`${inputClass} w-[7.5rem] shrink-0 border-white/10`}
-                  >
-                    {PHONE_CODES.map((c) => (
-                      <option key={c.code} value={c.code}>
-                        {c.label}
-                      </option>
-                    ))}
-                  </select>
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <Field id={`${formId}-email`} label="Work Email" required error={errors.email}>
                   <input
-                    id={`${formId}-phone`}
-                    name="phone"
-                    type="tel"
-                    autoComplete="tel-national"
-                    value={form.phone}
+                    id={`${formId}-email`}
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    value={form.email}
                     onChange={update}
-                    className={`${inputClass} ${borderFor('phone')}`}
+                    className={`${lineClass} ${errors.email ? 'border-primary-red' : ''}`}
                   />
-                </div>
-              </Field>
+                </Field>
+                <Field id={`${formId}-phone`} label="Phone Number" required error={errors.phone}>
+                  <div className="flex items-end gap-3">
+                    <select
+                      name="phoneCode"
+                      aria-label="Country code"
+                      value={form.phoneCode}
+                      onChange={update}
+                      className="w-[4.75rem] shrink-0 border-0 border-b border-white/35 bg-transparent py-2.5 font-body text-sm text-white outline-none focus:border-primary-red"
+                    >
+                      {PHONE_CODES.map((c) => (
+                        <option key={c.code} value={c.code} className="text-black">
+                          {c.code}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      id={`${formId}-phone`}
+                      name="phone"
+                      type="tel"
+                      autoComplete="tel-national"
+                      value={form.phone}
+                      onChange={update}
+                      className={`min-w-0 flex-1 ${lineClass} ${errors.phone ? 'border-primary-red' : ''}`}
+                    />
+                  </div>
+                </Field>
+              </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <Field id={`${formId}-company`} label="Company Name" required error={errors.company}>
                   <input
                     id={`${formId}-company`}
@@ -362,7 +353,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                     autoComplete="organization"
                     value={form.company}
                     onChange={update}
-                    className={`${inputClass} ${borderFor('company')}`}
+                    className={`${lineClass} ${errors.company ? 'border-primary-red' : ''}`}
                   />
                 </Field>
                 <Field id={`${formId}-title`} label="Job Title" required error={errors.jobTitle}>
@@ -372,7 +363,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                     autoComplete="organization-title"
                     value={form.jobTitle}
                     onChange={update}
-                    className={`${inputClass} ${borderFor('jobTitle')}`}
+                    className={`${lineClass} ${errors.jobTitle ? 'border-primary-red' : ''}`}
                   />
                 </Field>
               </div>
@@ -383,18 +374,19 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                   name="country"
                   value={form.country}
                   onChange={update}
-                  className={`${inputClass} ${borderFor('country')}`}
+                  className={`${lineClass} ${errors.country ? 'border-primary-red' : ''}`}
                 >
-                  <option value="">Select country / region</option>
+                  <option value="" className="text-black">
+                    Select country / region
+                  </option>
                   {COUNTRY_OPTIONS.map((c) => (
-                    <option key={c} value={c}>
+                    <option key={c} value={c} className="text-black">
                       {c}
                     </option>
                   ))}
                 </select>
               </Field>
 
-              {/* Honeypot */}
               <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
                 <label htmlFor={`${formId}-website`}>Website</label>
                 <input
@@ -409,7 +401,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
 
               <button
                 type="submit"
-                className="mt-2 inline-flex w-full items-center justify-center rounded-md bg-primary-red px-6 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[filter,transform] hover:brightness-110 sm:w-auto"
+                className="mt-2 inline-flex w-full items-center justify-center rounded-md bg-primary-red px-6 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[filter] hover:brightness-110 sm:w-auto"
               >
                 Continue →
               </button>
@@ -427,11 +419,13 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                   name="discussion"
                   value={form.discussion}
                   onChange={update}
-                  className={`${inputClass} ${borderFor('discussion')}`}
+                  className={`${lineClass} ${errors.discussion ? 'border-primary-red' : ''}`}
                 >
-                  <option value="">Select a topic</option>
+                  <option value="" className="text-black">
+                    Select a topic
+                  </option>
                   {DISCUSSION_OPTIONS.map((opt) => (
-                    <option key={opt} value={opt}>
+                    <option key={opt} value={opt} className="text-black">
                       {opt}
                     </option>
                   ))}
@@ -439,18 +433,14 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
               </Field>
 
               <fieldset>
-                <legend className="mb-3 font-body text-sm text-white/85">
+                <legend className="mb-3 font-body text-sm text-white/80">
                   Which best describes your need? <span className="text-primary-red">*</span>
                 </legend>
                 <div className="space-y-2.5">
                   {NEED_OPTIONS.map((opt) => (
                     <label
                       key={opt}
-                      className={`flex cursor-pointer items-start gap-3 rounded-lg border px-3.5 py-3 transition-colors ${
-                        form.need === opt
-                          ? 'border-primary-red/60 bg-primary-red/5'
-                          : 'border-white/10 hover:border-white/25'
-                      }`}
+                      className="flex cursor-pointer items-start gap-3 border-b border-white/10 py-2.5"
                     >
                       <input
                         type="radio"
@@ -480,25 +470,27 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                 <textarea
                   id={`${formId}-requirement`}
                   name="requirement"
-                  rows={5}
+                  rows={3}
                   value={form.requirement}
                   onChange={update}
-                  className={`${inputClass} resize-y ${borderFor('requirement')}`}
+                  className={`${lineClass} resize-y ${errors.requirement ? 'border-primary-red' : ''}`}
                 />
               </Field>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <Field id={`${formId}-timeline`} label="Expected timeline" error={errors.timeline}>
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <Field id={`${formId}-timeline`} label="Expected timeline">
                   <select
                     id={`${formId}-timeline`}
                     name="timeline"
                     value={form.timeline}
                     onChange={update}
-                    className={`${inputClass} border-white/10`}
+                    className={lineClass}
                   >
-                    <option value="">Select timeline (optional)</option>
+                    <option value="" className="text-black">
+                      Select timeline (optional)
+                    </option>
                     {TIMELINE_OPTIONS.map((opt) => (
-                      <option key={opt} value={opt}>
+                      <option key={opt} value={opt} className="text-black">
                         {opt}
                       </option>
                     ))}
@@ -510,11 +502,13 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                     name="scope"
                     value={form.scope}
                     onChange={update}
-                    className={`${inputClass} border-white/10`}
+                    className={lineClass}
                   >
-                    <option value="">Select scope (optional)</option>
+                    <option value="" className="text-black">
+                      Select scope (optional)
+                    </option>
                     {SCOPE_OPTIONS.map((opt) => (
-                      <option key={opt} value={opt}>
+                      <option key={opt} value={opt} className="text-black">
                         {opt}
                       </option>
                     ))}
@@ -533,7 +527,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                   type="file"
                   accept={ALLOWED_UPLOAD_EXT.join(',')}
                   onChange={onFileChange}
-                  className="w-full font-body text-sm text-white/70 file:mr-3 file:rounded-md file:border-0 file:bg-white/10 file:px-3 file:py-2 file:font-heading file:text-xs file:font-bold file:tracking-wide file:text-white file:uppercase"
+                  className="w-full font-body text-sm text-white/70 file:mr-3 file:border-0 file:bg-white/10 file:px-3 file:py-2 file:font-heading file:text-xs file:font-bold file:tracking-wide file:text-white file:uppercase"
                 />
                 <p className="mt-1.5 font-body text-xs text-white/40">
                   PDF, DOCX, PPTX, XLSX, PNG, JPG — max {MAX_UPLOAD_MB} MB.
@@ -544,28 +538,21 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
               </Field>
 
               <fieldset>
-                <legend className="mb-3 font-body text-sm text-white/85">
+                <legend className="mb-3 font-body text-sm text-white/80">
                   Preferred contact method
                 </legend>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-4">
                   {CONTACT_METHODS.map((method) => (
-                    <label
-                      key={method}
-                      className={`cursor-pointer rounded-md border px-4 py-2 font-heading text-xs font-semibold tracking-wide uppercase transition-colors ${
-                        form.contactMethod === method
-                          ? 'border-primary-red bg-primary-red/10 text-primary-red'
-                          : 'border-white/15 text-white/70 hover:border-white/30'
-                      }`}
-                    >
+                    <label key={method} className="flex cursor-pointer items-center gap-2">
                       <input
                         type="radio"
                         name="contactMethod"
                         value={method}
                         checked={form.contactMethod === method}
                         onChange={update}
-                        className="sr-only"
+                        className="accent-[#E7000B]"
                       />
-                      {method}
+                      <span className="font-body text-sm text-white/75">{method}</span>
                     </label>
                   ))}
                 </div>

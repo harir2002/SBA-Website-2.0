@@ -1,5 +1,5 @@
 /**
- * Header — Industries, Our Solutions, Insights dropdowns; About SBA, Careers, Search, Contact.
+ * Header — Industries, Our Solutions, Insights dropdowns; About SBA, Careers, Search, Contact Us.
  */
 
 import { useEffect, useRef, useState } from 'react'
@@ -319,7 +319,7 @@ export default function Header() {
               location.pathname === '/contact' ? ' text-primary-red' : ''
             }`}
           >
-            Contact
+            Contact Us
           </button>
         </nav>
 
@@ -480,7 +480,7 @@ export default function Header() {
                 }}
                 className="font-heading text-base font-semibold text-white/80 hover:text-primary-red"
               >
-                Contact
+                Contact Us
               </button>
             </li>
           </ul>

@@ -11,7 +11,7 @@ export default function AboutProof() {
       className="relative bg-black"
       aria-labelledby="about-proof-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-5 py-20 sm:px-6 sm:py-24 lg:px-10 lg:py-28">
+      <div className="mx-auto max-w-[1280px] px-5 py-12 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
         <motion.div
           className="max-w-3xl"
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}

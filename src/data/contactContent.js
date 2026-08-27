@@ -1,11 +1,11 @@
 /**
- * Contact page content — no invented offices, emails, or phone numbers.
+ * Contact page content — source-of-truth copy. No invented offices/emails/phones.
  */
 
 export const CONTACT_PROOF = [
-  { value: '30+', label: 'Years of Enterprise Trust' },
-  { value: '300+', label: 'Enterprise Clients' },
-  { value: '60+', label: 'Tier-1 OEM Partnerships' },
+  { value: 30, suffix: '+', label: 'Years of Enterprise Trust' },
+  { value: 300, suffix: '+', label: 'Enterprise Clients' },
+  { value: 60, suffix: '+', label: 'Tier-1 OEM Partnerships' },
 ]
 
 export const CONTACT_PATHWAYS = [
@@ -126,44 +126,8 @@ export const PROCESS_STAGES = [
   },
 ]
 
-export const TEAM_CARDS = [
-  {
-    id: 'sales',
-    title: 'Sales and Transformation Enquiries',
-    copy:
-      'Discuss an enterprise technology initiative, delivery requirement, managed-service need, or strategic partnership.',
-    cta: 'Contact Sales',
-    href: '#enquiry',
-    category: 'General Enquiry',
-  },
-  {
-    id: 'support',
-    title: 'Existing Client Support',
-    copy:
-      'Get in touch with your assigned SBA service, delivery, or account-management team for operational support.',
-    cta: 'Access Client Support',
-    href: '#enquiry',
-    category: 'Managed Operations',
-  },
-  {
-    id: 'partners',
-    title: 'Technology and OEM Partnerships',
-    copy:
-      'Explore alliance, technology, channel, or go-to-market opportunities with SBA.',
-    cta: 'Contact Partnerships',
-    href: '#enquiry',
-    category: 'General Enquiry',
-  },
-  {
-    id: 'careers',
-    title: 'Careers at SBA',
-    copy:
-      'Explore opportunities to work with teams shaping modern, secure, and resilient enterprises.',
-    cta: 'View Careers',
-    href: '/#careers',
-    category: null,
-  },
-]
+export const PROCESS_CLOSING =
+  'No generic pitch. No unnecessary complexity. Just the right conversation, with the right people, at the right starting point.'
 
 export const ALLOWED_UPLOAD_TYPES = [
   'application/pdf',

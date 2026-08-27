@@ -22,7 +22,7 @@ export default function AboutEcosystem() {
       className="relative bg-black"
       aria-labelledby="about-ecosystem-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-5 py-20 sm:px-6 sm:py-24 lg:px-10 lg:py-28">
+      <div className="mx-auto max-w-[1280px] px-5 py-12 sm:px-6 sm:py-14 lg:px-10 lg:py-16">
         <motion.div
           className="max-w-3xl"
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
@@ -84,13 +84,12 @@ export default function AboutEcosystem() {
             return (
               <div
                 key={file}
-                className="flex h-20 items-center justify-center rounded-lg border border-white/[0.08] bg-[#0d0f14] px-3"
+                className="sba-logo-box flex h-20 items-center justify-center bg-transparent px-3"
               >
                 <img
                   src={encodeURI(`/logos/partners/${file}`)}
                   alt={label}
-                  className="max-h-10 max-w-[120px] object-contain opacity-85"
-                  style={{ filter: 'grayscale(1) invert(1)' }}
+                  className="sba-logo-img"
                   loading="lazy"
                   decoding="async"
                 />

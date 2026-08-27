@@ -8,8 +8,6 @@ import Footer from '../components/layout/Footer'
 import ContactHero from '../components/contact/ContactHero'
 import ContactPathways from '../components/contact/ContactPathways'
 import ContactEnquiryForm from '../components/contact/ContactEnquiryForm'
-import ContactProcess from '../components/contact/ContactProcess'
-import ContactTeams from '../components/contact/ContactTeams'
 import ContactReach from '../components/contact/ContactReach'
 import ContactFinalCta from '../components/contact/ContactFinalCta'
 
@@ -41,8 +39,6 @@ export default function ContactPage() {
         <ContactHero onStart={() => startConversation()} />
         <ContactPathways onSelect={(category) => startConversation(category)} />
         <ContactEnquiryForm preselectedCategory={preselectedCategory} />
-        <ContactProcess />
-        <ContactTeams onSelectCategory={(category) => startConversation(category)} />
         <ContactReach />
         <ContactFinalCta onStart={() => startConversation()} />
       </main>

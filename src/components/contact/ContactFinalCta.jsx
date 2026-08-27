@@ -8,7 +8,7 @@ export default function ContactFinalCta({ onStart }) {
 
   return (
     <section
-      className="relative flex min-h-[70svh] items-center overflow-hidden bg-black"
+      className="relative flex min-h-[70svh] items-center overflow-hidden bg-[#060606]"
       aria-labelledby="contact-final-heading"
     >
       <div
@@ -19,9 +19,8 @@ export default function ContactFinalCta({ onStart }) {
             'radial-gradient(ellipse 50% 40% at 50% 30%, rgba(231,0,11,0.12) 0%, transparent 58%)',
         }}
       />
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" aria-hidden="true" />
 
-      <div className="relative z-10 mx-auto w-full max-w-[820px] px-5 py-24 text-center sm:px-6 lg:px-10">
+      <div className="relative z-10 mx-auto w-full max-w-[820px] px-5 py-20 text-center sm:px-6 lg:px-10">
         <motion.p
           className="font-heading text-xs font-bold tracking-[0.28em] text-primary-red uppercase"
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
@@ -44,7 +43,7 @@ export default function ContactFinalCta({ onStart }) {
         </motion.h2>
 
         <motion.span
-          className="mx-auto mt-6 block h-[2.5px] w-12 origin-center rounded-full bg-primary-red"
+          className="mx-auto mt-6 block h-[2.5px] w-14 origin-center rounded-full bg-primary-red"
           aria-hidden="true"
           initial={reduceMotion ? false : { scaleX: 0 }}
           whileInView={reduceMotion ? undefined : { scaleX: 1 }}

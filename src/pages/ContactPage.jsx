@@ -1,15 +1,13 @@
 /**
- * ContactPage — guided enterprise conversation experience.
+ * ContactPage — minimal: hero + enquiry form. Address lives in shared Footer.
  */
 
 import { useCallback, useEffect, useState } from 'react'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import ContactHero from '../components/contact/ContactHero'
-import ContactPathways from '../components/contact/ContactPathways'
 import ContactEnquiryForm from '../components/contact/ContactEnquiryForm'
-import ContactReach from '../components/contact/ContactReach'
-import ContactFinalCta from '../components/contact/ContactFinalCta'
+import ScrollReveal from '../components/home/ScrollReveal'
 
 function scrollToEnquiry() {
   document.getElementById('enquiry')?.scrollIntoView({ behavior: 'smooth' })
@@ -37,13 +35,12 @@ export default function ContactPage() {
 
       <main>
         <ContactHero onStart={() => startConversation()} />
-        <ContactPathways onSelect={(category) => startConversation(category)} />
-        <ContactEnquiryForm preselectedCategory={preselectedCategory} />
-        <ContactReach />
-        <ContactFinalCta onStart={() => startConversation()} />
+        <ScrollReveal y={36} amount={0.12}>
+          <ContactEnquiryForm preselectedCategory={preselectedCategory} />
+        </ScrollReveal>
       </main>
 
-      <Footer />
+      <Footer hideContactForm />
     </div>
   )
 }

@@ -10,7 +10,7 @@ export const bfsiHeroSlides = [
     label: 'Banking & Financial Services',
     heading: 'The Future of Finance is Here',
     alt: 'BFSI — banking and financial services',
-    ctaShort: "Let's Connect",
+    ctaShort: 'Get in Touch',
     link: '/#contact',
     objectPosition: 'center',
   },

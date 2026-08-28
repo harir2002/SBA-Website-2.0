@@ -105,7 +105,7 @@ export default function IndustryPage() {
                 to="/#contact"
                 className="inline-flex items-center justify-center rounded-md bg-primary-red px-5 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[filter,transform] hover:scale-[1.02] hover:brightness-110"
               >
-                Talk to SBA
+                Get in Touch
               </Link>
               <Link
                 to="/"

@@ -474,21 +474,7 @@ export default function ContactSection({ variant = 'page' }) {
                   className="mt-1 h-4 w-4 shrink-0 accent-[#E7000B]"
                 />
                 <span className="font-body text-sm leading-relaxed text-white/65">
-                  I agree to the{' '}
-                  <a
-                    href="/privacy"
-                    className="text-primary-red underline-offset-2 hover:underline"
-                  >
-                    Privacy Policy
-                  </a>{' '}
-                  and{' '}
-                  <a
-                    href="/cookies"
-                    className="text-primary-red underline-offset-2 hover:underline"
-                  >
-                    Cookie Policy
-                  </a>
-                  .
+                  I agree to the Privacy Policy and Cookie Policy.
                 </span>
               </label>
               {errors.consent ? (
@@ -503,7 +489,7 @@ export default function ContactSection({ variant = 'page' }) {
                 type="submit"
                 className="group inline-flex items-center justify-center gap-2 rounded-md bg-primary-red px-6 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                Request a Conversation
+                Get in Touch
                 <span
                   className="inline-block transition-transform duration-200 group-hover:translate-x-1"
                   aria-hidden="true"

@@ -65,7 +65,7 @@ function FooterNavLink({ to, children }) {
   )
 }
 
-export default function Footer() {
+export default function Footer({ hideContactForm = false }) {
   const reduceMotion = useReducedMotion()
 
   return (
@@ -77,39 +77,133 @@ export default function Footer() {
         viewport={{ once: true, amount: 0.12 }}
         transition={{ duration: 0.55, ease: EASE }}
       >
-        {/* Left: Solutions + Explore SBA | Right: contact form */}
-        <div className="grid grid-cols-1 items-start gap-12 pb-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-12 xl:gap-16">
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-8">
-            <div>
-              <h3 className="font-heading text-xs font-bold tracking-[0.22em] text-primary-red uppercase">
-                Solutions
-              </h3>
-              <ul className="mt-5 space-y-3">
-                {SOLUTIONS.map((link) => (
-                  <li key={link.label}>
-                    <FooterNavLink to={link.to}>{link.label}</FooterNavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        {/* Left: Solutions + Explore SBA | Right: contact form (or large address on Contact page) */}
+        <div
+          className={`grid grid-cols-1 items-start gap-12 pb-14 ${
+            hideContactForm
+              ? 'lg:grid-cols-3 lg:gap-10 xl:gap-14'
+              : 'lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-12 xl:gap-16'
+          }`}
+        >
+          {hideContactForm ? (
+            <>
+              <div>
+                <h3 className="font-heading text-xs font-bold tracking-[0.22em] text-primary-red uppercase">
+                  Solutions
+                </h3>
+                <ul className="mt-5 space-y-3">
+                  {SOLUTIONS.map((link) => (
+                    <li key={link.label}>
+                      <FooterNavLink to={link.to}>{link.label}</FooterNavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            <div>
-              <h3 className="font-heading text-xs font-bold tracking-[0.22em] text-primary-red uppercase">
-                Explore SBA
-              </h3>
-              <ul className="mt-5 space-y-3">
-                {EXPLORE.map((link) => (
-                  <li key={link.label}>
-                    <FooterNavLink to={link.to}>{link.label}</FooterNavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+              <div>
+                <h3 className="font-heading text-xs font-bold tracking-[0.22em] text-primary-red uppercase">
+                  Explore SBA
+                </h3>
+                <ul className="mt-5 space-y-3">
+                  {EXPLORE.map((link) => (
+                    <li key={link.label}>
+                      <FooterNavLink to={link.to}>{link.label}</FooterNavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-          <div className="min-w-0">
-            <ContactSection variant="footer" />
-          </div>
+              <div>
+                <h3 className="font-heading text-xs font-bold tracking-[0.22em] text-primary-red uppercase">
+                  Chennai Office
+                </h3>
+                <p className="mt-5 font-heading text-lg font-bold text-white sm:text-xl">
+                  SBA Info Solutions
+                </p>
+                <address className="mt-3 font-body text-sm font-medium leading-relaxed text-white/65 not-italic sm:text-base">
+                  SBA House #19, (Old No. 17), 46th Street
+                  <br />
+                  Manthope Colony, Ashok Nagar
+                  <br />
+                  Chennai, Tamil Nadu 600083
+                  <br />
+                  India
+                </address>
+                <a
+                  href="https://maps.app.goo.gl/7CezVRheio8reNnPA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 inline-flex min-h-11 items-center gap-1.5 font-heading text-xs font-bold tracking-[0.14em] text-primary-red uppercase no-underline transition-colors hover:text-white"
+                  aria-label="Get directions to SBA Info Solutions Chennai Office on Google Maps"
+                >
+                  Get Directions
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-8 lg:max-w-3xl">
+                <div>
+                  <h3 className="font-heading text-xs font-bold tracking-[0.22em] text-primary-red uppercase">
+                    Solutions
+                  </h3>
+                  <ul className="mt-5 space-y-3">
+                    {SOLUTIONS.map((link) => (
+                      <li key={link.label}>
+                        <FooterNavLink to={link.to}>{link.label}</FooterNavLink>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-8 border-t border-white/10 pt-6">
+                    <p className="font-heading text-xs font-bold tracking-[0.18em] text-primary-red uppercase">
+                      Chennai Office
+                    </p>
+                    <p className="mt-2.5 font-heading text-base font-bold text-white">
+                      SBA Info Solutions
+                    </p>
+                    <address className="mt-2.5 font-body text-sm font-medium leading-relaxed text-white/65 not-italic sm:text-[15px]">
+                      SBA House #19, (Old No. 17), 46th Street
+                      <br />
+                      Manthope Colony, Ashok Nagar
+                      <br />
+                      Chennai, Tamil Nadu 600083
+                      <br />
+                      India
+                    </address>
+                    <a
+                      href="https://maps.app.goo.gl/7CezVRheio8reNnPA"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex min-h-11 items-center gap-1.5 font-heading text-xs font-bold tracking-[0.14em] text-primary-red uppercase no-underline transition-colors hover:text-white"
+                      aria-label="Get directions to SBA Info Solutions Chennai Office on Google Maps"
+                    >
+                      Get Directions
+                      <span aria-hidden="true">→</span>
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-heading text-xs font-bold tracking-[0.22em] text-primary-red uppercase">
+                    Explore SBA
+                  </h3>
+                  <ul className="mt-5 space-y-3">
+                    {EXPLORE.map((link) => (
+                      <li key={link.label}>
+                        <FooterNavLink to={link.to}>{link.label}</FooterNavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="min-w-0">
+                <ContactSection variant="footer" />
+              </div>
+            </>
+          )}
         </div>
 
         <div className="flex flex-col items-center justify-between gap-8 py-8 sm:flex-row sm:items-center">

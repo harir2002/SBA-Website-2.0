@@ -33,7 +33,9 @@ export const CAPABILITIES = [
     eyebrow: 'SBA Info Solutions',
     title: 'Modernize the Core',
     description:
-      'Engineer a high-performance, resilient technology foundation - modernized around the workloads your business cannot afford to interrupt',
+      "Legacy systems shouldn't hold back tomorrow's ambitions. We re-engineer your technology foundation for the speed, scale, and agility modern enterprises demand.",
+    sectionDescription:
+      'Engineer a high-performance, resilient technology foundation — modernized around the workloads your business cannot afford to interrupt.',
     ctaShort: 'Explore Modernization',
     link: '/capabilities/modernize-the-core',
     image: getImage('Modernize the core', 'Modernize the Core'),
@@ -47,7 +49,9 @@ export const CAPABILITIES = [
     eyebrow: 'SBA Info Solutions',
     title: 'Protect and Recover',
     description:
-      'Secure every layer of the enterprise - and maintain a tested, accountable path to recover critical business services when disruption occurs',
+      "Downtime isn't an option. We build resilient, secure enterprises that anticipate threats, withstand disruption, and recover without missing a beat.",
+    sectionDescription:
+      'Secure every layer of the enterprise — and maintain a tested, accountable path to recover critical business services when disruption occurs.',
     ctaShort: 'Explore Cyber Resilience',
     link: '/capabilities/protect-and-recover',
     image: getImage('Protect and Recover'),
@@ -61,8 +65,10 @@ export const CAPABILITIES = [
     eyebrow: 'SBA Info Solutions',
     title: 'Make Data Actionable',
     description:
+      'Your data holds answers you haven’t asked yet. We turn scattered, complex information into clear, trusted intelligence that drives every decision.',
+    sectionDescription:
       'Turn fragmented enterprise data into trusted insight, intelligent automation, and governed AI embedded in everyday business workflows.',
-    ctaShort: 'Explore Data Intelligence',
+    ctaShort: 'Explore Data Solutions',
     link: '/capabilities/make-data-actionable',
     image: getImage('Make Data Actionable'),
     alt: 'Make Data Actionable visual',
@@ -75,8 +81,10 @@ export const CAPABILITIES = [
     eyebrow: 'SBA Info Solutions',
     title: 'Build and Connect',
     description:
+      'From product strategy and digital engineering to cloud-native delivery and integration, we turn ambitious ideas into secure, scalable experiences built to evolve.',
+    sectionDescription:
       'Reduce digital friction by modernizing critical applications, delivering secure digital products, and connecting workflows across the enterprise.',
-    ctaShort: 'Explore Integration',
+    ctaShort: 'Explore Digital Engineering',
     link: '/capabilities/build-and-connect',
     image: getImage('Build and Connect'),
     alt: 'Build and Connect visual',
@@ -89,6 +97,8 @@ export const CAPABILITIES = [
     eyebrow: 'SBA Info Solutions',
     title: 'Operate with Assurance',
     description:
+      'Generic technology creates generic outcomes. We deliver solutions purpose-built for your sector’s regulations, risks, and realities.',
+    sectionDescription:
       'Keep users productive, platforms available, and recovery capabilities ready through SLA-backed operations, intelligent automation, and clear accountability.',
     ctaShort: 'Explore Industry Solutions',
     link: '/capabilities/engineered-for-your-industry',
@@ -104,7 +114,9 @@ export const CAPABILITIES = [
     eyebrow: 'SBA Info Solutions',
     title: 'Accelerate Business AI',
     description:
-      "Choose a focused use case, deploy with speed, and extend through SBA's connected foundation of data, engineering, security, and managed operations.",
+      "AI’s real value isn’t the technology - it’s the outcome. We deploy governed, enterprise-ready AI that automates work, elevates experience, and compounds ROI..",
+    sectionDescription:
+      'Choose a focused use case, deploy with speed, and extend through SBA’s connected foundation of data, engineering, security, and managed operations.',
     ctaShort: 'Explore AI Solutions',
     link: '/capabilities/accelerate-business-ai',
     image: getImage('Accelerate Business AI'),

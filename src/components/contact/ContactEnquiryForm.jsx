@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ContactEnquiryForm — two-step progressive enquiry with SBA line-only inputs.
  */
 
@@ -214,7 +214,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
               to="/#capabilities"
               className="inline-flex rounded-md bg-primary-red px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase hover:brightness-110"
             >
-              Explore Capabilities
+              Explore our Solutions
             </Link>
             <Link
               to="/#insights"
@@ -236,10 +236,10 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
     >
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-5 py-14 sm:px-6 sm:py-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:px-10 lg:py-20">
         <motion.div
-          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: EASE }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65, ease: EASE }}
         >
           <p className="font-heading text-xs font-bold tracking-[0.24em] text-primary-red uppercase">
             Enquiry
@@ -262,10 +262,10 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
 
         <motion.div
           className="border border-white/15 bg-black p-5 sm:p-8"
-          initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 32 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55, delay: 0.08, ease: EASE }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
         >
           <div className="mb-8" aria-label={`Step ${step} of 2`}>
             <div className="flex items-center justify-between gap-3">
@@ -403,7 +403,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                 type="submit"
                 className="mt-2 inline-flex w-full items-center justify-center rounded-md bg-primary-red px-6 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[filter] hover:brightness-110 sm:w-auto"
               >
-                Continue →
+                Continue <span aria-hidden="true">{'\u2192'}</span>
               </button>
             </form>
           ) : (
@@ -530,7 +530,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                   className="w-full font-body text-sm text-white/70 file:mr-3 file:border-0 file:bg-white/10 file:px-3 file:py-2 file:font-heading file:text-xs file:font-bold file:tracking-wide file:text-white file:uppercase"
                 />
                 <p className="mt-1.5 font-body text-xs text-white/40">
-                  PDF, DOCX, PPTX, XLSX, PNG, JPG — max {MAX_UPLOAD_MB} MB.
+                  PDF, DOCX, PPTX, XLSX, PNG, JPG {'\u2014'} max {MAX_UPLOAD_MB} MB.
                 </p>
                 {file && !fileError ? (
                   <p className="mt-1 font-body text-xs text-white/60">Selected: {file.name}</p>
@@ -598,14 +598,14 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                   onClick={() => setStep(1)}
                   className="inline-flex items-center justify-center rounded-md border border-white/20 px-5 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase hover:border-white/40"
                 >
-                  ← Back
+                  <span aria-hidden="true">{'\u2190'}</span> Back
                 </button>
                 <button
                   type="submit"
                   disabled={status === 'submitting'}
                   className="inline-flex flex-1 items-center justify-center rounded-md bg-primary-red px-6 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[filter] hover:brightness-110 disabled:opacity-60 sm:flex-none"
                 >
-                  {status === 'submitting' ? 'Sending…' : 'Request a Conversation'}
+                  {status === 'submitting' ? 'Sending…' : 'Get in Touch'}
                 </button>
               </div>
             </form>

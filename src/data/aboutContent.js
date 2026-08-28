@@ -157,6 +157,8 @@ export const ABOUT_LEADERSHIP = [
     id: 'anantha',
     name: 'Anantha Narayanan Varadharajan',
     role: 'Chief Executive Officer',
+    photo: '/images/leadership/Anantha Narayanan.jpg',
+    linkedin: 'https://www.linkedin.com/in/anantha-narayanan-varadharajan-6b2bb9b',
     profile:
       "Leads SBA's strategic direction and growth, with a focus on building enduring client partnerships and expanding SBA's role as a trusted enterprise engineering partner.",
   },
@@ -164,6 +166,8 @@ export const ABOUT_LEADERSHIP = [
     id: 'venkatesh',
     name: 'Venkatesh Anantha Narayanan',
     role: 'Chief Growth Officer',
+    photo: '/images/leadership/Venkatesh A.jpg',
+    linkedin: 'https://www.linkedin.com/in/venkatesh-anantha-narayanan-13321a393',
     profile:
       "Leads SBA's growth agenda across markets and offerings—strengthening client relationships and expanding SBA's enterprise footprint.",
   },
@@ -171,6 +175,8 @@ export const ABOUT_LEADERSHIP = [
     id: 'sathyanathan',
     name: 'Sathyanathan Jayatheerthan',
     role: 'Senior VP of Global Sales',
+    photo: '/images/leadership/Sathyanathan.jpg',
+    linkedin: 'https://www.linkedin.com/in/sathyanathan',
     profile:
       'Leads global sales and strategic client engagement, helping enterprises identify and execute technology initiatives aligned to their business priorities.',
   },
@@ -178,6 +184,8 @@ export const ABOUT_LEADERSHIP = [
     id: 'sadeesh',
     name: 'Sadeesh Kumar Gopalan',
     role: 'Head of Delivery',
+    photo: '/images/leadership/Sadeesh Kumar.jpg',
+    linkedin: 'https://www.linkedin.com/in/sadeesh-kumar-gopalan-a6a60217',
     profile:
       'Leads delivery excellence across SBA engagements, ensuring strong execution, governance, quality, operational accountability, and sustained client outcomes.',
   },

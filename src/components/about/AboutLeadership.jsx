@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { Linkedin } from 'lucide-react'
 import { ABOUT_LEADERSHIP } from '../../data/aboutContent'
 
 const EASE = [0.16, 1, 0.3, 1]
@@ -14,28 +15,58 @@ function initialsFor(name) {
     .toUpperCase()
 }
 
-function Portrait({ name }) {
+function Portrait({ name, photo }) {
+  const [failed, setFailed] = useState(false)
+  const src = photo ? encodeURI(photo) : null
+
   return (
     <div
       className="relative w-full shrink-0 grow-0 overflow-hidden bg-[#1a1c22]"
       style={{ aspectRatio: '4 / 5', height: 'auto' }}
     >
-      <div
-        className="absolute inset-0 grayscale transition-[filter,opacity] duration-500 group-hover:grayscale-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 70% 60% at 50% 35%, rgba(180,180,190,0.35) 0%, transparent 60%), linear-gradient(180deg, #2a2d36 0%, #12141a 100%)',
-        }}
-        aria-hidden="true"
-      />
-      <span className="absolute inset-0 flex items-center justify-center font-heading text-4xl font-extrabold tracking-widest text-white/25 transition-colors duration-500 group-hover:text-white/45">
-        {initialsFor(name)}
-      </span>
+      {src && !failed ? (
+        <img
+          src={src}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-top grayscale transition-[filter] duration-500 group-hover:grayscale-0"
+          onError={() => setFailed(true)}
+        />
+      ) : (
+        <>
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(ellipse 70% 60% at 50% 35%, rgba(180,180,190,0.35) 0%, transparent 60%), linear-gradient(180deg, #2a2d36 0%, #12141a 100%)',
+            }}
+            aria-hidden="true"
+          />
+          <span className="absolute inset-0 flex items-center justify-center font-heading text-4xl font-extrabold tracking-widest text-white/25">
+            {initialsFor(name)}
+          </span>
+        </>
+      )}
       <span
         className="absolute top-0 left-0 h-full w-[2.5px] origin-top scale-y-0 bg-primary-red transition-transform duration-300 group-hover:scale-y-100"
         aria-hidden="true"
       />
     </div>
+  )
+}
+
+function LinkedInLink({ href, name, className = '' }) {
+  if (!href) return null
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(e) => e.stopPropagation()}
+      className={`inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/20 text-white/55 transition-colors hover:border-primary-red/60 hover:text-primary-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-red ${className}`}
+      aria-label={`Open ${name}'s LinkedIn profile`}
+    >
+      <Linkedin className="h-4 w-4" aria-hidden="true" />
+    </a>
   )
 }
 
@@ -75,6 +106,18 @@ function LeaderModal({ leader, onClose }) {
         <p className="mt-1 font-body text-sm text-white/55">{leader.role}</p>
         <span className="mt-4 block h-px w-12 bg-primary-red" aria-hidden="true" />
         <p className="mt-4 font-body text-sm leading-relaxed text-white/70">{leader.profile}</p>
+        {leader.linkedin ? (
+          <a
+            href={leader.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-md border border-white/20 px-4 py-2.5 font-heading text-xs font-bold tracking-[0.14em] text-white uppercase no-underline transition-colors hover:border-primary-red hover:text-primary-red"
+            aria-label={`Open ${leader.name}'s LinkedIn profile`}
+          >
+            <Linkedin className="h-4 w-4" aria-hidden="true" />
+            View on LinkedIn
+          </a>
+        ) : null}
       </motion.div>
     </div>
   )
@@ -147,7 +190,7 @@ export default function AboutLeadership() {
               transition={{ duration: 0.5, delay: i * 0.07, ease: EASE }}
               aria-label={`View profile for ${leader.name}, ${leader.role}`}
             >
-              <Portrait name={leader.name} />
+              <Portrait name={leader.name} photo={leader.photo} />
               <div className="mt-4 flex flex-col">
                 <p className="font-heading text-[0.8125rem] font-bold leading-snug text-white sm:text-sm lg:text-[0.9375rem]">
                   <span className="inline-block whitespace-nowrap border-b-2 border-primary-red pb-0.5">
@@ -155,9 +198,13 @@ export default function AboutLeadership() {
                   </span>
                 </p>
                 <p className="mt-1.5 font-body text-sm text-white/50">{leader.role}</p>
-                <span className="mt-3 inline-flex font-heading text-[11px] font-bold tracking-[0.14em] text-primary-red uppercase">
-                  View profile →
-                </span>
+                <div className="mt-4 flex items-center justify-between gap-3">
+                  <span className="inline-flex items-center gap-1 font-heading text-[11px] font-bold tracking-[0.14em] text-white/45 uppercase transition-colors group-hover:text-primary-red">
+                    View profile
+                    <span aria-hidden="true">→</span>
+                  </span>
+                  <LinkedInLink href={leader.linkedin} name={leader.name} />
+                </div>
               </div>
             </motion.button>
           ))}

@@ -1,5 +1,5 @@
-/**
- * AboutFinalCta — clean closing brand CTA (no decorative boxes / wave overlays).
+﻿/**
+ * AboutFinalCta â€” clean closing brand CTA (no decorative boxes / wave overlays).
  */
 
 import { Link } from 'react-router-dom'
@@ -15,7 +15,7 @@ export default function AboutFinalCta() {
       className="relative flex items-center overflow-hidden bg-black"
       aria-labelledby="about-final-heading"
     >
-      {/* Soft atmosphere only — no boxes or path overlays */}
+      {/* Soft atmosphere only â€” no boxes or path overlays */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <div
           className="absolute inset-0"
@@ -83,13 +83,13 @@ export default function AboutFinalCta() {
             to="/#contact"
             className="inline-flex items-center justify-center rounded-md bg-primary-red px-7 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
-            Start a Conversation
+            Get in Touch
           </Link>
           <Link
             to="/#capabilities"
             className="inline-flex items-center justify-center rounded-md border border-white/25 px-7 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:border-primary-red hover:text-primary-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
-            Explore Our Capabilities
+            Explore our Solutions
           </Link>
         </motion.div>
 

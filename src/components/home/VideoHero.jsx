@@ -140,7 +140,7 @@ export default function VideoHero() {
             onClick={() => scrollTo('contact')}
             className="inline-flex items-center justify-center rounded-lg bg-primary-red px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.03] hover:brightness-110"
           >
-            Talk to SBA
+            Get in Touch
           </button>
           <Link
             to="/#capabilities"

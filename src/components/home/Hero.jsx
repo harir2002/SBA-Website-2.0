@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+﻿import { motion, useReducedMotion } from 'framer-motion'
 import CapabilityDiagram from './CapabilityDiagram'
 import Background3D from './Background3D'
 
@@ -59,13 +59,13 @@ export default function Hero() {
               onClick={() => scrollTo('contact')}
               className="inline-flex items-center justify-center rounded-md bg-primary-red px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-opacity hover:opacity-90"
             >
-              Talk to SBA
+              Get in Touch
             </button>
             <button
               onClick={() => scrollTo('capabilities')}
               className="inline-flex items-center justify-center rounded-md border border-white bg-transparent px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:bg-white/5"
             >
-              Explore Capabilities
+              Explore our Solutions
             </button>
           </motion.div>
         </div>

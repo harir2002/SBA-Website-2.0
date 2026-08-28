@@ -143,9 +143,9 @@ function CapabilityBlock({ cap, index, reduceMotion }) {
             style={{ width: 40 }}
           />
 
-          {cap.description ? (
+          {(cap.sectionDescription || cap.description) ? (
             <p className="mt-4 max-w-2xl font-body text-sm leading-relaxed text-white/60 sm:text-base">
-              {cap.description}
+              {cap.sectionDescription || cap.description}
             </p>
           ) : null}
         </div>

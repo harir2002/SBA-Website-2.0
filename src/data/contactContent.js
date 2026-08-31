@@ -5,7 +5,7 @@
 export const CONTACT_PROOF = [
   { value: 30, suffix: '+', label: 'Years of Enterprise Trust' },
   { value: 300, suffix: '+', label: 'Enterprise Clients' },
-  { value: 60, suffix: '+', label: 'Tier-1 OEM Partnerships' },
+  { value: 'Enduring', label: 'Client Partnerships' },
 ]
 
 export const CONTACT_PATHWAYS = [

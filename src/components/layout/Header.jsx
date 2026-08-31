@@ -1,18 +1,16 @@
 /**
- * Header — Industries, Our Solutions, Insights dropdowns; About SBA, Careers, Search, Contact Us.
+ * Header — About, Capabilities, Industries mega-menu, Case Studies, Insights, Contact.
+ * CTA: Talk to an Expert
  */
 
 import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ChevronDown, Menu, Search, X } from 'lucide-react'
-import { INDUSTRIES as INDUSTRY_PAGES } from '../../data/industries'
+import { INDUSTRY_NAV } from '../../data/industriesContent'
 
-const INDUSTRIES = INDUSTRY_PAGES.map((item) => ({
-  label: item.label,
-  path: `/industries/${item.slug}`,
-}))
+const INDUSTRIES = INDUSTRY_NAV
 
-const SOLUTIONS = [
+const CAPABILITIES = [
   { label: 'Modernize the Core', id: 'modernize-the-core' },
   { label: 'Protect and Recover', id: 'protect-and-recover' },
   { label: 'Make Data Actionable', id: 'make-data-actionable' },
@@ -22,14 +20,10 @@ const SOLUTIONS = [
 ]
 
 const INSIGHTS = [
-  { label: 'Case Studies', id: 'insights' },
-  { label: 'Blog', id: 'insights' },
+  { label: 'Insights', id: 'insights' },
 ]
 
-const NAV_LINKS = [
-  { label: 'About SBA', path: '/about' },
-  { label: 'Careers', href: '#careers' },
-]
+const CASE_STUDIES = { label: 'Case Studies', id: 'insights' }
 
 const navLinkClass =
   'whitespace-nowrap font-heading text-sm font-semibold tracking-normal text-white/80 transition-colors hover:text-primary-red'
@@ -77,7 +71,7 @@ function NavDropdown({
         }`}
       >
         <ul
-          className={`min-w-[260px] origin-top rounded-lg border border-white/10 bg-[#0d0f14] py-2 shadow-[0_16px_40px_rgba(0,0,0,0.55)] transition-[transform,opacity] duration-200 ease-out ${
+          className={`min-w-[280px] origin-top rounded-lg border border-white/10 bg-[#0d0f14] py-2 shadow-[0_16px_40px_rgba(0,0,0,0.55)] transition-[transform,opacity] duration-200 ease-out ${
             open ? 'translate-y-0 scale-100 opacity-100' : '-translate-y-1 scale-[0.98] opacity-0'
           }`}
           role="menu"
@@ -110,15 +104,15 @@ export default function Header() {
   const [open, setOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [industriesOpen, setIndustriesOpen] = useState(false)
-  const [solutionsOpen, setSolutionsOpen] = useState(false)
+  const [capabilitiesOpen, setCapabilitiesOpen] = useState(false)
   const [insightsOpen, setInsightsOpen] = useState(false)
   const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false)
-  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false)
+  const [mobileCapabilitiesOpen, setMobileCapabilitiesOpen] = useState(false)
   const [mobileInsightsOpen, setMobileInsightsOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [scrolled, setScrolled] = useState(false)
   const industriesRef = useRef(null)
-  const solutionsRef = useRef(null)
+  const capabilitiesRef = useRef(null)
   const insightsRef = useRef(null)
 
   useEffect(() => {
@@ -129,13 +123,13 @@ export default function Header() {
   }, [])
 
   useEffect(() => {
-    if (!industriesOpen && !solutionsOpen && !insightsOpen) return
+    if (!industriesOpen && !capabilitiesOpen && !insightsOpen) return
     const onPointerDown = (event) => {
       if (industriesOpen && !industriesRef.current?.contains(event.target)) {
         setIndustriesOpen(false)
       }
-      if (solutionsOpen && !solutionsRef.current?.contains(event.target)) {
-        setSolutionsOpen(false)
+      if (capabilitiesOpen && !capabilitiesRef.current?.contains(event.target)) {
+        setCapabilitiesOpen(false)
       }
       if (insightsOpen && !insightsRef.current?.contains(event.target)) {
         setInsightsOpen(false)
@@ -143,14 +137,14 @@ export default function Header() {
     }
     document.addEventListener('pointerdown', onPointerDown)
     return () => document.removeEventListener('pointerdown', onPointerDown)
-  }, [industriesOpen, solutionsOpen, insightsOpen])
+  }, [industriesOpen, capabilitiesOpen, insightsOpen])
 
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.slice(1)
       requestAnimationFrame(() => scrollToId(id))
     } else if (
-      location.pathname.startsWith('/industries/') ||
+      location.pathname.startsWith('/industries') ||
       location.pathname === '/about' ||
       location.pathname === '/contact'
     ) {
@@ -167,10 +161,10 @@ export default function Header() {
   const closeMenus = () => {
     closeAllMenus([
       setIndustriesOpen,
-      setSolutionsOpen,
+      setCapabilitiesOpen,
       setInsightsOpen,
       setMobileIndustriesOpen,
-      setMobileSolutionsOpen,
+      setMobileCapabilitiesOpen,
       setMobileInsightsOpen,
       setOpen,
     ])
@@ -192,21 +186,13 @@ export default function Header() {
     }
   }
 
-  const goHash = (id) => {
-    closeMenus()
-    const onHome = location.pathname === '/' || location.pathname === '/home-v2'
-    if (onHome) {
-      scrollToId(id)
-    } else {
-      navigate(`/#${id}`)
-    }
-  }
-
   const openOnly = (which) => (fn) => {
     setIndustriesOpen(which === 'industries' ? fn : false)
-    setSolutionsOpen(which === 'solutions' ? fn : false)
+    setCapabilitiesOpen(which === 'capabilities' ? fn : false)
     setInsightsOpen(which === 'insights' ? fn : false)
   }
+
+  const industriesActive = location.pathname.startsWith('/industries')
 
   return (
     <header
@@ -215,7 +201,8 @@ export default function Header() {
           ? 'border-white/10 bg-black/85 shadow-[0_8px_32px_rgba(0,0,0,0.45)] backdrop-blur-md'
           : 'border-transparent bg-black'
       }`}
-    >      <div className="mx-auto flex h-[88px] max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
+    >
+      <div className="mx-auto flex h-[88px] max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
         <a href="/" className="flex shrink-0 items-center" aria-label="SBA Info Solutions home">
           <img
             src="/src/assets/sba-logo.png"
@@ -225,7 +212,29 @@ export default function Header() {
           />
         </a>
 
-        <nav className="hidden items-center gap-5 lg:gap-7 md:flex" aria-label="Main navigation">
+        <nav className="hidden items-center gap-4 lg:gap-6 md:flex" aria-label="Main navigation">
+          <button
+            type="button"
+            onClick={() => {
+              closeMenus()
+              navigate('/about')
+            }}
+            className={`${navLinkClass}${
+              location.pathname === '/about' ? ' text-primary-red' : ''
+            }`}
+          >
+            About SBA
+          </button>
+
+          <NavDropdown
+            label="Capabilities"
+            items={CAPABILITIES}
+            open={capabilitiesOpen}
+            setOpen={openOnly('capabilities')}
+            menuRef={capabilitiesRef}
+            onSelect={goTo}
+          />
+
           <NavDropdown
             label="Industries"
             items={INDUSTRIES}
@@ -235,14 +244,13 @@ export default function Header() {
             onSelect={goTo}
           />
 
-          <NavDropdown
-            label="Our Solutions"
-            items={SOLUTIONS}
-            open={solutionsOpen}
-            setOpen={openOnly('solutions')}
-            menuRef={solutionsRef}
-            onSelect={goTo}
-          />
+          <button
+            type="button"
+            onClick={() => goTo(CASE_STUDIES)}
+            className={navLinkClass}
+          >
+            Case Studies
+          </button>
 
           <NavDropdown
             label="Insights"
@@ -253,25 +261,18 @@ export default function Header() {
             onSelect={goTo}
           />
 
-          {NAV_LINKS.map((link) => (
-            <button
-              key={link.label}
-              type="button"
-              onClick={() => {
-                if (link.path) {
-                  closeMenus()
-                  navigate(link.path)
-                  return
-                }
-                goHash(link.href.slice(1))
-              }}
-              className={`${navLinkClass}${
-                link.path && location.pathname === link.path ? ' text-primary-red' : ''
-              }`}
-            >
-              {link.label}
-            </button>
-          ))}
+          <button
+            type="button"
+            onClick={() => {
+              closeMenus()
+              navigate('/contact')
+            }}
+            className={`${navLinkClass}${
+              location.pathname === '/contact' ? ' text-primary-red' : ''
+            }`}
+          >
+            Contact
+          </button>
 
           <form onSubmit={handleSearch} className="relative flex items-center" role="search">
             {searchOpen ? (
@@ -315,11 +316,9 @@ export default function Header() {
               closeMenus()
               navigate('/contact')
             }}
-            className={`${navLinkClass}${
-              location.pathname === '/contact' ? ' text-primary-red' : ''
-            }`}
+            className="inline-flex items-center justify-center rounded-md bg-primary-red px-4 py-2 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[filter,transform] hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
-            Contact Us
+            Talk to an Expert
           </button>
         </nav>
 
@@ -343,9 +342,54 @@ export default function Header() {
             <li>
               <button
                 type="button"
+                onClick={() => {
+                  closeMenus()
+                  navigate('/about')
+                }}
+                className="font-heading text-base font-semibold text-white/80 hover:text-primary-red"
+              >
+                About SBA
+              </button>
+            </li>
+
+            <li>
+              <button
+                type="button"
+                onClick={() => setMobileCapabilitiesOpen((v) => !v)}
+                aria-expanded={mobileCapabilitiesOpen}
+                className="flex w-full items-center justify-between font-heading text-base font-semibold text-white/80 hover:text-primary-red"
+              >
+                Capabilities
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform ${mobileCapabilitiesOpen ? 'rotate-180' : ''}`}
+                  aria-hidden="true"
+                />
+              </button>
+              {mobileCapabilitiesOpen && (
+                <ul className="mt-2 space-y-1 border-l border-white/15 pl-4">
+                  {CAPABILITIES.map((item) => (
+                    <li key={item.label}>
+                      <button
+                        type="button"
+                        onClick={() => goTo(item)}
+                        className="w-full py-2 text-left font-body text-sm text-white/70 hover:text-primary-red"
+                      >
+                        {item.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+
+            <li>
+              <button
+                type="button"
                 onClick={() => setMobileIndustriesOpen((v) => !v)}
                 aria-expanded={mobileIndustriesOpen}
-                className="flex w-full items-center justify-between font-heading text-base font-semibold text-white/80 hover:text-primary-red"
+                className={`flex w-full items-center justify-between font-heading text-base font-semibold hover:text-primary-red ${
+                  industriesActive ? 'text-primary-red' : 'text-white/80'
+                }`}
               >
                 Industries
                 <ChevronDown
@@ -373,31 +417,11 @@ export default function Header() {
             <li>
               <button
                 type="button"
-                onClick={() => setMobileSolutionsOpen((v) => !v)}
-                aria-expanded={mobileSolutionsOpen}
-                className="flex w-full items-center justify-between font-heading text-base font-semibold text-white/80 hover:text-primary-red"
+                onClick={() => goTo(CASE_STUDIES)}
+                className="font-heading text-base font-semibold text-white/80 hover:text-primary-red"
               >
-                Our Solutions
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform ${mobileSolutionsOpen ? 'rotate-180' : ''}`}
-                  aria-hidden="true"
-                />
+                Case Studies
               </button>
-              {mobileSolutionsOpen && (
-                <ul className="mt-2 space-y-1 border-l border-white/15 pl-4">
-                  {SOLUTIONS.map((item) => (
-                    <li key={item.label}>
-                      <button
-                        type="button"
-                        onClick={() => goTo(item)}
-                        className="w-full py-2 text-left font-body text-sm text-white/70 hover:text-primary-red"
-                      >
-                        {item.label}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
             </li>
 
             <li>
@@ -430,24 +454,18 @@ export default function Header() {
               )}
             </li>
 
-            {NAV_LINKS.map((link) => (
-              <li key={link.label}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (link.path) {
-                      closeMenus()
-                      navigate(link.path)
-                      return
-                    }
-                    goHash(link.href.slice(1))
-                  }}
-                  className="font-heading text-base font-semibold text-white/80 hover:text-primary-red"
-                >
-                  {link.label}
-                </button>
-              </li>
-            ))}
+            <li>
+              <button
+                type="button"
+                onClick={() => {
+                  closeMenus()
+                  navigate('/contact')
+                }}
+                className="font-heading text-base font-semibold text-white/80 hover:text-primary-red"
+              >
+                Contact
+              </button>
+            </li>
 
             <li>
               <form
@@ -478,9 +496,9 @@ export default function Header() {
                   closeMenus()
                   navigate('/contact')
                 }}
-                className="font-heading text-base font-semibold text-white/80 hover:text-primary-red"
+                className="w-full rounded-md bg-primary-red px-4 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase"
               >
-                Contact Us
+                Talk to an Expert
               </button>
             </li>
           </ul>

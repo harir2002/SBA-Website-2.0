@@ -25,7 +25,7 @@ export default function CareersBanner() {
           min-height: 580px;
           overflow: hidden;
           isolation: isolate;
-          background: #070707;
+          background: #000000;
         }
 
         .join-team-image {

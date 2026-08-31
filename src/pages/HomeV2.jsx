@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import CapabilityCarousel from '../components/home/CapabilityCarousel'
@@ -12,6 +13,13 @@ import { CUSTOMER_LOGOS } from '../data/customerLogos'
 import { PARTNER_LOGOS } from '../data/partnerLogos'
 
 export default function HomeV2() {
+  useEffect(() => {
+    document.title = 'Home | SBA Info Solutions'
+    return () => {
+      document.title = 'SBA Info Solutions'
+    }
+  }, [])
+
   return (
     <div className="home-v2 min-h-screen bg-black text-white">
       <PageScrollProgress />

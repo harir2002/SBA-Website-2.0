@@ -190,7 +190,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
     return (
       <section
         id="enquiry"
-        className="relative scroll-mt-[100px] bg-[#060606]"
+        className="relative scroll-mt-[100px] bg-black"
         aria-labelledby="contact-success-heading"
       >
         <div className="mx-auto max-w-[820px] px-5 py-20 text-center sm:px-6 sm:py-24 lg:px-10">
@@ -231,7 +231,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
   return (
     <section
       id="enquiry"
-      className="relative scroll-mt-[100px] bg-[#060606]"
+      className="relative scroll-mt-[100px] bg-black"
       aria-labelledby="enquiry-heading"
     >
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-10 px-5 py-14 sm:px-6 sm:py-16 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 lg:px-10 lg:py-20">

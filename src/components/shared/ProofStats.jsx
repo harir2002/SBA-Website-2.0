@@ -34,16 +34,22 @@ function ProofStat({ stat, inView, reduceMotion, delay }) {
 
   return (
     <motion.li
-      className="group/stat"
+      className="group/stat min-w-0"
       initial={reduceMotion ? false : { opacity: 0, y: 12 }}
       animate={inView || reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
       transition={{ duration: 0.45, delay, ease: EASE }}
       whileHover={reduceMotion ? undefined : { y: -3 }}
     >
-      <p className="font-heading text-3xl font-extrabold text-white transition-colors duration-300 group-hover/stat:text-primary-red sm:text-4xl lg:text-5xl">
+      <p
+        className={`font-heading font-extrabold leading-none whitespace-nowrap text-white transition-colors duration-300 group-hover/stat:text-primary-red ${
+          numeric
+            ? 'text-2xl sm:text-3xl lg:text-[2.15rem]'
+            : 'text-lg sm:text-xl lg:text-2xl'
+        }`}
+      >
         {display}
       </p>
-      <p className="mt-2 font-body text-[11px] leading-snug text-white/55 sm:text-sm lg:text-base">
+      <p className="mt-2 max-w-[12ch] font-body text-[11px] leading-snug text-white/55 sm:text-xs lg:text-sm">
         {stat.label}
       </p>
       <motion.span
@@ -52,7 +58,7 @@ function ProofStat({ stat, inView, reduceMotion, delay }) {
         initial={reduceMotion ? false : { scaleX: 0 }}
         animate={inView || reduceMotion ? { scaleX: 1 } : { scaleX: 0 }}
         transition={{ duration: 0.6, delay: delay + 0.15, ease: EASE }}
-        style={{ width: 48 }}
+        style={{ width: 40 }}
       />
     </motion.li>
   )
@@ -66,7 +72,7 @@ export default function ProofStats({ items, className = '' }) {
   return (
     <ul
       ref={ref}
-      className={`grid grid-cols-3 gap-3 border-t border-white/10 pt-8 sm:gap-8 lg:gap-12 ${className}`}
+      className={`grid grid-cols-3 gap-x-4 gap-y-8 border-t border-white/10 pt-8 sm:gap-x-6 lg:gap-x-10 ${className}`}
     >
       {items.map((stat, i) => (
         <ProofStat

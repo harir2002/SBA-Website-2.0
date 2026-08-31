@@ -497,7 +497,7 @@ export default function HeroCarousel({
                       className="hero-fullbleed-img"
                       style={{
                         background:
-                          'linear-gradient(135deg, rgba(231,0,11,0.2) 0%, #0a0a0a 70%)',
+                          'linear-gradient(135deg, rgba(231,0,11,0.2) 0%, #000000 70%)',
                       }}
                       role="img"
                       aria-label={slide.alt || title}

@@ -114,7 +114,7 @@ export const CAPABILITIES = [
     eyebrow: 'SBA Info Solutions',
     title: 'Accelerate Business AI',
     description:
-      "AI’s real value isn’t the technology - it’s the outcome. We deploy governed, enterprise-ready AI that automates work, elevates experience, and compounds ROI..",
+      "AI’s real value isn’t the technology - it’s the outcome. We deploy governed, enterprise-ready AI that automates work, elevates experience, and compounds ROI.",
     sectionDescription:
       'Choose a focused use case, deploy with speed, and extend through SBA’s connected foundation of data, engineering, security, and managed operations.',
     ctaShort: 'Explore AI Solutions',

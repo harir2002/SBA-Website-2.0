@@ -19,7 +19,7 @@ import AboutFinalCta from '../components/about/AboutFinalCta'
 export default function AboutPage() {
   useEffect(() => {
     window.scrollTo(0, 0)
-    document.title = 'About SBA | SBA Info Solutions'
+    document.title = 'About | SBA Info Solutions'
     return () => {
       document.title = 'SBA Info Solutions'
     }

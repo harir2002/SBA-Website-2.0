@@ -20,7 +20,7 @@ const SOLUTIONS = [
 ]
 
 const EXPLORE = [
-  { label: 'Industries', to: '/#capabilities' },
+  { label: 'Industries', to: '/industries' },
   { label: 'Our Solutions', to: '/#capabilities' },
   { label: 'About SBA', to: '/about' },
   { label: 'Careers', to: '/#careers' },

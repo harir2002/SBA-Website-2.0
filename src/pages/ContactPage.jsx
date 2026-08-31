@@ -18,7 +18,7 @@ export default function ContactPage() {
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    document.title = 'Contact SBA | SBA Info Solutions'
+    document.title = 'Contact | SBA Info Solutions'
     return () => {
       document.title = 'SBA Info Solutions'
     }

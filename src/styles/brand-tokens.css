@@ -149,3 +149,11 @@
 .contact-page .font-body {
   font-family: var(--font-body);
 }
+
+/* Industries pages */
+.industries-page .font-heading {
+  font-family: var(--font-heading);
+}
+.industries-page .font-body {
+  font-family: var(--font-body);
+}

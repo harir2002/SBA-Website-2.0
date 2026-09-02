@@ -13,6 +13,8 @@ import IndustryAnchorNavigation from '../components/industry/IndustryAnchorNavig
 import IndustryChallengeSection from '../components/industry/IndustryChallengeSection'
 import IndustryPromiseSection from '../components/industry/IndustryPromiseSection'
 import IndustrySolutionAreas from '../components/industry/IndustrySolutionAreas'
+import BfsiOperationsPillars from '../components/industry/BfsiOperationsPillars'
+import IndustryOperationsPillars from '../components/industry/IndustryOperationsPillars'
 import IndustryUseCaseGrid from '../components/industry/IndustryUseCaseGrid'
 import IndustryWhySBA from '../components/industry/IndustryWhySBA'
 import RelatedCapabilities from '../components/industry/RelatedCapabilities'
@@ -78,20 +80,20 @@ export default function IndustryPage() {
         <IndustryAnchorNavigation />
         <IndustryChallengeSection challenges={industry.challenges} accent={accent} />
         <IndustryPromiseSection promise={industry.promise} accent={accent} />
-        <IndustrySolutionAreas
-          solutions={industry.solutions}
-          accent={accent}
-          mobileDetailsAlways={
-            industry.slug === 'bfsi' ||
-            industry.slug === 'manufacturing' ||
-            industry.slug === 'it-ites' ||
-            industry.slug === 'diversified-enterprises'
-          }
-        />
+        {industry.slug === 'bfsi' ? (
+          <BfsiOperationsPillars />
+        ) : industry.solutions?.pillars ? (
+          <IndustryOperationsPillars
+            headline={industry.solutions.headline}
+            pillars={industry.solutions.pillars}
+          />
+        ) : (
+          <IndustrySolutionAreas solutions={industry.solutions} accent={accent} />
+        )}
         <IndustryUseCaseGrid useCases={industry.useCases} />
         <IndustryWhySBA whySba={industry.whySba} />
         <RelatedCapabilities capabilityIds={industry.relatedCapabilities} />
-        <IndustryCTA />
+        <IndustryCTA variant={industry.slug === 'bfsi' ? 'clean' : 'default'} />
         <IndustryPageNavigation currentSlug={industry.slug} />
       </main>
 

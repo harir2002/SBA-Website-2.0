@@ -1,4 +1,4 @@
-﻿/**
+/**
  * ContactEnquiryForm — two-step progressive enquiry with SBA line-only inputs.
  */
 
@@ -605,7 +605,7 @@ export default function ContactEnquiryForm({ preselectedCategory = '' }) {
                   disabled={status === 'submitting'}
                   className="inline-flex flex-1 items-center justify-center rounded-md bg-primary-red px-6 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[filter] hover:brightness-110 disabled:opacity-60 sm:flex-none"
                 >
-                  {status === 'submitting' ? 'Sending…' : 'Get in Touch'}
+                  {status === 'submitting' ? 'Sending…' : "Let's Connect"}
                 </button>
               </div>
             </form>

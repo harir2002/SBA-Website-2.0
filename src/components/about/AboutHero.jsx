@@ -1,4 +1,4 @@
-﻿import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ABOUT_PROOF } from '../../data/aboutContent'
 import SolutionsOrbitPanel from '../shared/SolutionsOrbitPanel'
@@ -11,7 +11,7 @@ export default function AboutHero() {
 
   return (
     <section
-      className="relative flex items-center overflow-hidden bg-black"
+      className="page-hero relative flex items-center overflow-hidden bg-black"
       aria-labelledby="about-hero-heading"
     >
       <div
@@ -23,7 +23,7 @@ export default function AboutHero() {
         }}
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-8 px-5 pt-[108px] pb-12 sm:px-6 sm:pb-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:px-10 lg:pb-16">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-8 px-5 pb-12 sm:px-6 sm:pb-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:px-10 lg:pb-16">
         <div>
           <motion.p
             className="font-heading text-xs font-bold tracking-[0.28em] text-primary-red uppercase"
@@ -80,7 +80,7 @@ export default function AboutHero() {
               to="/#contact"
               className="inline-flex items-center justify-center rounded-md border border-white/30 px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:border-primary-red hover:text-primary-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              Get in Touch
+              Let's Connect
             </Link>
           </motion.div>
 

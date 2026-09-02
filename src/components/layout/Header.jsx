@@ -1,6 +1,6 @@
 /**
  * Header — About, Capabilities, Industries mega-menu, Case Studies, Insights, Contact.
- * CTA: Talk to an Expert
+ * CTA: Let's Connect
  */
 
 import { useEffect, useRef, useState } from 'react'
@@ -194,15 +194,11 @@ export default function Header() {
 
   const industriesActive = location.pathname.startsWith('/industries')
 
+  const isScrolled = scrolled || open
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,border-color,backdrop-filter,box-shadow] duration-300 ${
-        scrolled
-          ? 'border-white/10 bg-black/85 shadow-[0_8px_32px_rgba(0,0,0,0.45)] backdrop-blur-md'
-          : 'border-transparent bg-black'
-      }`}
-    >
-      <div className="mx-auto flex h-[88px] max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
+    <header className={`site-header${isScrolled ? ' is-scrolled' : ''}`}>
+      <div className="site-header__inner mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
         <a href="/" className="flex shrink-0 items-center" aria-label="SBA Info Solutions home">
           <img
             src="/src/assets/sba-logo.png"
@@ -318,7 +314,7 @@ export default function Header() {
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary-red px-4 py-2 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[filter,transform] hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
-            Talk to an Expert
+            Let's Connect
           </button>
         </nav>
 
@@ -335,7 +331,7 @@ export default function Header() {
 
       {open && (
         <nav
-          className="bg-black px-4 pb-6 pt-4 md:hidden"
+          className="site-header__mobile px-4 pb-6 pt-4 md:hidden"
           aria-label="Mobile navigation"
         >
           <ul className="flex flex-col gap-4">
@@ -498,7 +494,7 @@ export default function Header() {
                 }}
                 className="w-full rounded-md bg-primary-red px-4 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase"
               >
-                Talk to an Expert
+                Let's Connect
               </button>
             </li>
           </ul>

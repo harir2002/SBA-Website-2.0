@@ -55,7 +55,8 @@ export default function RelatedCapabilities({ capabilityIds = [] }) {
                   {cap.sectionDescription || cap.description}
                 </p>
                 <span className="mt-4 font-heading text-xs font-bold tracking-wide text-primary-red uppercase">
-                  {cap.ctaShort} →
+                  {cap.ctaShort}
+                  {' \u2192'}
                 </span>
               </Link>
             </motion.li>

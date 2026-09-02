@@ -75,7 +75,7 @@ function HeroCopy({ hero, accent, reduceMotion }) {
   return (
     <>
       <motion.p
-        className="font-heading text-xs font-bold tracking-[0.28em] uppercase"
+        className="industry-hero__eyebrow font-heading text-xs font-bold tracking-[0.28em] uppercase"
         style={{ color: accent }}
         initial={reduceMotion ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -86,7 +86,7 @@ function HeroCopy({ hero, accent, reduceMotion }) {
 
       <motion.h1
         id="industry-hero-heading"
-        className="mt-4 max-w-[18ch] font-heading text-[2.1rem] font-extrabold leading-[1.12] text-white sm:text-5xl lg:text-[3.2rem]"
+        className="industry-hero__title font-heading text-[2.1rem] font-extrabold leading-[1.12] text-white sm:text-5xl lg:text-[3.2rem]"
         initial={reduceMotion ? false : { opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, delay: 0.05, ease: EASE }}
@@ -96,7 +96,7 @@ function HeroCopy({ hero, accent, reduceMotion }) {
 
       {hero.subheadline && (
         <motion.p
-          className="mt-4 max-w-xl font-heading text-base font-semibold text-white/75 sm:text-lg"
+          className="industry-hero__subtitle font-heading text-base font-semibold text-white/75 sm:text-lg"
           initial={reduceMotion ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
@@ -106,7 +106,7 @@ function HeroCopy({ hero, accent, reduceMotion }) {
       )}
 
       <motion.span
-        className="mt-6 block h-[2px] w-14 origin-left rounded-full"
+        className="industry-hero__rule block h-[2px] w-14 origin-left rounded-full"
         style={{ backgroundColor: accent }}
         aria-hidden="true"
         initial={reduceMotion ? false : { scaleX: 0 }}
@@ -134,7 +134,9 @@ function HeroCopy({ hero, accent, reduceMotion }) {
         transition={{ duration: 0.5, delay: 0.24, ease: EASE }}
       >
         <CtaLink cta={hero.primaryCta} primary accent={accent} />
-        <CtaLink cta={hero.secondaryCta} accent={accent} />
+        {hero.secondaryCta ? (
+          <CtaLink cta={hero.secondaryCta} accent={accent} />
+        ) : null}
       </motion.div>
     </>
   )
@@ -145,7 +147,11 @@ function usePreloadHeroImage(hero) {
     if (!hero?.heroImage) return undefined
 
     const href = hero.heroImageWebp || hero.heroImage
-    const type = hero.heroImageWebp ? 'image/webp' : 'image/jpeg'
+    const type = hero.heroImageWebp
+      ? 'image/webp'
+      : href.endsWith('.png')
+        ? 'image/png'
+        : 'image/jpeg'
     const existing = document.head.querySelector(`link[data-industry-hero-preload="true"]`)
     if (existing) existing.remove()
 
@@ -179,7 +185,7 @@ export default function IndustryHero({ hero, id = 'overview', accent = '#E7000B'
     return (
       <section
         id={id}
-        className={`industry-hero${focalClass}`}
+        className={`industry-hero industry-hero--detail${focalClass}`}
         aria-labelledby="industry-hero-heading"
         style={{ scrollMarginTop: '100px' }}
       >
@@ -196,8 +202,8 @@ export default function IndustryHero({ hero, id = 'overview', accent = '#E7000B'
             src={hero.heroImage}
             srcSet={hero.heroImageSrcSet?.jpg}
             sizes="100vw"
-            alt=""
-            aria-hidden="true"
+            alt={hero.heroImageAlt || ''}
+            aria-hidden={hero.heroImageAlt ? undefined : 'true'}
             width={hero.heroImageWidth || 1672}
             height={hero.heroImageHeight || 941}
             decoding="async"
@@ -205,9 +211,9 @@ export default function IndustryHero({ hero, id = 'overview', accent = '#E7000B'
           />
         </picture>
         <div className="industry-hero__overlay" aria-hidden="true" />
-        <div className="industry-hero__content">
-          <div className="mx-auto flex w-full max-w-[1280px] items-center px-5 pt-[108px] pb-14 sm:px-6 sm:pb-16 lg:px-10 lg:pb-20">
-            <div className="w-full max-w-2xl">
+        <div className="industry-hero__content-shell">
+          <div className="industry-hero__content-column">
+            <div className="industry-hero__content">
               <HeroCopy hero={hero} accent={accent} reduceMotion={reduceMotion} />
             </div>
           </div>
@@ -219,7 +225,7 @@ export default function IndustryHero({ hero, id = 'overview', accent = '#E7000B'
   return (
     <section
       id={id}
-      className="relative flex min-h-[min(100svh,900px)] items-center overflow-hidden bg-black"
+      className="page-hero relative flex min-h-[min(100svh,900px)] items-center overflow-hidden bg-black"
       aria-labelledby="industry-hero-heading"
       style={{ scrollMarginTop: '100px' }}
     >
@@ -231,7 +237,7 @@ export default function IndustryHero({ hero, id = 'overview', accent = '#E7000B'
         }}
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-5 pt-[108px] pb-14 sm:px-6 sm:pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:px-10 lg:pb-20">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-5 pb-14 sm:px-6 sm:pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:px-10 lg:pb-20">
         <div>
           <HeroCopy hero={hero} accent={accent} reduceMotion={reduceMotion} />
         </div>

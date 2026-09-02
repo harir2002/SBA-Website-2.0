@@ -12,6 +12,31 @@ html {
   }
 }
 
+:root {
+  --header-height: 88px;
+  --site-content-max-width: 1240px;
+  --site-gutter: clamp(24px, 5vw, 80px);
+  --industry-hero-content-width: 760px;
+  --industry-hero-page-gutter: 24px;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --site-gutter: clamp(28px, 5vw, 56px);
+    --industry-hero-content-width: 680px;
+    --industry-hero-page-gutter: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-height: 72px;
+    --site-gutter: 24px;
+    --industry-hero-content-width: 100%;
+    --industry-hero-page-gutter: 24px;
+  }
+}
+
 body {
   margin: 0;
   min-width: 320px;
@@ -19,6 +44,108 @@ body {
   background-color: var(--color-black);
   color: var(--color-white);
   font-family: var(--font-body);
+}
+
+/* Shared centred content container — equal left/right gutters */
+.site-container {
+  width: min(
+    calc(100% - (2 * var(--site-gutter))),
+    var(--site-content-max-width)
+  );
+  margin-inline: auto;
+}
+
+/* ─── Global fixed transparent header overlay ───────────────── */
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 1000;
+  width: 100%;
+  min-height: var(--header-height);
+  padding-top: env(safe-area-inset-top, 0px);
+  background: transparent;
+  border: none;
+  border-bottom: none;
+  outline: none;
+  box-shadow: none;
+  transition:
+    background-color 220ms ease,
+    backdrop-filter 220ms ease;
+}
+
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  border: none;
+  box-shadow: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.48) 0%,
+    rgba(0, 0, 0, 0.24) 58%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 1;
+  transition: opacity 220ms ease;
+}
+
+.site-header::after {
+  content: none;
+}
+
+.site-header.is-scrolled {
+  background: rgba(0, 0, 0, 0.88);
+  border: none;
+  border-bottom: none;
+  outline: none;
+  box-shadow: none;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.site-header.is-scrolled::before {
+  opacity: 0;
+}
+
+.site-header__inner {
+  position: relative;
+  z-index: 1;
+  height: var(--header-height);
+  border: none;
+  border-bottom: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.site-header__inner::before,
+.site-header__inner::after {
+  content: none;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.site-header__mobile {
+  position: relative;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.96);
+  border: none;
+  border-top: none;
+  box-shadow: none;
+}
+
+/* First-viewport heroes (non-photo): content clears header; media still full-bleed.
+   Photo industry heroes pad via .industry-hero__content-shell instead. */
+.page-hero {
+  padding-top: calc(var(--header-height) + 48px);
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    padding-top: calc(var(--header-height) + 32px);
+  }
 }
 
 /* ─── About section glow orbs (Option A) ─────────────────────── */
@@ -301,13 +428,25 @@ body {
 
 /* ─── Industry detail hero (photo background) ───────────────── */
 
-.industry-hero {
+.industry-hero,
+.industry-overview-hero {
   position: relative;
   isolation: isolate;
+  display: flex;
+  align-items: stretch;
   width: 100%;
   min-height: clamp(540px, 68vw, 760px);
   overflow: hidden;
   background: #000000;
+  padding-top: 0;
+}
+
+.industry-overview-hero {
+  min-height: min(100svh, 900px);
+}
+
+.industry-overview-hero .industry-hero__content {
+  max-width: none;
 }
 
 .industry-hero__image {
@@ -318,8 +457,41 @@ body {
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: right center;
-  filter: brightness(1.12) contrast(1.03) saturate(1.04);
+  object-position: center center;
+  filter: brightness(1.04) contrast(1.02) saturate(0.96);
+  transform: scale(1.01);
+  transform-origin: center center;
+}
+
+/* Detail pages only: one-shot cinematic push-in on the image layer */
+@keyframes industryHeroSlowZoom {
+  from {
+    transform: scale(1.01);
+  }
+
+  to {
+    transform: scale(1.035);
+  }
+}
+
+.industry-hero--detail {
+  position: relative;
+  overflow: hidden;
+}
+
+.industry-hero--detail .industry-hero__image {
+  transform: scale(1.01);
+  transform-origin: center center;
+  will-change: transform;
+  animation: industryHeroSlowZoom 14s ease-out 0s 1 normal forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .industry-hero--detail .industry-hero__image {
+    animation: none;
+    transform: scale(1.01);
+    will-change: auto;
+  }
 }
 
 .industry-hero__overlay {
@@ -330,42 +502,143 @@ body {
   background:
     linear-gradient(
       90deg,
-      rgba(0, 0, 0, 0.78) 0%,
-      rgba(0, 0, 0, 0.62) 30%,
-      rgba(0, 0, 0, 0.3) 52%,
-      rgba(0, 0, 0, 0.08) 78%,
-      rgba(0, 0, 0, 0.03) 100%
+      rgba(0, 0, 0, 0.74) 0%,
+      rgba(0, 0, 0, 0.62) 25%,
+      rgba(0, 0, 0, 0.42) 43%,
+      rgba(0, 0, 0, 0.18) 60%,
+      rgba(0, 0, 0, 0.06) 78%,
+      rgba(0, 0, 0, 0.02) 100%
     ),
     linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.12) 0%,
-      rgba(0, 0, 0, 0.26) 100%
+      rgba(0, 0, 0, 0.2) 100%
     );
 }
 
-.industry-hero__content {
+/*
+  Spans the hero and centres the content group vertically in the
+  usable area below the fixed transparent header.
+*/
+.industry-hero__content-shell {
   position: relative;
   z-index: 1;
-  min-height: inherit;
   display: flex;
   align-items: center;
+  width: 100%;
+  min-height: inherit;
+  box-sizing: border-box;
+  padding-top: var(--header-height);
+  padding-bottom: 0;
 }
 
-/* Page-specific focal points (desktop+) */
+.industry-hero__content {
+  width: 100%;
+  max-width: 500px;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.industry-hero__eyebrow {
+  margin: 0 0 14px;
+}
+
+.industry-hero__title {
+  margin: 0 0 18px;
+}
+
+.industry-hero__subtitle {
+  margin: 0 0 18px;
+}
+
+.industry-hero__rule {
+  margin: 0 0 18px;
+}
+
+/*
+  Detail-page heroes: one shared fixed content column.
+  Content length must never change width or horizontal position.
+*/
+.industry-hero--detail .industry-hero__content-shell {
+  justify-content: center;
+  padding-top: var(--header-height);
+  padding-right: var(--industry-hero-page-gutter);
+  padding-bottom: 0;
+  padding-left: var(--industry-hero-page-gutter);
+  box-sizing: border-box;
+}
+
+.industry-hero--detail .industry-hero__content-column {
+  flex: 0 0 var(--industry-hero-content-width);
+  box-sizing: border-box;
+  width: var(--industry-hero-content-width);
+  max-width: calc(100% - (2 * var(--industry-hero-page-gutter)));
+  min-width: 0;
+  margin-top: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-left: auto;
+  padding: 0;
+}
+
+.industry-hero--detail .industry-hero__content {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  flex: none;
+}
+
+.industry-hero--detail .industry-hero__eyebrow,
+.industry-hero--detail .industry-hero__title,
+.industry-hero--detail .industry-hero__subtitle,
+.industry-hero--detail .industry-hero__rule,
+.industry-hero--detail .industry-hero__body,
+.industry-hero--detail .industry-hero__actions {
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+}
+
+.industry-hero--detail .industry-hero__title {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 18px;
+  text-wrap: balance;
+}
+
+.industry-hero--detail .industry-hero__subtitle {
+  max-width: 620px;
+}
+
+.industry-hero--detail .industry-hero__body {
+  max-width: 600px;
+}
+
+.industry-hero--detail .industry-hero__actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+
+/* Industry-specific near-centre focal points */
 .industry-hero--bfsi .industry-hero__image {
-  object-position: 72% center;
+  object-position: 54% center;
 }
 
 .industry-hero--manufacturing .industry-hero__image {
-  object-position: 70% center;
+  object-position: 52% center;
 }
 
 .industry-hero--it-ites .industry-hero__image {
-  object-position: 70% center;
+  object-position: 54% center;
 }
 
 .industry-hero--diversified .industry-hero__image {
-  object-position: 68% center;
+  object-position: 52% center;
 }
 
 @media (max-width: 1024px) {
@@ -378,13 +651,36 @@ body {
   .industry-hero--manufacturing .industry-hero__image,
   .industry-hero--it-ites .industry-hero__image,
   .industry-hero--diversified .industry-hero__image {
-    object-position: 66% center;
-    filter: brightness(1.1) contrast(1.03) saturate(1.03);
+    object-position: 52% center;
+  }
+
+  .industry-hero--detail .industry-hero__content-shell {
+    padding-right: var(--industry-hero-page-gutter);
+    padding-left: var(--industry-hero-page-gutter);
+  }
+
+  .industry-hero--detail .industry-hero__content-column {
+    width: var(--industry-hero-content-width);
+    max-width: calc(100% - (2 * var(--industry-hero-page-gutter)));
+    margin-inline: auto;
+  }
+
+  .industry-hero--detail .industry-hero__title {
+    max-width: 100%;
+  }
+
+  .industry-hero--detail .industry-hero__subtitle {
+    max-width: 560px;
+  }
+
+  .industry-hero--detail .industry-hero__body {
+    max-width: 540px;
   }
 }
 
 @media (max-width: 768px) {
-  .industry-hero {
+  .industry-hero,
+  .industry-overview-hero {
     min-height: max(540px, 82svh);
   }
 
@@ -393,8 +689,8 @@ body {
   .industry-hero--manufacturing .industry-hero__image,
   .industry-hero--it-ites .industry-hero__image,
   .industry-hero--diversified .industry-hero__image {
-    object-position: 62% center;
-    filter: brightness(1.08) contrast(1.02) saturate(1.02);
+    object-position: 50% center;
+    filter: brightness(1.03) contrast(1.02) saturate(0.96);
   }
 
   .industry-hero__overlay {
@@ -402,22 +698,59 @@ body {
       linear-gradient(
         90deg,
         rgba(0, 0, 0, 0.76) 0%,
-        rgba(0, 0, 0, 0.52) 55%,
+        rgba(0, 0, 0, 0.56) 54%,
         rgba(0, 0, 0, 0.16) 100%
       ),
       linear-gradient(
         180deg,
         rgba(0, 0, 0, 0.1) 0%,
-        rgba(0, 0, 0, 0.36) 100%
+        rgba(0, 0, 0, 0.28) 100%
       );
+  }
+
+  .industry-hero__content-shell {
+    padding-top: var(--header-height);
+    padding-bottom: 24px;
+  }
+
+  .industry-hero--detail .industry-hero__content-shell {
+    justify-content: flex-start;
+    padding-top: var(--header-height);
+    padding-right: var(--industry-hero-page-gutter);
+    padding-bottom: 24px;
+    padding-left: var(--industry-hero-page-gutter);
+  }
+
+  .industry-hero--detail .industry-hero__content-column {
+    flex: none;
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .industry-hero--detail .industry-hero__content {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .industry-hero--detail .industry-hero__title,
+  .industry-hero--detail .industry-hero__subtitle,
+  .industry-hero--detail .industry-hero__body {
+    max-width: 100%;
   }
 }
 
 @media (max-height: 520px) and (orientation: landscape) {
-  .industry-hero {
+  .industry-hero,
+  .industry-overview-hero {
     min-height: 100svh;
-    padding-top: 88px;
-    padding-bottom: 32px;
+  }
+
+  .industry-hero__content-shell {
+    padding-top: var(--header-height);
+    padding-bottom: 20px;
+    align-items: flex-start;
   }
 
   .industry-hero__image,
@@ -425,23 +758,18 @@ body {
   .industry-hero--manufacturing .industry-hero__image,
   .industry-hero--it-ites .industry-hero__image,
   .industry-hero--diversified .industry-hero__image {
-    object-position: 68% center;
-  }
-
-  .industry-hero__content {
-    align-items: flex-start;
+    object-position: 52% center;
   }
 }
 
-/* Shared industry hero body + CTA spacing (overview + detail pages) */
+/* Shared industry hero body + CTA spacing (detail photo heroes) */
 .industry-hero__body {
   font-family: var(--font-body);
   font-size: clamp(0.92rem, 1.05vw, 1.05rem);
   font-weight: 400;
   line-height: 1.55;
-  max-width: 58ch;
-  margin-top: 14px;
-  margin-bottom: 0;
+  max-width: 52ch;
+  margin: 0;
 }
 
 .industry-hero__body p {
@@ -455,8 +783,10 @@ body {
 .industry-hero__actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 12px;
-  margin-top: 16px;
+  margin-top: 22px;
+  padding-bottom: 8px;
 }
 
 @media (max-width: 768px) {
@@ -464,12 +794,10 @@ body {
     font-size: 0.95rem;
     line-height: 1.5;
     max-width: 100%;
-    margin-top: 12px;
-    margin-bottom: 0;
   }
 
   .industry-hero__actions {
-    margin-top: 12px;
+    margin-top: 18px;
     gap: 10px;
   }
 }
@@ -484,7 +812,7 @@ body {
   position: relative;
   min-height: 100%;
   overflow: hidden;
-  background: #080808;
+  background: #000000;
 }
 
 .industry-card__image {

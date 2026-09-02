@@ -168,7 +168,6 @@ export default function HeroCarousel({
       id={sectionId}
       className={`${isFullBleed ? 'hero-fullbleed' : 'hero-cap'} relative w-full overflow-hidden bg-black ${className}`.trim()}
       aria-label={ariaLabel}
-      style={{ marginTop: '72px' }}
     >
       <style>{`
         /* ——— Full-bleed industry banner ——— */
@@ -234,14 +233,14 @@ export default function HeroCarousel({
           height: 100%;
           width: 100%;
           max-width: 550px;
-          padding: 40px 24px 56px;
+          padding: calc(var(--header-height, 88px) + 24px) 24px 56px;
           text-align: left;
         }
         @media (min-width: 768px) {
           .hero-fullbleed-content {
             width: 48%;
             max-width: 550px;
-            padding: 48px 40px 64px 56px;
+            padding: calc(var(--header-height, 88px) + 24px) 40px 64px 56px;
           }
         }
         @media (min-width: 1280px) {
@@ -311,7 +310,7 @@ export default function HeroCarousel({
           position: relative;
           z-index: 2;
           width: 100%;
-          padding: 28px 20px 20px;
+          padding: calc(var(--header-height, 88px) + 12px) 20px 20px;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -329,7 +328,7 @@ export default function HeroCarousel({
             width: 46%;
             flex-shrink: 0;
             height: 100%;
-            padding: 40px 16px 48px 40px;
+            padding: calc(var(--header-height, 88px) + 8px) 16px 48px 40px;
             background: linear-gradient(
               90deg,
               #000 0%,
@@ -342,7 +341,7 @@ export default function HeroCarousel({
         }
         @media (min-width: 1280px) {
           .hero-text-col {
-            padding: 48px 20px 56px 56px;
+            padding: calc(var(--header-height, 88px) + 12px) 20px 56px 56px;
           }
         }
         .hero-image-col {

@@ -10,255 +10,222 @@ const EASE = [0.16, 1, 0.3, 1]
 const RED = '#E7000B'
 const data = INDUSTRY_OVERVIEW
 
-/** Dynamic radial industries hub — sits directly on page black (no card/box). */
-const CX = 260
-const CY = 260
-const RING_R = 138
-const HUB_R = 62
-const VB = 520
-
-const INDUSTRY_RADIAL = [
-  { slug: 'bfsi', label: 'BFSI', lines: ['BFSI'] },
-  { slug: 'manufacturing', label: 'Manufacturing', lines: ['MANUFACTURING'] },
-  { slug: 'it-ites', label: 'IT/ITES', lines: ['IT/ITES'] },
+/** Industries constellation — premium 2×2 signal hub (phone-first, not circular orbit). */
+const INDUSTRY_NODES = [
+  {
+    slug: 'bfsi',
+    label: 'BFSI',
+    title: 'BFSI',
+    blurb: 'Banking, financial services & insurance',
+    spot: 'tl',
+  },
+  {
+    slug: 'manufacturing',
+    label: 'Manufacturing',
+    title: 'Manufacturing',
+    blurb: 'Plants, supply chains & operations',
+    spot: 'tr',
+  },
   {
     slug: 'diversified-enterprises',
     label: 'Diversified Enterprises',
-    lines: ['DIVERSIFIED', 'ENTERPRISES'],
+    title: 'Diversified Enterprises',
+    blurb: 'Multi-business group complexity',
+    spot: 'bl',
   },
-].map((item, i) => {
-  const angleDeg = -90 + i * 90
-  const rad = (angleDeg * Math.PI) / 180
-  const x = CX + RING_R * Math.cos(rad)
-  const y = CY + RING_R * Math.sin(rad)
-  const labelR = RING_R + 46
-  const lx = CX + labelR * Math.cos(rad)
-  const ly = CY + labelR * Math.sin(rad)
-
-  let anchor = 'middle'
-  let dy = 0
-  if (angleDeg === 0) {
-    anchor = 'start'
-    dy = 4
-  } else if (angleDeg === 180 || angleDeg === -180) {
-    anchor = 'end'
-    dy = 4
-  } else if (angleDeg === -90) {
-    dy = -4
-  } else if (angleDeg === 90) {
-    dy = 16
-  }
-
-  return { ...item, x, y, lx, ly: ly + dy, anchor, angleDeg }
-})
+  {
+    slug: 'it-ites',
+    label: 'IT/ITES',
+    title: 'IT / ITES',
+    blurb: 'Digital delivery & scale platforms',
+    spot: 'br',
+  },
+]
 
 function OverviewHeroLandscape() {
   const reduceMotion = useReducedMotion()
-  const ringPath = `M${CX} ${CY - RING_R} A${RING_R} ${RING_R} 0 1 1 ${CX - 0.01} ${CY - RING_R}`
 
   return (
-    <div className="relative w-full max-w-[560px]">
-      <style>{`
-        @keyframes radial-orbit-slow {
-          to { transform: rotate(360deg); }
+    <div className="relative mx-auto w-full max-w-[440px] select-none sm:max-w-[480px]">
+      {/* Soft brand atmosphere */}
+      <div
+        className="pointer-events-none absolute inset-[12%] rounded-[42%] opacity-90"
+        aria-hidden="true"
+        style={{
+          background:
+            'radial-gradient(ellipse at center, rgba(231,0,11,0.28) 0%, rgba(231,0,11,0.08) 42%, transparent 70%)',
+          filter: 'blur(2px)',
+        }}
+      />
+
+      {/* Connector lattice behind tiles */}
+      <svg
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="hub-line" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="rgba(245,245,242,0.08)" />
+            <stop offset="50%" stopColor="rgba(231,0,11,0.45)" />
+            <stop offset="100%" stopColor="rgba(245,245,242,0.08)" />
+          </linearGradient>
+        </defs>
+        <line x1="25" y1="25" x2="75" y2="75" stroke="url(#hub-line)" strokeWidth="0.35" />
+        <line x1="75" y1="25" x2="25" y2="75" stroke="url(#hub-line)" strokeWidth="0.35" />
+        <line x1="25" y1="25" x2="75" y2="25" stroke="rgba(245,245,242,0.1)" strokeWidth="0.25" />
+        <line x1="75" y1="25" x2="75" y2="75" stroke="rgba(245,245,242,0.1)" strokeWidth="0.25" />
+        <line x1="75" y1="75" x2="25" y2="75" stroke="rgba(245,245,242,0.1)" strokeWidth="0.25" />
+        <line x1="25" y1="75" x2="25" y2="25" stroke="rgba(245,245,242,0.1)" strokeWidth="0.25" />
+        {!reduceMotion && (
+          <>
+            <circle r="0.9" fill="#E7000B">
+              <animateMotion
+                dur="7s"
+                repeatCount="indefinite"
+                path="M25 25 L75 25 L75 75 L25 75 Z"
+              />
+            </circle>
+            <circle r="0.55" fill="#F5F5F2" opacity="0.7">
+              <animateMotion
+                dur="11s"
+                repeatCount="indefinite"
+                path="M75 25 L25 25 L25 75 L75 75 Z"
+              />
+            </circle>
+          </>
+        )}
+      </svg>
+
+      {/* Equal 2×2 tiles — fixed cell size so IT/ITES matches the rest */}
+      <div className="relative grid grid-cols-2 grid-rows-2 gap-3 sm:gap-3.5">
+        {INDUSTRY_NODES.map((node, i) => (
+          <motion.div
+            key={node.slug}
+            className="h-full min-h-0"
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            animate={
+              reduceMotion
+                ? { opacity: 1, y: 0 }
+                : { opacity: 1, y: [0, -5, 0] }
+            }
+            transition={
+              reduceMotion
+                ? { duration: 0.45, delay: 0.08 + i * 0.07, ease: EASE }
+                : {
+                    opacity: { duration: 0.45, delay: 0.08 + i * 0.07, ease: EASE },
+                    y: {
+                      duration: 3.8 + i * 0.35,
+                      repeat: Infinity,
+                      ease: 'easeInOut',
+                      delay: 0.6 + i * 0.4,
+                    },
+                  }
+            }
+          >
+            <Link
+              to={`/industries/${node.slug}`}
+              className="group relative flex h-[168px] w-full flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.1] bg-[#0A0A0A]/90 p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur-sm transition-[border-color,background-color,box-shadow] duration-300 hover:border-[#E7000B]/55 hover:bg-[#111] hover:shadow-[0_12px_40px_rgba(231,0,11,0.14)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E7000B] sm:h-[180px] sm:p-5"
+              aria-label={node.label}
+            >
+              {/* Corner accent */}
+              <span
+                className="absolute top-0 right-0 h-10 w-10 opacity-70 transition-opacity group-hover:opacity-100"
+                aria-hidden="true"
+                style={{
+                  background:
+                    'linear-gradient(225deg, rgba(231,0,11,0.55) 0%, transparent 58%)',
+                }}
+              />
+              <span className="relative flex items-center gap-2">
+                <span
+                  className="inline-block h-2 w-2 rotate-45 bg-[#E7000B] shadow-[0_0_10px_rgba(231,0,11,0.7)]"
+                  aria-hidden="true"
+                />
+                <span className="font-heading text-[10px] font-bold tracking-[0.18em] text-white/45 uppercase">
+                  Industry
+                </span>
+              </span>
+              <span className="relative">
+                <span className="block min-h-[2.5rem] font-heading text-[0.92rem] font-extrabold leading-tight tracking-wide text-[#F5F5F2] uppercase sm:min-h-[2.7rem] sm:text-[1.02rem]">
+                  {node.title}
+                </span>
+                <span className="mt-1.5 line-clamp-2 block min-h-[2.4em] font-body text-[11px] leading-snug text-[#8E8E8E] sm:text-xs">
+                  {node.blurb}
+                </span>
+              </span>
+              <span className="relative inline-flex items-center gap-1.5 font-heading text-[10px] font-bold tracking-[0.14em] text-[#E7000B] uppercase opacity-80 transition-[opacity,gap] group-hover:gap-2.5 group-hover:opacity-100">
+                Explore
+                <span aria-hidden="true">{'\u2192'}</span>
+              </span>
+            </Link>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Center hub badge — sits over the 2×2 seam */}
+      <motion.div
+        className="pointer-events-none absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
+        initial={reduceMotion ? false : { opacity: 0, scale: 0.82 }}
+        animate={
+          reduceMotion
+            ? { opacity: 1, scale: 1 }
+            : { opacity: 1, scale: [1, 1.04, 1] }
         }
-        @media (prefers-reduced-motion: reduce) {
-          .radial-orbit-anim {
-            animation: none !important;
-          }
+        transition={
+          reduceMotion
+            ? { duration: 0.55, delay: 0.15, ease: EASE }
+            : {
+                opacity: { duration: 0.55, delay: 0.15, ease: EASE },
+                scale: { duration: 3.2, repeat: Infinity, ease: 'easeInOut', delay: 0.8 },
+              }
         }
-      `}</style>
-
-      {/* Static container — continuous float/rotate was causing page flicker */}
-      <div className="relative aspect-square w-full overflow-visible bg-transparent">
-        <svg
-          viewBox={`0 0 ${VB} ${VB}`}
-          className="h-full w-full overflow-visible"
-          role="img"
-          aria-label="Industries Overview: BFSI, Manufacturing, IT/ITES, and Diversified Enterprises"
-        >
-          <defs>
-            <filter id="radial-hub-glow" x="-60%" y="-60%" width="220%" height="220%">
-              <feGaussianBlur stdDeviation="10" result="b" />
-              <feMerge>
-                <feMergeNode in="b" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-            <radialGradient id="radial-hub-fill" cx="38%" cy="32%" r="68%">
-              <stop offset="0%" stopColor="#FF2A33" />
-              <stop offset="55%" stopColor={RED} />
-              <stop offset="100%" stopColor="#B50008" />
-            </radialGradient>
-            <radialGradient id="radial-aura" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor={RED} stopOpacity="0.42" />
-              <stop offset="60%" stopColor={RED} stopOpacity="0.1" />
-              <stop offset="100%" stopColor={RED} stopOpacity="0" />
-            </radialGradient>
-          </defs>
-
-          <circle cx={CX} cy={CY} r="124" fill="url(#radial-aura)" />
-
-          {/* One slow outer orbit only */}
-          <g
-            className="radial-orbit-anim"
+        aria-hidden="true"
+      >
+        {/* Soft square rings (not circular orbit) */}
+        <div className="relative flex h-[96px] w-[96px] items-center justify-center sm:h-[104px] sm:w-[104px]">
+          <div className="absolute inset-0 rounded-[24px] border border-white/10" />
+          <div className="absolute inset-[-10px] rounded-[28px] border border-[#E7000B]/25" />
+          {!reduceMotion && (
+            <div
+              className="absolute inset-[-10px] rounded-[28px] border border-[#E7000B]/50"
+              style={{
+                animation: 'hub-pulse 2.8s ease-in-out infinite',
+              }}
+            />
+          )}
+          <div
+            className="relative flex h-[72px] w-[72px] flex-col items-center justify-center rounded-[18px] text-center sm:h-[80px] sm:w-[80px]"
             style={{
-              transformOrigin: `${CX}px ${CY}px`,
-              animation: reduceMotion ? undefined : 'radial-orbit-slow 48s linear infinite',
+              background:
+                'linear-gradient(145deg, #FF2A33 0%, #E7000B 48%, #9A0008 100%)',
+              boxShadow:
+                '0 0 0 1px rgba(255,255,255,0.12) inset, 0 10px 36px rgba(231,0,11,0.45)',
             }}
           >
-            <circle
-              cx={CX}
-              cy={CY}
-              r="176"
-              fill="none"
-              stroke="rgba(245,245,242,0.08)"
-              strokeWidth="1"
-              strokeDasharray="3 10"
-            />
-            <circle cx={CX} cy={CY - 176} r="2.5" fill={RED} opacity="0.65" />
-          </g>
+            <span className="font-heading text-[9px] font-extrabold tracking-[0.16em] text-white uppercase sm:text-[10px]">
+              Industries
+            </span>
+            <span className="mt-0.5 font-heading text-[9px] font-bold tracking-[0.18em] text-white/90 uppercase sm:text-[10px]">
+              Overview
+            </span>
+          </div>
+        </div>
+      </motion.div>
 
-          <circle
-            cx={CX}
-            cy={CY}
-            r={RING_R}
-            fill="none"
-            stroke="rgba(245,245,242,0.28)"
-            strokeWidth="1"
-          />
-
-          {INDUSTRY_RADIAL.map((node, i) => (
-            <motion.line
-              key={`spoke-${node.slug}`}
-              x1={CX}
-              y1={CY}
-              x2={node.x}
-              y2={node.y}
-              stroke="rgba(245,245,242,0.28)"
-              strokeWidth="1"
-              initial={reduceMotion ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.45, delay: 0.12 + i * 0.06, ease: EASE }}
-            />
-          ))}
-
-          {!reduceMotion && (
-            <circle r="3.25" fill="#fff">
-              <animateMotion dur="8s" repeatCount="indefinite" path={ringPath} />
-            </circle>
-          )}
-
-          {/* Center hub — entrance only, no looping transform */}
-          <motion.g
-            initial={reduceMotion ? false : { opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: EASE }}
-            style={{ transformOrigin: `${CX}px ${CY}px` }}
-          >
-            <circle
-              cx={CX}
-              cy={CY}
-              r={HUB_R + 10}
-              fill={RED}
-              opacity="0.18"
-              filter="url(#radial-hub-glow)"
-            />
-            <circle
-              cx={CX}
-              cy={CY}
-              r={HUB_R}
-              fill="url(#radial-hub-fill)"
-              filter="url(#radial-hub-glow)"
-            />
-            <text
-              x={CX}
-              y={CY - 8}
-              textAnchor="middle"
-              fill="#FFFFFF"
-              style={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 10,
-                fontWeight: 700,
-                letterSpacing: '0.12em',
-              }}
-            >
-              INDUSTRIES
-            </text>
-            <text
-              x={CX}
-              y={CY + 8}
-              textAnchor="middle"
-              fill="#FFFFFF"
-              style={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: 10,
-                fontWeight: 700,
-                letterSpacing: '0.12em',
-              }}
-            >
-              OVERVIEW
-            </text>
-          </motion.g>
-
-          {INDUSTRY_RADIAL.map((node, i) => (
-            <motion.g
-              key={node.slug}
-              initial={reduceMotion ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.25 + i * 0.08, ease: EASE }}
-            >
-              <circle cx={node.x} cy={node.y} r="5" fill="#FFFFFF" />
-              <text
-                x={node.lx}
-                y={node.ly}
-                textAnchor={node.anchor}
-                fill="#F5F5F2"
-                style={{
-                  fontFamily: 'Poppins, sans-serif',
-                  fontSize: node.lines.length > 1 ? 9 : 10.5,
-                  fontWeight: 600,
-                  letterSpacing: '0.06em',
-                }}
-              >
-                {node.lines.map((line, li) => (
-                  <tspan key={line} x={node.lx} dy={li === 0 ? 0 : 12}>
-                    {line}
-                  </tspan>
-                ))}
-              </text>
-            </motion.g>
-          ))}
-        </svg>
-
-        <ul className="absolute inset-0" aria-label="Industries">
-          {INDUSTRY_RADIAL.map((node) => (
-            <li
-              key={node.slug}
-              className="absolute"
-              style={{
-                left: `${(node.x / VB) * 100}%`,
-                top: `${(node.y / VB) * 100}%`,
-                transform: 'translate(-50%, -50%)',
-                width: '20%',
-                height: '20%',
-              }}
-            >
-              <Link
-                to={`/industries/${node.slug}`}
-                className="block h-full w-full rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-red"
-                aria-label={node.label}
-              >
-                <span className="sr-only">{node.label}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <style>{`
+        @keyframes hub-pulse {
+          0%, 100% { opacity: 0.25; transform: scale(1); }
+          50% { opacity: 0.7; transform: scale(1.04); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hub-pulse { animation: none !important; }
+        }
+      `}</style>
     </div>
   )
 }
-
 
 export function OverviewHero() {
   const reduceMotion = useReducedMotion()
@@ -266,7 +233,7 @@ export function OverviewHero() {
 
   return (
     <section
-      className="relative flex min-h-[min(100svh,900px)] items-center overflow-hidden bg-black"
+      className="industry-overview-hero"
       aria-labelledby="industries-overview-heading"
     >
       <div
@@ -280,7 +247,7 @@ export function OverviewHero() {
 
       {/* Page progress motif — starts in hero */}
       <motion.div
-        className="pointer-events-none absolute top-[108px] bottom-0 left-4 w-px origin-top sm:left-6 lg:left-10"
+        className="pointer-events-none absolute top-[calc(var(--header-height)+24px)] bottom-0 left-4 w-px origin-top sm:left-6 lg:left-10"
         style={{ background: `linear-gradient(180deg, ${RED} 0%, transparent 100%)` }}
         aria-hidden="true"
         initial={reduceMotion ? false : { scaleY: 0 }}
@@ -288,80 +255,82 @@ export function OverviewHero() {
         transition={{ duration: 1.2, ease: EASE }}
       />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-5 pt-[108px] pb-16 sm:px-6 sm:pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:px-10 lg:pb-24">
-        <div>
-          <motion.p
-            className="font-heading text-xs font-bold tracking-[0.28em] uppercase"
-            style={{ color: RED }}
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: EASE }}
-          >
-            {hero.eyebrow}
-          </motion.p>
-          <motion.h1
-            id="industries-overview-heading"
-            className="mt-4 max-w-[18ch] font-heading text-[2.1rem] font-extrabold leading-[1.12] text-[#F5F5F2] sm:text-5xl lg:text-[3.2rem]"
-            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.05, ease: EASE }}
-          >
-            {hero.headline}
-          </motion.h1>
-          <motion.p
-            className="mt-4 font-heading text-base font-semibold text-[#F5F5F2]/70 sm:text-lg"
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
-          >
-            {hero.subheadline}
-          </motion.p>
-          <motion.span
-            className="mt-6 block h-[2px] w-14 origin-left rounded-full"
-            style={{ backgroundColor: RED }}
-            aria-hidden="true"
-            initial={reduceMotion ? false : { scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.55, delay: 0.15, ease: EASE }}
-          />
-          <motion.p
-            className="industry-hero__body text-[#8E8E8E]"
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.18, ease: EASE }}
-          >
-            {hero.body}
-          </motion.p>
-          <motion.div
-            className="industry-hero__actions"
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.24, ease: EASE }}
-          >
-            <a
-              href={hero.primaryCta.href}
-              className="inline-flex items-center justify-center rounded-md px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+      <div className="industry-hero__content-shell">
+        <div className="relative z-10 mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-5 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:px-10">
+          <div className="industry-hero__content max-w-none">
+            <motion.p
+              className="industry-hero__eyebrow font-heading text-xs font-bold tracking-[0.28em] uppercase"
+              style={{ color: RED }}
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: EASE }}
+            >
+              {hero.eyebrow}
+            </motion.p>
+            <motion.h1
+              id="industries-overview-heading"
+              className="industry-hero__title max-w-[18ch] font-heading text-[2.1rem] font-extrabold leading-[1.12] text-[#F5F5F2] sm:text-5xl lg:text-[3.2rem]"
+              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.05, ease: EASE }}
+            >
+              {hero.headline}
+            </motion.h1>
+            <motion.p
+              className="industry-hero__subtitle font-heading text-base font-semibold text-[#F5F5F2]/70 sm:text-lg"
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
+            >
+              {hero.subheadline}
+            </motion.p>
+            <motion.span
+              className="industry-hero__rule block h-[2px] w-14 origin-left rounded-full"
               style={{ backgroundColor: RED }}
+              aria-hidden="true"
+              initial={reduceMotion ? false : { scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.55, delay: 0.15, ease: EASE }}
+            />
+            <motion.p
+              className="industry-hero__body text-[#8E8E8E]"
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.18, ease: EASE }}
             >
-              {hero.primaryCta.label}
-            </a>
-            <Link
-              to={hero.secondaryCta.href}
-              className="inline-flex items-center justify-center rounded-md border border-white/30 px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:border-[#E7000B] hover:text-[#E7000B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              {hero.body}
+            </motion.p>
+            <motion.div
+              className="industry-hero__actions"
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.24, ease: EASE }}
             >
-              {hero.secondaryCta.label}
-            </Link>
+              <a
+                href={hero.primaryCta.href}
+                className="inline-flex items-center justify-center rounded-md px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                style={{ backgroundColor: RED }}
+              >
+                {hero.primaryCta.label}
+              </a>
+              <Link
+                to={hero.secondaryCta.href}
+                className="inline-flex items-center justify-center rounded-md border border-white/30 px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:border-[#E7000B] hover:text-[#E7000B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {hero.secondaryCta.label}
+              </Link>
+            </motion.div>
+          </div>
+
+          <motion.div
+            className="flex justify-center lg:justify-end"
+            initial={reduceMotion ? false : { opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.65, delay: 0.15, ease: EASE }}
+          >
+            <OverviewHeroLandscape />
           </motion.div>
         </div>
-
-        <motion.div
-          className="flex justify-center lg:justify-end"
-          initial={reduceMotion ? false : { opacity: 0, x: 24 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.65, delay: 0.15, ease: EASE }}
-        >
-          <OverviewHeroLandscape />
-        </motion.div>
       </div>
     </section>
   )
@@ -441,31 +410,20 @@ export function IndustryCardsSection() {
             >
               <Link
                 to={`/industries/${card.slug}`}
-                className="industry-card group grid grid-cols-1 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#111113] transition-[border-color] duration-300 hover:border-[#E7000B]/45 focus-visible:border-[#E7000B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E7000B] md:grid-cols-[0.85fr_1.15fr]"
+                className="industry-card group grid min-h-[200px] grid-cols-1 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#111113] transition-[border-color] duration-300 hover:border-[#E7000B]/45 focus-visible:border-[#E7000B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E7000B] md:min-h-[220px] md:grid-cols-[0.85fr_1.15fr]"
               >
                 <div className="industry-card__image-wrap relative border-b border-white/[0.06] md:min-h-[200px] md:border-r md:border-b-0">
-                  <picture>
-                    {card.imageWebp && (
-                      <source
-                        type="image/webp"
-                        srcSet={card.imageSrcSet?.webp || card.imageWebp}
-                        sizes="(min-width: 768px) 42vw, 100vw"
-                      />
-                    )}
-                    <img
-                      className="industry-card__image"
-                      src={card.image}
-                      srcSet={card.imageSrcSet?.jpg}
-                      sizes="(min-width: 768px) 42vw, 100vw"
-                      alt={card.imageAlt}
-                      width={960}
-                      height={540}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </picture>
+                  <img
+                    className="industry-card__image"
+                    src={card.image}
+                    alt={card.imageAlt}
+                    width={960}
+                    height={540}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
-                <div className="industry-card__content relative z-[2] flex flex-col justify-center p-6 transition-transform duration-300 ease-out group-hover:-translate-y-2 group-focus-visible:-translate-y-2 sm:p-8">
+                <div className="industry-card__content relative z-[2] flex min-h-[180px] flex-col justify-center p-6 transition-transform duration-300 ease-out group-hover:-translate-y-2 group-focus-visible:-translate-y-2 sm:min-h-[200px] sm:p-8">
                   <h3 className="font-heading text-2xl font-extrabold text-[#F5F5F2]">
                     {card.title}
                   </h3>
@@ -476,7 +434,8 @@ export function IndustryCardsSection() {
                     className="mt-5 font-heading text-xs font-bold tracking-wide uppercase"
                     style={{ color: RED }}
                   >
-                    {card.cta} →
+                    {card.cta}
+                    {' \u2192'}
                   </span>
                 </div>
               </Link>
@@ -487,7 +446,6 @@ export function IndustryCardsSection() {
     </section>
   )
 }
-
 export function IndustryModelSection() {
   const reduceMotion = useReducedMotion()
   const { model } = data
@@ -588,7 +546,7 @@ export function OverviewFinalCta() {
               'radial-gradient(ellipse 55% 45% at 50% 40%, rgba(231,0,11,0.14) 0%, transparent 58%)',
           }}
         />
-        {/* Soft signal constellation — no box placeholders */}
+        {/* Soft signal constellation - no box placeholders */}
         <svg
           className="absolute inset-x-0 bottom-0 mx-auto h-40 w-[94%] max-w-5xl opacity-80"
           viewBox="0 0 900 160"

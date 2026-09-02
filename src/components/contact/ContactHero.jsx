@@ -1,4 +1,4 @@
-﻿import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { CONTACT_PROOF } from '../../data/contactContent'
 import ContactMotionPanel from './ContactMotionPanel'
@@ -12,7 +12,7 @@ export default function ContactHero({ onStart }) {
 
   return (
     <section
-      className="contact-hero relative overflow-hidden bg-black"
+      className="contact-hero page-hero relative overflow-hidden bg-black"
       aria-labelledby="contact-hero-heading"
       style={{
         minHeight: 'clamp(560px, 62vh, 760px)',
@@ -24,7 +24,7 @@ export default function ContactHero({ onStart }) {
           grid-template-columns: minmax(0, 58%) minmax(280px, 42%);
           align-items: center;
           gap: clamp(32px, 5vw, 92px);
-          padding: clamp(88px, 8vw, 128px) clamp(24px, 7vw, 80px) clamp(48px, 6vw, 80px);
+          padding: 0 clamp(24px, 7vw, 80px) clamp(48px, 6vw, 80px);
           max-width: 1280px;
           margin: 0 auto;
         }
@@ -40,7 +40,7 @@ export default function ContactHero({ onStart }) {
           .contact-hero-grid {
             grid-template-columns: 1fr;
             gap: 28px;
-            padding: 96px 24px 64px;
+            padding: 0 24px 64px;
           }
           .contact-hero__visual {
             width: min(82vw, 320px);
@@ -80,7 +80,7 @@ export default function ContactHero({ onStart }) {
                 onClick={() => onStart()}
                 className="inline-flex items-center justify-center rounded-md bg-primary-red px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                Get in Touch
+                Let's Connect
               </button>
               <Link
                 to="/#capabilities"

@@ -83,7 +83,7 @@ export default function AboutFinalCta() {
             to="/#contact"
             className="inline-flex items-center justify-center rounded-md bg-primary-red px-7 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
-            Get in Touch
+            Let's Connect
           </Link>
           <Link
             to="/#capabilities"

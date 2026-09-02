@@ -11,27 +11,20 @@ export const INDUSTRY_NAV = [
   { label: 'Diversified Enterprises', path: '/industries/diversified-enterprises' },
 ]
 
-/** Shared industry image paths (detail heroes + overview cards). */
-function industryHeroAssets(stem) {
-  const base = `/images/industries/${stem}`
+/** Detail-page PNG hero (public/images/industries/*-hero.png). */
+function industryHeroPng(stem, heroImageAlt) {
   return {
-    heroImage: `${base}.jpg`,
-    heroImageWebp: `${base}.webp`,
-    heroImageSrcSet: {
-      webp: `${base}-960.webp 960w, ${base}-1280.webp 1280w, ${base}.webp 1672w`,
-      jpg: `${base}-960.jpg 960w, ${base}-1280.jpg 1280w, ${base}.jpg 1672w`,
-    },
-    heroImageWidth: 1672,
-    heroImageHeight: 941,
+    heroImage: `/images/industries/${stem}.png`,
+    heroImageAlt,
+    heroImageWidth: 1920,
+    heroImageHeight: 1080,
   }
 }
 
+/** Overview card PNG (same public assets as detail heroes). */
 function industryCardImage(stem, imageAlt) {
-  const assets = industryHeroAssets(stem)
   return {
-    image: assets.heroImage,
-    imageWebp: assets.heroImageWebp,
-    imageSrcSet: assets.heroImageSrcSet,
+    image: `/images/industries/${stem}.png`,
     imageAlt,
   }
 }
@@ -48,7 +41,7 @@ export const INDUSTRY_OVERVIEW = {
     body:
       'Every industry has different operational pressures, risks, and technology priorities. SBA brings modernisation, cyber resilience, data, AI, digital engineering, and managed operations together around what your business depends on most.',
     primaryCta: { label: 'Explore Our Industries', href: '#industry-cards' },
-    secondaryCta: { label: 'Talk to an Industry Expert', href: '/contact' },
+    secondaryCta: { label: "Let's Connect", href: '/contact' },
     visualKey: 'overview',
   },
   reality: {
@@ -65,7 +58,7 @@ export const INDUSTRY_OVERVIEW = {
       body:
         'Secure, resilient technology foundations for high-volume transactions, regulated data, and always-on financial operations.',
       cta: 'Explore BFSI',
-      ...industryCardImage('bfsi-industry-hero', 'BFSI technology and financial operations'),
+      ...industryCardImage('bfsi-hero', 'BFSI technology and financial operations'),
     },
     {
       slug: 'manufacturing',
@@ -74,7 +67,7 @@ export const INDUSTRY_OVERVIEW = {
         'Connected, protected, and observable technology environments for production, ERP, supply chains, and distributed sites.',
       cta: 'Explore Manufacturing',
       ...industryCardImage(
-        'manufacturing-industry-hero',
+        'manufacturing-hero',
         'Manufacturing technology and connected operations',
       ),
     },
@@ -84,7 +77,7 @@ export const INDUSTRY_OVERVIEW = {
       body:
         'Modern cloud, data, DevOps, and managed operations for businesses that need speed without instability.',
       cta: 'Explore IT/ITES',
-      ...industryCardImage('it-ites-industry-hero', 'IT and IT-enabled services technology'),
+      ...industryCardImage('it-ites-hero', 'IT and IT-enabled services technology'),
     },
     {
       slug: 'diversified-enterprises',
@@ -127,7 +120,7 @@ export const INDUSTRY_OVERVIEW = {
   cta: {
     headline: 'Find the right path forward for your industry.',
     body: 'Talk to SBA about the technology, security, resilience, data, and AI priorities shaping your organisation’s next chapter.',
-    primaryCta: { label: 'Talk to an Industry Expert', href: '/contact' },
+    primaryCta: { label: "Let's Connect", href: '/contact' },
     secondaryCta: { label: 'Explore Our Capabilities', href: '/#capabilities' },
   },
 }
@@ -136,7 +129,7 @@ export const SHARED_INDUSTRY_CTA = {
   eyebrow: 'READY TO MOVE FORWARD?',
   headline: 'Build the next chapter with confidence.',
   body: 'Talk to SBA about modernising the foundation, protecting critical operations, activating intelligence, and creating the connected capabilities your organisation needs next.',
-  primaryCta: { label: 'Talk to an Industry Expert', href: '/contact' },
+  primaryCta: { label: "Let's Connect", href: '/contact' },
   secondaryCta: { label: 'Contact SBA', href: '/contact' },
   signature: 'Engineering the modern, secure, and resilient enterprise.',
 }
@@ -147,7 +140,7 @@ export const INDUSTRY_ANCHORS = [
   { id: 'solution-areas', label: 'Solution Areas' },
   { id: 'use-cases', label: 'Use Cases' },
   { id: 'why-sba', label: 'Why SBA' },
-  { id: 'talk-to-an-expert', label: 'Talk to an Expert' },
+  { id: 'talk-to-an-expert', label: "Let's Connect" },
 ]
 
 /** @type {Record<string, object>} */
@@ -163,10 +156,12 @@ export const INDUSTRY_PAGES = {
       headline: 'Built for financial operations that cannot pause.',
       subheadline: 'Modernise critical systems. Protect trust. Maintain continuity.',
       body: 'SBA helps financial institutions modernise critical systems, protect sensitive data, strengthen cyber resilience, and maintain continuity across high-volume, always-on operations.',
-      primaryCta: { label: 'Talk to a BFSI Expert', href: '/contact' },
-      secondaryCta: { label: 'Explore Cyber Resilience', href: '/#protect-and-recover' },
+      primaryCta: { label: "Let's Connect", href: '/contact' },
       visualKey: 'bfsi',
-      ...industryHeroAssets('bfsi-industry-hero'),
+      ...industryHeroPng(
+        'bfsi-hero',
+        'Secure digital banking and financial operations',
+      ),
     },
     challenges: {
       headline: 'In financial services, trust is engineered every day.',
@@ -203,27 +198,26 @@ export const INDUSTRY_PAGES = {
       ],
     },
     solutions: {
-      headline: 'Technology foundations for secure, always-on financial services.',
+      headline: 'Driving Mission-Critical Operations in BFSI',
+      layout: 'pillars',
       items: [
         {
-          title: 'Digital Core Modernisation',
-          summary: 'Modernise the infrastructure and platforms behind critical financial workloads.',
+          title: 'Digital Core modernization',
+          summary: 'Next-Gen Compute and storage · Hyperconverged Architecture · Risk Free Modernization',
           details:
-            'Compute, storage, virtualisation, OS migration, workload transformation, platform engineering, performance and availability design.',
+            'Upgraded legacy IT environments using Enterprise Power servers and high-performance storage to handle high-volume financial data. Delivered fully virtualized, scalable infrastructure for mission-critical banking and insurance applications. Executed seamless OS migrations to optimize costs & future-proof core banking and insurance platforms.',
         },
         {
-          title: 'Secure Hybrid Cloud and Zero Trust',
-          summary:
-            'Enable cloud agility while maintaining control over access, applications, data, and workloads.',
+          title: 'Secure Hybrid Cloud & Zero-Trust',
+          summary: 'Cloud Agility · Containerized Scale · Perimeter Defense',
           details:
-            'Hybrid-cloud enablement, Kubernetes, identity governance, firewall and WAF, segmentation, database security, secure-by-design delivery.',
+            'Accelerated enterprise velocity through secure, serverless on-prem to cloud migrations. Deployed scalable enterprise Kubernetes to modernize financial workloads. Hardened financial perimeters with firewalls, advanced WAF, centralized identity governance, and core database protection.',
         },
         {
-          title: 'Resilience and Operations',
-          summary:
-            'Maintain a secure, tested path to protect, monitor, recover, and operate critical business services.',
+          title: '24x7 Operations & Resilience',
+          summary: 'Unified Backup & DR · Advanced Observability · Managed SecOps & Compliance',
           details:
-            'Backup, DR, clean recovery, observability, managed detection and response, incident coordination, compliance support.',
+            'Engineered integrated disaster recovery and cyber-resilience architectures to guarantee business continuity. Drove 24x7 stability across datacenters and endpoints utilizing remote infrastructure management and client monitoring. Secured enterprise operations through managed threat response (MDR) and strict regulatory compliance alignment.',
         },
       ],
     },
@@ -267,11 +261,13 @@ export const INDUSTRY_PAGES = {
       headline: 'Keep production, supply chains, and operations moving as one.',
       subheadline: 'Secure the plant. Modernise the core. Build operational resilience.',
       body: 'SBA helps manufacturers connect and protect ERP, production, engineering, supply-chain, and operational environments—building a more resilient foundation for continuous performance.',
-      primaryCta: { label: 'Talk to a Manufacturing Expert', href: '/contact' },
-      secondaryCta: { label: 'Explore Managed Operations', href: '/#engineered-for-your-industry' },
+      primaryCta: { label: "Let's Connect", href: '/contact' },
       visualKey: 'manufacturing',
       fullHeight: true,
-      ...industryHeroAssets('manufacturing-industry-hero'),
+      ...industryHeroPng(
+        'manufacturing-hero',
+        'Connected smart manufacturing and industrial operations',
+      ),
     },
     challenges: {
       headline: 'Disruption in technology becomes disruption in production.',
@@ -308,28 +304,67 @@ export const INDUSTRY_PAGES = {
       ],
     },
     solutions: {
-      headline: null,
-      items: [
+      headline: 'Driving Mission-Critical Operations in Manufacturing',
+      pillars: [
         {
-          title: 'Digital Core and ERP Modernisation',
-          summary:
-            'Build a scalable, modern technology foundation for business-critical production and engineering workloads.',
-          details:
-            'ERP infrastructure migration, server and storage virtualisation, data-centre modernisation, centralised storage, scalable architecture.',
+          title: 'Digital Core & ERP Modernization',
+          items: [
+            {
+              title: 'ERP Infrastructure Migrations',
+              description:
+                'Executed heavy transitions of legacy Oracle ERP environments to modernized Enterprise Power infrastructure.',
+            },
+            {
+              title: 'Datacenter Modernization',
+              description:
+                'Engineered end-to-end datacenter upgrades - from smart power/rack solutions to complete server and storage virtualization',
+            },
+            {
+              title: 'Centralized Storage & Design Apps',
+              description:
+                'Deployed and managed centralized, high-performance storage for critical engineering and design applications.',
+            },
+          ],
         },
         {
-          title: 'Network Security and Cyber Resilience',
-          summary:
-            'Protect production, supply-chain, and distributed environments from disruption and risk propagation.',
-          details:
-            'Network segmentation, endpoint security, data protection, backup, disaster recovery, cybersecurity posture management.',
+          title: 'Network Security and Resilience',
+          items: [
+            {
+              title: 'Advanced Network Segmentation',
+              description:
+                'Secured massive production floors and supply chains using VMware NSX for deep network segmentation and isolation',
+            },
+            {
+              title: 'Unified Cyber-resilience',
+              description:
+                'Architected end-to-end, centralized data management and backup portfolios to protect continuous manufacturing operations',
+            },
+            {
+              title: 'Comprehensive Endpoint Security',
+              description:
+                'Deployed and managed pan-India endpoint security and hardware fleets to secure distributed manufacturing sites',
+            },
+          ],
         },
         {
-          title: '24x7 Operations and Observability',
-          summary:
-            'Improve stability with visibility, proactive management, and accountable technology operations.',
-          details:
-            'Monitoring, log management, infrastructure health, managed security operations, remote support, proactive incident response.',
+          title: '24x7 Ops & Observability',
+          items: [
+            {
+              title: 'Advanced Observability',
+              description:
+                'Deployed Nagios XI and comprehensive log management to monitor global production networks and application servers 24x7.',
+            },
+            {
+              title: 'Managed SecOps & Posture',
+              description:
+                'Delivered continuous managed services to maintain, monitor, and enforce rigorous enterprise security postures',
+            },
+            {
+              title: 'Full-Stack Managed Infrastructure',
+              description:
+                'Drove stability through continuous managed services spanning desktop infrastructure, datacenter health, and storage deployment',
+            },
+          ],
         },
       ],
     },
@@ -373,11 +408,13 @@ export const INDUSTRY_PAGES = {
       headline: 'Build digital velocity without creating operational drag.',
       subheadline: 'Modern platforms. Secure delivery. Always-on operations.',
       body: 'SBA helps IT and IT-enabled service organisations modernise platforms, accelerate cloud and data initiatives, automate delivery, and maintain secure, reliable operations as demand grows.',
-      primaryCta: { label: 'Talk to an IT/ITES Expert', href: '/contact' },
-      secondaryCta: { label: 'Explore Digital Engineering', href: '/#build-and-connect' },
+      primaryCta: { label: "Let's Connect", href: '/contact' },
       visualKey: 'it-ites',
       fullHeight: true,
-      ...industryHeroAssets('it-ites-industry-hero'),
+      ...industryHeroPng(
+        'it-ites-hero',
+        'Enterprise cloud and managed digital operations',
+      ),
     },
     challenges: {
       headline: 'Faster delivery should not mean greater operational risk.',
@@ -414,28 +451,67 @@ export const INDUSTRY_PAGES = {
       ],
     },
     solutions: {
-      headline: null,
-      items: [
+      headline: 'Driving Mission-Critical Operations in IT/ITES',
+      pillars: [
         {
-          title: 'Cloud, Data and DevOps',
-          summary:
-            'Accelerate digital delivery through modern cloud data foundations and automated engineering practices.',
-          details:
-            'Data lakes, Azure Data Lake Storage migration, DevOps automation, infrastructure as code, cloud platforms, modern delivery pipelines.',
+          title: 'Cloud Data & DevOps',
+          items: [
+            {
+              title: 'Virtualization',
+              description:
+                'Deployed robust, scalable virtualization layers for high-volume analytics and AI workloads.',
+            },
+            {
+              title: 'Cloud Data Lakes',
+              description:
+                'Executed seamless, high-speed migrations to Azure Data Lake Storage (ADLS)',
+            },
+            {
+              title: 'DevOps Automation',
+              description:
+                'Accelerated cloud delivery and infrastructure deployments using modern DevOps pipelines',
+            },
+          ],
         },
         {
-          title: 'HCI and Core Modernisation',
-          summary:
-            'Upgrade core technology environments for performance, scalability, and operational flexibility.',
-          details:
-            'HCI deployment, virtualisation, infrastructure refresh, scalable compute, data-centre transformation, platform engineering.',
+          title: 'HCI & Core Modernization',
+          items: [
+            {
+              title: 'Hyper-Converged IT',
+              description:
+                'Modernized legacy institutional datacenters with advanced HCI deployments.',
+            },
+            {
+              title: 'Infrastructure Refresh',
+              description:
+                'Engineered end-to-end datacenter upgrades for agile IT operations.',
+            },
+            {
+              title: 'Scalable Architecture',
+              description:
+                'Delivered resilient, high-density compute environments built for rapid growth.',
+            },
+          ],
         },
         {
-          title: 'Managed SecOps and Operations',
-          summary:
-            'Maintain availability, security, observability, and response across rapidly changing technology environments.',
-          details:
-            '24x7 monitoring, cloud operations, cybersecurity posture, endpoint monitoring, threat detection, managed support.',
+          title: 'Managed SecOps & Operations',
+          items: [
+            {
+              title: 'Cybersecurity Portfolios',
+              description:
+                'Managed and enforced continuous enterprise cybersecurity postures.',
+            },
+            {
+              title: 'Datacenter Operations',
+              description:
+                'Delivered end-to-end managed services for core infrastructure health.',
+            },
+            {
+              title: 'Always-On Support',
+              description:
+                'Maintained 24x7 operational stability and proactive threat defense',
+            },
+          ],
         },
       ],
     },
@@ -479,11 +555,13 @@ export const INDUSTRY_PAGES = {
       headline: 'Technology engineered around the way your organisation operates.',
       subheadline: 'Modern infrastructure. Practical AI. Secure operations.',
       body: 'SBA brings infrastructure, practical AI, security, digital engineering, and managed operations together for complex environments that need to stay secure, resilient, and ready to evolve.',
-      primaryCta: { label: 'Talk to an Industry Expert', href: '/contact' },
-      secondaryCta: { label: 'Explore Business AI', href: '/#accelerate-business-ai' },
+      primaryCta: { label: "Let's Connect", href: '/contact' },
       visualKey: 'diversified',
       fullHeight: true,
-      ...industryHeroAssets('diversified-enterprises-hero'),
+      ...industryHeroPng(
+        'diversified-enterprises-hero',
+        'Integrated enterprise operations and connected business systems',
+      ),
     },
     challenges: {
       headline: 'Specialised operations need more than standard technology.',
@@ -524,34 +602,67 @@ export const INDUSTRY_PAGES = {
       ],
     },
     solutions: {
-      headline: null,
-      items: [
+      headline: 'Driving Mission-Critical Operations in Diversified Enterprises',
+      pillars: [
         {
-          title: 'Modern Infrastructure and Advanced Compute',
-          summary:
-            'Build scalable foundations for demanding applications, data-intensive workloads, and future growth.',
-          details:
-            'Smart data centres, GPU/CPU compute, high-speed storage, virtual platforms, hybrid-cloud enablement, infrastructure operations.',
+          title: 'HPC & Smart Infrastructure',
+          items: [
+            {
+              title: 'Advanced Compute (HPC)',
+              description:
+                'Deployed massive GPU/CPU clusters for premier national research organization',
+            },
+            {
+              title: 'Smart Datacenters',
+              description:
+                'Engineered end-to-end environments covering smart racks, power, cooling, and networking',
+            },
+            {
+              title: 'High-Speed Storage',
+              description:
+                'Implemented enterprise Lustre filesystems for data-intensive institutional workloads',
+            },
+          ],
         },
         {
-          title: 'AI and Intelligent Automation',
-          summary:
-            'Apply practical AI to documents, knowledge, customer conversations, project workflows, and decision-making.',
-          details:
-            'Document understanding, summarisation, enterprise search, conversational AI, workflow automation, sentiment analysis, AI assistants.',
+          title: 'AI Accelerators & Automation',
+          items: [
+            {
+              title: 'Cognitive Processing',
+              description:
+                'Accelerated medico-legal workflows via AI-driven document understanding and report generation',
+            },
+            {
+              title: 'Customer Intelligence',
+              description:
+                'Automated call center audits and campaign management using AI sentiment analysis',
+            },
+            {
+              title: 'Business Automation',
+              description:
+                'Deployed conversational search and project management AI to eliminate digital friction in real estate',
+            },
+          ],
         },
         {
-          title: 'Connected Digital Workflows',
-          summary:
-            'Reduce friction by connecting people, systems, communication channels, and operational processes.',
-          details:
-            'Application integration, project/workflow automation, collaboration platforms, customer communications, digital workplace solutions.',
-        },
-        {
-          title: 'Secure, Resilient Operations',
-          summary: 'Keep critical environments protected, available, and ready to recover.',
-          details:
-            'Managed infrastructure, endpoint operations, cyber resilience, backup, DR, recovery validation, managed security operations.',
+          title: 'AI Consulting & Managed Ops',
+          items: [
+            {
+              title: 'Enterprise AI Platforms',
+              description:
+                'Consulted, deployed, and trained a major media enterprise on the IBM WatsonX platform.',
+            },
+            {
+              title: 'Full-Stack IT Operations',
+              description:
+                'Managed end-to-end desktop and datacenter infrastructure for construction firms',
+            },
+            {
+              title: 'Institutional Resilience',
+              description:
+                'Secured critical environments with fully managed, continuous cyber-resilience.',
+            },
+          ],
         },
       ],
     },

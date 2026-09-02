@@ -42,7 +42,6 @@ export default function VideoHero() {
     <section
       className="sba-video-hero relative w-full overflow-hidden bg-black"
       aria-labelledby="video-hero-heading"
-      style={{ marginTop: '88px' }}
     >
       <style>{`
         .sba-video-hero {
@@ -80,12 +79,12 @@ export default function VideoHero() {
           justify-content: center;
           height: 100%;
           max-width: 640px;
-          padding: 40px 24px 56px;
+          padding: calc(var(--header-height, 88px) + 24px) 24px 56px;
           text-align: left;
         }
         @media (min-width: 768px) {
           .sba-video-hero-content {
-            padding: 48px 40px 64px 56px;
+            padding: calc(var(--header-height, 88px) + 24px) 40px 64px 56px;
           }
         }
         @media (min-width: 1280px) {
@@ -140,7 +139,7 @@ export default function VideoHero() {
             onClick={() => scrollTo('contact')}
             className="inline-flex items-center justify-center rounded-lg bg-primary-red px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.03] hover:brightness-110"
           >
-            Get in Touch
+            Let's Connect
           </button>
           <Link
             to="/#capabilities"

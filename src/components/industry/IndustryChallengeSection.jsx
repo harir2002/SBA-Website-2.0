@@ -6,14 +6,6 @@ export default function IndustryChallengeSection({ challenges, accent = '#E7000B
   const reduceMotion = useReducedMotion()
   if (!challenges) return null
 
-  const count = challenges.items.length
-  const gridCols =
-    count >= 5
-      ? 'lg:grid-cols-3 xl:grid-cols-5'
-      : count === 3
-        ? 'lg:grid-cols-3'
-        : 'lg:grid-cols-2'
-
   return (
     <section
       id="industry-challenges"
@@ -54,7 +46,7 @@ export default function IndustryChallengeSection({ challenges, accent = '#E7000B
           transition={{ duration: 0.5, delay: 0.08, ease: EASE }}
         />
 
-        <ul className={`mt-10 grid gap-4 sm:grid-cols-2 ${gridCols}`}>
+        <ul className="mt-10 grid gap-4 sm:grid-cols-2">
           {challenges.items.map((item, i) => (
             <motion.li
               key={item.title}

@@ -46,7 +46,7 @@ export const ABOUT_CAPABILITIES = [
     description:
       'Transform data centres, hybrid cloud, platforms, and workloads into a high-performance foundation built for change.',
     cta: 'Explore Modernization',
-    href: '/#modernize-the-core',
+    href: '/solutions/modernize-the-core',
   },
   {
     id: 'protect-and-recover',

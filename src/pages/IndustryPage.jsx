@@ -77,13 +77,14 @@ export default function IndustryPage() {
 
       <main>
         <IndustryHero hero={industry.hero} id="overview" accent={accent} />
-        <IndustryAnchorNavigation />
+        <IndustryAnchorNavigation key={industry.slug} />
         <IndustryChallengeSection challenges={industry.challenges} accent={accent} />
         <IndustryPromiseSection promise={industry.promise} accent={accent} />
         {industry.slug === 'bfsi' ? (
           <BfsiOperationsPillars />
         ) : industry.solutions?.pillars ? (
           <IndustryOperationsPillars
+            key={`${industry.slug}-pillars`}
             headline={industry.solutions.headline}
             pillars={industry.solutions.pillars}
           />

@@ -16,11 +16,20 @@ function CtaLink({ cta, primary, accent }) {
     : className
 
   if (cta.href?.startsWith('#')) {
+    const isContact = cta.href === '#contact'
     return (
       <a
         href={cta.href}
         className={primary ? className : secondaryClass}
         style={primary ? { backgroundColor: accent } : undefined}
+        onClick={
+          isContact
+            ? (e) => {
+                e.preventDefault()
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+              }
+            : undefined
+        }
         onMouseEnter={
           primary
             ? undefined
@@ -75,7 +84,7 @@ function HeroCopy({ hero, accent, reduceMotion }) {
   return (
     <>
       <motion.p
-        className="industry-hero__eyebrow font-heading text-xs font-bold tracking-[0.28em] uppercase"
+        className="industry-hero__eyebrow font-heading text-xs font-extrabold tracking-[0.28em] uppercase"
         style={{ color: accent }}
         initial={reduceMotion ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -86,7 +95,7 @@ function HeroCopy({ hero, accent, reduceMotion }) {
 
       <motion.h1
         id="industry-hero-heading"
-        className="industry-hero__title font-heading text-[2.1rem] font-extrabold leading-[1.12] text-white sm:text-5xl lg:text-[3.2rem]"
+        className="industry-hero__title font-heading text-[2.1rem] font-black leading-[1.12] text-white sm:text-5xl lg:text-[3.2rem]"
         initial={reduceMotion ? false : { opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, delay: 0.05, ease: EASE }}
@@ -96,7 +105,7 @@ function HeroCopy({ hero, accent, reduceMotion }) {
 
       {hero.subheadline && (
         <motion.p
-          className="industry-hero__subtitle font-heading text-base font-semibold text-white/75 sm:text-lg"
+          className="industry-hero__subtitle font-heading text-base font-extrabold text-white sm:text-lg"
           initial={reduceMotion ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
@@ -114,10 +123,11 @@ function HeroCopy({ hero, accent, reduceMotion }) {
         transition={{ duration: 0.55, delay: 0.15, ease: EASE }}
       />
 
-      <div className="industry-hero__body text-white/70">
+      <div className="industry-hero__body text-white">
         {paragraphs.map((p) => (
           <motion.p
             key={p.slice(0, 32)}
+            className="font-semibold"
             initial={reduceMotion ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.18, ease: EASE }}

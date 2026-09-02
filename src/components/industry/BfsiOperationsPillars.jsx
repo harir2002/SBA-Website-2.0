@@ -88,13 +88,12 @@ export default function BfsiOperationsPillars() {
   return (
     <section
       id="solution-areas"
-      className="bfsi-operations relative bg-black"
-      aria-labelledby="bfsi-operations-heading"
-      style={{ scrollMarginTop: '100px' }}
+      className="industry-solution-areas bfsi-operations relative bg-black"
+      aria-labelledby="solution-areas-heading"
     >
       <div className="mx-auto max-w-[1280px] px-5 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
         <motion.h2
-          id="bfsi-operations-heading"
+          id="solution-areas-heading"
           className="max-w-4xl font-heading text-3xl font-extrabold leading-tight text-white sm:text-4xl"
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
@@ -117,8 +116,19 @@ export default function BfsiOperationsPillars() {
               <PillarIcon index={i} />
               <h3 className="bfsi-pillar-card__title">{pillar.title}</h3>
               <ul className="bfsi-pillar-card__items">
-                {pillar.items.map((item) => (
-                  <li key={item.title} className="bfsi-pillar-card__item">
+                {pillar.items.map((item, itemIndex) => (
+                  <motion.li
+                    key={item.title}
+                    className="bfsi-pillar-card__item"
+                    initial={reduceMotion ? false : { opacity: 0, x: 8 }}
+                    whileInView={reduceMotion ? undefined : { opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.35,
+                      delay: 0.12 + i * 0.05 + itemIndex * 0.05,
+                      ease: EASE,
+                    }}
+                  >
                     <span className="bfsi-pillar-card__bullet" aria-hidden="true">
                       →
                     </span>
@@ -126,7 +136,7 @@ export default function BfsiOperationsPillars() {
                       <h4 className="bfsi-pillar-card__item-title">{item.title}</h4>
                       <p className="bfsi-pillar-card__item-body">{item.description}</p>
                     </div>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </motion.article>
@@ -183,7 +193,7 @@ export default function BfsiOperationsPillars() {
           font-size: clamp(1.15rem, 1.4vw, 1.35rem);
           font-weight: 700;
           line-height: 1.25;
-          color: #ffffff;
+          color: #e7000b;
         }
 
         .bfsi-pillar-card__items {

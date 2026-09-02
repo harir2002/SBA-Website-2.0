@@ -27,14 +27,13 @@ export default function IndustryOperationsPillars({ headline, pillars }) {
   const reduceMotion = useReducedMotion()
   if (!headline || !pillars?.length) return null
 
-  const headingId = 'industry-operations-heading'
+  const headingId = 'solution-areas-heading'
 
   return (
     <section
       id="solution-areas"
-      className="ops-pillars-section relative bg-black"
+      className="industry-solution-areas ops-pillars-section relative bg-black"
       aria-labelledby={headingId}
-      style={{ scrollMarginTop: '100px' }}
     >
       <div className="container mx-auto max-w-[1280px] px-5 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
         <motion.h2
@@ -61,8 +60,19 @@ export default function IndustryOperationsPillars({ headline, pillars }) {
               <PillarIcon index={i} />
               <h3 className="ops-pillar-card__title">{pillar.title}</h3>
               <ul className="ops-pillar-card__items">
-                {(pillar.items || []).map((item) => (
-                  <li key={item.title} className="ops-pillar-card__item">
+                {(pillar.items || []).map((item, itemIndex) => (
+                  <motion.li
+                    key={item.title}
+                    className="ops-pillar-card__item"
+                    initial={reduceMotion ? false : { opacity: 0, x: 8 }}
+                    whileInView={reduceMotion ? undefined : { opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.35,
+                      delay: 0.12 + i * 0.05 + itemIndex * 0.05,
+                      ease: EASE,
+                    }}
+                  >
                     <span className="ops-pillar-card__bullet" aria-hidden="true">
                       →
                     </span>
@@ -70,7 +80,7 @@ export default function IndustryOperationsPillars({ headline, pillars }) {
                       <h4 className="ops-pillar-card__item-title">{item.title}</h4>
                       <p className="ops-pillar-card__item-body">{item.description}</p>
                     </div>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </motion.article>
@@ -127,7 +137,7 @@ export default function IndustryOperationsPillars({ headline, pillars }) {
           font-size: clamp(1.15rem, 1.4vw, 1.35rem);
           font-weight: 700;
           line-height: 1.25;
-          color: #ffffff;
+          color: #e7000b;
         }
 
         .ops-pillar-card__items {

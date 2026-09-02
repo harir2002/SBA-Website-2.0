@@ -37,7 +37,7 @@ export const CAPABILITIES = [
     sectionDescription:
       'Engineer a high-performance, resilient technology foundation — modernized around the workloads your business cannot afford to interrupt.',
     ctaShort: 'Explore Modernization',
-    link: '/capabilities/modernize-the-core',
+    link: '/solutions/modernize-the-core',
     image: getImage('Modernize the core', 'Modernize the Core'),
     alt: 'Modernize the Core visual',
     objectPosition: '85% 25%',

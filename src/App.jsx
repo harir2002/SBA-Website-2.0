@@ -4,6 +4,7 @@ import IndustryPage from './pages/IndustryPage'
 import IndustriesOverviewPage from './pages/IndustriesOverviewPage'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
+import SolutionDetailPage from './pages/SolutionDetailPage'
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/industries" element={<IndustriesOverviewPage />} />
         <Route path="/industries/:slug" element={<IndustryPage />} />
+        <Route path="/solutions/:slug" element={<SolutionDetailPage />} />
         {/* Catch-all: keeps the page visible for any unmatched path */}
         <Route path="*" element={<HomeV2 />} />
       </Routes>

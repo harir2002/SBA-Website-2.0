@@ -1,9 +1,10 @@
 ﻿/**
- * AboutFinalCta â€” clean closing brand CTA (no decorative boxes / wave overlays).
+ * AboutFinalCta — clean closing brand CTA (no decorative boxes / wave overlays).
  */
 
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
+import { scrollToContactForm } from '../../utils/scrollToContactForm'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -15,7 +16,6 @@ export default function AboutFinalCta() {
       className="relative flex items-center overflow-hidden bg-black"
       aria-labelledby="about-final-heading"
     >
-      {/* Soft atmosphere only â€” no boxes or path overlays */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <div
           className="absolute inset-0"
@@ -79,12 +79,13 @@ export default function AboutFinalCta() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
         >
-          <Link
-            to="/#contact"
+          <button
+            type="button"
+            onClick={() => scrollToContactForm()}
             className="inline-flex items-center justify-center rounded-md bg-primary-red px-7 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             Let's Connect
-          </Link>
+          </button>
           <Link
             to="/#capabilities"
             className="inline-flex items-center justify-center rounded-md border border-white/25 px-7 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:border-primary-red hover:text-primary-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -98,7 +99,7 @@ export default function AboutFinalCta() {
           initial={reduceMotion ? false : { opacity: 0 }}
           whileInView={reduceMotion ? undefined : { opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.55, delay: 0.28, ease: EASE }}
+          transition={{ duration: 0.5, delay: 0.28, ease: EASE }}
         >
           Engineering the modern, secure, and resilient enterprise.
         </motion.p>

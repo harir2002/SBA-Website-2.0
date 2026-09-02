@@ -1,5 +1,5 @@
 /**
- * Header — About, Capabilities, Industries mega-menu, Case Studies, Insights, Contact.
+ * Header — About, Solutions, Industries, Insights (Case Studies + Insights), Contact.
  * CTA: Let's Connect
  */
 
@@ -7,11 +7,12 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ChevronDown, Menu, Search, X } from 'lucide-react'
 import { INDUSTRY_NAV } from '../../data/industriesContent'
+import { scrollToContactForm } from '../../utils/scrollToContactForm'
 
 const INDUSTRIES = INDUSTRY_NAV
 
 const CAPABILITIES = [
-  { label: 'Modernize the Core', id: 'modernize-the-core' },
+  { label: 'Modernize the Core', id: 'modernize-the-core', path: '/solutions/modernize-the-core' },
   { label: 'Protect and Recover', id: 'protect-and-recover' },
   { label: 'Make Data Actionable', id: 'make-data-actionable' },
   { label: 'Build and Connect', id: 'build-and-connect' },
@@ -19,11 +20,11 @@ const CAPABILITIES = [
   { label: 'Accelerate Business AI', id: 'accelerate-business-ai' },
 ]
 
-const INSIGHTS = [
+/** Combined Case Studies + Insights dropdown (shared homepage section). */
+const INSIGHTS_MENU = [
+  { label: 'Case Studies', id: 'insights' },
   { label: 'Insights', id: 'insights' },
 ]
-
-const CASE_STUDIES = { label: 'Case Studies', id: 'insights' }
 
 const navLinkClass =
   'whitespace-nowrap font-heading text-sm font-semibold tracking-normal text-white/80 transition-colors hover:text-primary-red'
@@ -145,6 +146,7 @@ export default function Header() {
       requestAnimationFrame(() => scrollToId(id))
     } else if (
       location.pathname.startsWith('/industries') ||
+      location.pathname.startsWith('/solutions') ||
       location.pathname === '/about' ||
       location.pathname === '/contact'
     ) {
@@ -223,7 +225,7 @@ export default function Header() {
           </button>
 
           <NavDropdown
-            label="Capabilities"
+            label="Solutions"
             items={CAPABILITIES}
             open={capabilitiesOpen}
             setOpen={openOnly('capabilities')}
@@ -240,17 +242,9 @@ export default function Header() {
             onSelect={goTo}
           />
 
-          <button
-            type="button"
-            onClick={() => goTo(CASE_STUDIES)}
-            className={navLinkClass}
-          >
-            Case Studies
-          </button>
-
           <NavDropdown
             label="Insights"
-            items={INSIGHTS}
+            items={INSIGHTS_MENU}
             open={insightsOpen}
             setOpen={openOnly('insights')}
             menuRef={insightsRef}
@@ -310,7 +304,7 @@ export default function Header() {
             type="button"
             onClick={() => {
               closeMenus()
-              navigate('/contact')
+              scrollToContactForm()
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary-red px-4 py-2 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[filter,transform] hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
@@ -355,7 +349,7 @@ export default function Header() {
                 aria-expanded={mobileCapabilitiesOpen}
                 className="flex w-full items-center justify-between font-heading text-base font-semibold text-white/80 hover:text-primary-red"
               >
-                Capabilities
+                Solutions
                 <ChevronDown
                   className={`h-4 w-4 transition-transform ${mobileCapabilitiesOpen ? 'rotate-180' : ''}`}
                   aria-hidden="true"
@@ -413,16 +407,6 @@ export default function Header() {
             <li>
               <button
                 type="button"
-                onClick={() => goTo(CASE_STUDIES)}
-                className="font-heading text-base font-semibold text-white/80 hover:text-primary-red"
-              >
-                Case Studies
-              </button>
-            </li>
-
-            <li>
-              <button
-                type="button"
                 onClick={() => setMobileInsightsOpen((v) => !v)}
                 aria-expanded={mobileInsightsOpen}
                 className="flex w-full items-center justify-between font-heading text-base font-semibold text-white/80 hover:text-primary-red"
@@ -435,7 +419,7 @@ export default function Header() {
               </button>
               {mobileInsightsOpen && (
                 <ul className="mt-2 space-y-1 border-l border-white/15 pl-4">
-                  {INSIGHTS.map((item) => (
+                  {INSIGHTS_MENU.map((item) => (
                     <li key={item.label}>
                       <button
                         type="button"
@@ -490,7 +474,7 @@ export default function Header() {
                 type="button"
                 onClick={() => {
                   closeMenus()
-                  navigate('/contact')
+                  scrollToContactForm()
                 }}
                 className="w-full rounded-md bg-primary-red px-4 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase"
               >

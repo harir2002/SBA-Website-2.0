@@ -117,7 +117,7 @@ export default function ContactSection({ variant = 'page' }) {
   return (
     <section
       id="contact"
-      className={`relative scroll-mt-[72px] overflow-hidden ${
+      className={`relative scroll-mt-[var(--header-height,88px)] overflow-hidden ${
         isFooter ? 'bg-transparent' : 'bg-black'
       }`}
       aria-labelledby="contact-heading"
@@ -489,7 +489,7 @@ export default function ContactSection({ variant = 'page' }) {
                 type="submit"
                 className="group inline-flex items-center justify-center gap-2 rounded-md bg-primary-red px-6 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
-                Let's Connect
+                Submit
                 <span
                   className="inline-block transition-transform duration-200 group-hover:translate-x-1"
                   aria-hidden="true"

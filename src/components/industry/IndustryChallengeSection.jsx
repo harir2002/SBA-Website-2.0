@@ -11,7 +11,6 @@ export default function IndustryChallengeSection({ challenges, accent = '#E7000B
       id="industry-challenges"
       className="relative bg-black"
       aria-labelledby="industry-challenges-heading"
-      style={{ scrollMarginTop: '100px' }}
     >
       <div className="mx-auto max-w-[1280px] px-5 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
         <motion.p

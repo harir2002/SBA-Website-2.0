@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { ABOUT_PROOF } from '../../data/aboutContent'
 import SolutionsOrbitPanel from '../shared/SolutionsOrbitPanel'
 import ProofStats from '../shared/ProofStats'
+import { scrollToContactForm } from '../../utils/scrollToContactForm'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -76,12 +77,13 @@ export default function AboutHero() {
             >
               Explore our Solutions
             </Link>
-            <Link
-              to="/#contact"
+            <button
+              type="button"
+              onClick={() => scrollToContactForm()}
               className="inline-flex items-center justify-center rounded-md border border-white/30 px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:border-primary-red hover:text-primary-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Let's Connect
-            </Link>
+            </button>
           </motion.div>
 
           <ProofStats items={ABOUT_PROOF} className="mt-10" />

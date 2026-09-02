@@ -14,6 +14,8 @@ html {
 
 :root {
   --header-height: 88px;
+  --industry-subnav-height: 52px;
+  --solution-subnav-height: 52px;
   --site-content-max-width: 1240px;
   --site-gutter: clamp(24px, 5vw, 80px);
   --industry-hero-content-width: 760px;
@@ -44,6 +46,28 @@ body {
   background-color: var(--color-black);
   color: var(--color-white);
   font-family: var(--font-body);
+}
+
+/* Industry detail in-page anchors clear fixed header + sticky subnav */
+.industry-detail-page section[id] {
+  scroll-margin-top: calc(
+    var(--header-height, 84px) + var(--industry-subnav-height, 52px) + 20px
+  );
+}
+
+.industry-subnav {
+  min-height: var(--industry-subnav-height, 52px);
+}
+
+/* Solution detail in-page anchors clear fixed header + sticky subnav */
+.solution-detail-page section[id] {
+  scroll-margin-top: calc(
+    var(--header-height, 84px) + var(--solution-subnav-height, 52px) + 20px
+  );
+}
+
+.solution-subnav {
+  min-height: var(--solution-subnav-height, 52px);
 }
 
 /* Shared centred content container — equal left/right gutters */
@@ -484,6 +508,8 @@ body {
   transform-origin: center center;
   will-change: transform;
   animation: industryHeroSlowZoom 14s ease-out 0s 1 normal forwards;
+  /* Keep photo visible; light veil only for text contrast */
+  filter: brightness(0.92) contrast(1.04) saturate(0.95);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -513,6 +539,25 @@ body {
       180deg,
       rgba(0, 0, 0, 0.12) 0%,
       rgba(0, 0, 0, 0.2) 100%
+    );
+}
+
+/* Soft left veil only — do not black out the hero image */
+.industry-hero--detail .industry-hero__overlay {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.48) 0%,
+      rgba(0, 0, 0, 0.32) 28%,
+      rgba(0, 0, 0, 0.16) 52%,
+      rgba(0, 0, 0, 0.06) 72%,
+      rgba(0, 0, 0, 0.02) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.12) 0%,
+      rgba(0, 0, 0, 0.06) 45%,
+      rgba(0, 0, 0, 0.18) 100%
     );
 }
 
@@ -693,6 +738,14 @@ body {
     filter: brightness(1.03) contrast(1.02) saturate(0.96);
   }
 
+  .industry-hero--detail .industry-hero__image,
+  .industry-hero--detail.industry-hero--bfsi .industry-hero__image,
+  .industry-hero--detail.industry-hero--manufacturing .industry-hero__image,
+  .industry-hero--detail.industry-hero--it-ites .industry-hero__image,
+  .industry-hero--detail.industry-hero--diversified .industry-hero__image {
+    filter: brightness(0.88) contrast(1.04) saturate(0.95);
+  }
+
   .industry-hero__overlay {
     background:
       linear-gradient(
@@ -705,6 +758,22 @@ body {
         180deg,
         rgba(0, 0, 0, 0.1) 0%,
         rgba(0, 0, 0, 0.28) 100%
+      );
+  }
+
+  .industry-hero--detail .industry-hero__overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.28) 0%,
+        rgba(0, 0, 0, 0.32) 45%,
+        rgba(0, 0, 0, 0.48) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.4) 0%,
+        rgba(0, 0, 0, 0.2) 70%,
+        rgba(0, 0, 0, 0.1) 100%
       );
   }
 
@@ -766,10 +835,34 @@ body {
 .industry-hero__body {
   font-family: var(--font-body);
   font-size: clamp(0.92rem, 1.05vw, 1.05rem);
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.55;
   max-width: 52ch;
   margin: 0;
+}
+
+.industry-hero--detail .industry-hero__eyebrow {
+  font-weight: 800;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+}
+
+.industry-hero--detail .industry-hero__title {
+  text-shadow: 0 2px 28px rgba(0, 0, 0, 0.55);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+}
+
+.industry-hero--detail .industry-hero__subtitle {
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.industry-hero--detail .industry-hero__body {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
 }
 
 .industry-hero__body p {

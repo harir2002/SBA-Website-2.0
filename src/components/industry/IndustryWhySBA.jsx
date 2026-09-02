@@ -12,7 +12,6 @@ export default function IndustryWhySBA({ whySba }) {
       id="why-sba"
       className="relative bg-black"
       aria-labelledby="industry-why-heading"
-      style={{ scrollMarginTop: '100px' }}
     >
       <div className="mx-auto max-w-[960px] px-5 py-14 text-center sm:px-6 sm:py-16 lg:px-10 lg:py-20">
         <motion.h2

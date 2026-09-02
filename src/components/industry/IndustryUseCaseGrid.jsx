@@ -13,7 +13,6 @@ export default function IndustryUseCaseGrid({ useCases }) {
       id="use-cases"
       className="relative bg-black"
       aria-labelledby="industry-usecases-heading"
-      style={{ scrollMarginTop: '100px' }}
     >
       <div className="mx-auto max-w-[1280px] px-5 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
         <motion.h2

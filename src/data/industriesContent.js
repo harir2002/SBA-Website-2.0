@@ -41,7 +41,7 @@ export const INDUSTRY_OVERVIEW = {
     body:
       'Every industry has different operational pressures, risks, and technology priorities. SBA brings modernisation, cyber resilience, data, AI, digital engineering, and managed operations together around what your business depends on most.',
     primaryCta: { label: 'Explore Our Industries', href: '#industry-cards' },
-    secondaryCta: { label: "Let's Connect", href: '/contact' },
+    secondaryCta: { label: "Let's Connect", href: '#contact' },
     visualKey: 'overview',
   },
   reality: {
@@ -120,7 +120,7 @@ export const INDUSTRY_OVERVIEW = {
   cta: {
     headline: 'Find the right path forward for your industry.',
     body: 'Talk to SBA about the technology, security, resilience, data, and AI priorities shaping your organisation’s next chapter.',
-    primaryCta: { label: "Let's Connect", href: '/contact' },
+    primaryCta: { label: "Let's Connect", href: '#contact' },
     secondaryCta: { label: 'Explore Our Capabilities', href: '/#capabilities' },
   },
 }
@@ -129,8 +129,8 @@ export const SHARED_INDUSTRY_CTA = {
   eyebrow: 'READY TO MOVE FORWARD?',
   headline: 'Build the next chapter with confidence.',
   body: 'Talk to SBA about modernising the foundation, protecting critical operations, activating intelligence, and creating the connected capabilities your organisation needs next.',
-  primaryCta: { label: "Let's Connect", href: '/contact' },
-  secondaryCta: { label: 'Contact SBA', href: '/contact' },
+  primaryCta: { label: "Let's Connect", href: '#contact' },
+  secondaryCta: null,
   signature: 'Engineering the modern, secure, and resilient enterprise.',
 }
 
@@ -156,7 +156,7 @@ export const INDUSTRY_PAGES = {
       headline: 'Built for financial operations that cannot pause.',
       subheadline: 'Modernise critical systems. Protect trust. Maintain continuity.',
       body: 'SBA helps financial institutions modernise critical systems, protect sensitive data, strengthen cyber resilience, and maintain continuity across high-volume, always-on operations.',
-      primaryCta: { label: "Let's Connect", href: '/contact' },
+      primaryCta: { label: "Let's Connect", href: '#contact' },
       visualKey: 'bfsi',
       ...industryHeroPng(
         'bfsi-hero',
@@ -261,7 +261,7 @@ export const INDUSTRY_PAGES = {
       headline: 'Keep production, supply chains, and operations moving as one.',
       subheadline: 'Secure the plant. Modernise the core. Build operational resilience.',
       body: 'SBA helps manufacturers connect and protect ERP, production, engineering, supply-chain, and operational environments—building a more resilient foundation for continuous performance.',
-      primaryCta: { label: "Let's Connect", href: '/contact' },
+      primaryCta: { label: "Let's Connect", href: '#contact' },
       visualKey: 'manufacturing',
       fullHeight: true,
       ...industryHeroPng(
@@ -408,7 +408,7 @@ export const INDUSTRY_PAGES = {
       headline: 'Build digital velocity without creating operational drag.',
       subheadline: 'Modern platforms. Secure delivery. Always-on operations.',
       body: 'SBA helps IT and IT-enabled service organisations modernise platforms, accelerate cloud and data initiatives, automate delivery, and maintain secure, reliable operations as demand grows.',
-      primaryCta: { label: "Let's Connect", href: '/contact' },
+      primaryCta: { label: "Let's Connect", href: '#contact' },
       visualKey: 'it-ites',
       fullHeight: true,
       ...industryHeroPng(
@@ -555,7 +555,7 @@ export const INDUSTRY_PAGES = {
       headline: 'Technology engineered around the way your organisation operates.',
       subheadline: 'Modern infrastructure. Practical AI. Secure operations.',
       body: 'SBA brings infrastructure, practical AI, security, digital engineering, and managed operations together for complex environments that need to stay secure, resilient, and ready to evolve.',
-      primaryCta: { label: "Let's Connect", href: '/contact' },
+      primaryCta: { label: "Let's Connect", href: '#contact' },
       visualKey: 'diversified',
       fullHeight: true,
       ...industryHeroPng(

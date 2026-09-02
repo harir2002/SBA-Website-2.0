@@ -41,7 +41,11 @@ export default function RelatedCapabilities({ capabilityIds = [] }) {
               transition={{ duration: 0.45, delay: i * 0.05, ease: EASE }}
             >
               <Link
-                to={`/#${cap.id}`}
+                to={
+                  cap.link?.startsWith('/solutions/')
+                    ? cap.link
+                    : `/#${cap.id}`
+                }
                 className="group flex h-full flex-col rounded-xl border border-white/[0.08] bg-black p-5 transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-primary-red/50 focus-visible:border-primary-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-red"
               >
                 <span

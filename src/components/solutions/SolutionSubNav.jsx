@@ -1,31 +1,27 @@
-/**
- * Sticky local anchor nav for industry detail pages.
- * Shared scroll-spy for all four Industry detail pages.
- */
-
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { INDUSTRY_ANCHORS } from '../../data/industriesContent'
+import { SOLUTION_ACCENT } from '../../data/solutions/modernizeTheCore'
 
-export default function IndustryAnchorNavigation() {
-  const { slug } = useParams()
-  const [active, setActive] = useState(INDUSTRY_ANCHORS[0].id)
+/**
+ * Sticky in-page solution sub-nav with shared IntersectionObserver + rAF scroll-spy.
+ */
+export default function SolutionSubNav({ anchors = [] }) {
+  const [active, setActive] = useState(anchors[0]?.id)
 
   useEffect(() => {
-    setActive(INDUSTRY_ANCHORS[0].id)
-
-    const ids = INDUSTRY_ANCHORS.map((a) => a.id)
+    if (!anchors.length) return undefined
+    setActive(anchors[0].id)
+    const ids = anchors.map((a) => a.id)
 
     const pickActive = () => {
-      // Activate once a section’s top crosses the sticky subnav + a short reading offset.
-      // This matches when the three-pillar cards occupy the main viewport.
       const stickyBottom =
-        document.querySelector('.industry-subnav')?.getBoundingClientRect().bottom ??
-        (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 88) +
-          (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--industry-subnav-height')) || 52)
+        document.querySelector('.solution-subnav')?.getBoundingClientRect().bottom ??
+        (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) ||
+          88) +
+          (parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue('--solution-subnav-height'),
+          ) || 52)
 
       const line = stickyBottom + Math.min(96, window.innerHeight * 0.12)
-
       let current = ids[0]
       for (const id of ids) {
         const el = document.getElementById(id)
@@ -35,20 +31,12 @@ export default function IndustryAnchorNavigation() {
       setActive(current)
     }
 
-    // Observe sections that exist on THIS industry page (rebind on slug change).
     const elements = ids.map((id) => document.getElementById(id)).filter(Boolean)
-
-    const observer = new IntersectionObserver(
-      () => {
-        pickActive()
-      },
-      {
-        root: null,
-        rootMargin: '-20% 0px -55% 0px',
-        threshold: [0, 0.05, 0.1, 0.25, 0.5, 0.75, 1],
-      },
-    )
-
+    const observer = new IntersectionObserver(() => pickActive(), {
+      root: null,
+      rootMargin: '-20% 0px -55% 0px',
+      threshold: [0, 0.05, 0.1, 0.25, 0.5, 0.75, 1],
+    })
     elements.forEach((el) => observer.observe(el))
 
     let frame = 0
@@ -59,8 +47,6 @@ export default function IndustryAnchorNavigation() {
 
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', pickActive)
-
-    // Defer one frame so pillar sections are fully laid out after route change.
     const boot = window.requestAnimationFrame(pickActive)
 
     return () => {
@@ -70,16 +56,16 @@ export default function IndustryAnchorNavigation() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', pickActive)
     }
-  }, [slug])
+  }, [anchors])
 
   return (
     <nav
-      className="industry-subnav sticky top-[var(--header-height,88px)] z-40 border-b border-white/10 bg-black/95 backdrop-blur-md"
+      className="solution-subnav sticky top-[var(--header-height,88px)] z-40 border-b border-white/[0.08] bg-[#000000]/95 backdrop-blur-md"
       aria-label="On this page"
     >
       <div className="mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-10">
         <ul className="flex gap-1 overflow-x-auto py-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {INDUSTRY_ANCHORS.map((item, i) => {
+          {anchors.map((item, i) => {
             const isActive = active === item.id
             return (
               <li key={item.id} className="flex shrink-0 items-center">
@@ -90,11 +76,19 @@ export default function IndustryAnchorNavigation() {
                 )}
                 <a
                   href={`#${item.id}`}
-                  className={`industry-subnav__link whitespace-nowrap rounded-md px-2.5 py-1.5 font-heading text-xs font-semibold tracking-wide transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-red sm:text-sm ${
-                    isActive ? 'is-active text-primary-red' : 'text-white/60 hover:text-white'
-                  }`}
+                  className="solution-subnav__link whitespace-nowrap rounded-md px-2.5 py-2.5 font-heading text-xs font-semibold tracking-wide transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:text-sm"
+                  style={{
+                    color: isActive ? SOLUTION_ACCENT : 'rgba(255,255,255,0.55)',
+                    outlineColor: SOLUTION_ACCENT,
+                  }}
                   aria-current={isActive ? 'location' : undefined}
                   onClick={() => setActive(item.id)}
+                  onMouseEnter={(e) => {
+                    if (!isActive) e.currentTarget.style.color = '#FFFFFF'
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) e.currentTarget.style.color = 'rgba(255,255,255,0.55)'
+                  }}
                 >
                   {item.label}
                 </a>

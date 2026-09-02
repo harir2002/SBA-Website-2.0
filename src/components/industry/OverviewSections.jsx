@@ -5,6 +5,8 @@
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import { INDUSTRY_OVERVIEW } from '../../data/industriesContent'
+import IndustryCtaCentreMotion from './IndustryCtaCentreMotion'
+import { scrollToContactForm } from '../../utils/scrollToContactForm'
 
 const EASE = [0.16, 1, 0.3, 1]
 const RED = '#E7000B'
@@ -60,7 +62,7 @@ function OverviewHeroLandscape() {
 
       {/* Connector lattice behind tiles */}
       <svg
-        className="pointer-events-none absolute inset-0 h-full w-full"
+        className="pointer-events-none absolute inset-0 z-[1] h-full w-full"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
         aria-hidden="true"
@@ -72,8 +74,28 @@ function OverviewHeroLandscape() {
             <stop offset="100%" stopColor="rgba(245,245,242,0.08)" />
           </linearGradient>
         </defs>
-        <line x1="25" y1="25" x2="75" y2="75" stroke="url(#hub-line)" strokeWidth="0.35" />
-        <line x1="75" y1="25" x2="25" y2="75" stroke="url(#hub-line)" strokeWidth="0.35" />
+        <motion.line
+          x1="25"
+          y1="25"
+          x2="75"
+          y2="75"
+          stroke="url(#hub-line)"
+          strokeWidth="0.35"
+          initial={reduceMotion ? false : { pathLength: 0, opacity: 0 }}
+          animate={reduceMotion ? undefined : { pathLength: 1, opacity: 1 }}
+          transition={{ duration: 1.1, ease: EASE }}
+        />
+        <motion.line
+          x1="75"
+          y1="25"
+          x2="25"
+          y2="75"
+          stroke="url(#hub-line)"
+          strokeWidth="0.35"
+          initial={reduceMotion ? false : { pathLength: 0, opacity: 0 }}
+          animate={reduceMotion ? undefined : { pathLength: 1, opacity: 1 }}
+          transition={{ duration: 1.1, delay: 0.12, ease: EASE }}
+        />
         <line x1="25" y1="25" x2="75" y2="25" stroke="rgba(245,245,242,0.1)" strokeWidth="0.25" />
         <line x1="75" y1="25" x2="75" y2="75" stroke="rgba(245,245,242,0.1)" strokeWidth="0.25" />
         <line x1="75" y1="75" x2="25" y2="75" stroke="rgba(245,245,242,0.1)" strokeWidth="0.25" />
@@ -94,12 +116,19 @@ function OverviewHeroLandscape() {
                 path="M75 25 L25 25 L25 75 L75 75 Z"
               />
             </circle>
+            <circle r="0.7" fill="#E7000B" opacity="0.85">
+              <animateMotion
+                dur="9s"
+                repeatCount="indefinite"
+                path="M25 25 L75 75"
+              />
+            </circle>
           </>
         )}
       </svg>
 
       {/* Equal 2×2 tiles — fixed cell size so IT/ITES matches the rest */}
-      <div className="relative grid grid-cols-2 grid-rows-2 gap-3 sm:gap-3.5">
+      <div className="relative z-[2] grid grid-cols-2 grid-rows-2 gap-3 sm:gap-3.5">
         {INDUSTRY_NODES.map((node, i) => (
           <motion.div
             key={node.slug}
@@ -313,12 +342,13 @@ export function OverviewHero() {
               >
                 {hero.primaryCta.label}
               </a>
-              <Link
-                to={hero.secondaryCta.href}
+              <button
+                type="button"
+                onClick={() => scrollToContactForm()}
                 className="inline-flex items-center justify-center rounded-md border border-white/30 px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:border-[#E7000B] hover:text-[#E7000B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 {hero.secondaryCta.label}
-              </Link>
+              </button>
             </motion.div>
           </div>
 
@@ -488,6 +518,11 @@ export function IndustryModelSection() {
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease: EASE }}
             />
+            {!reduceMotion && (
+              <circle r="4" fill="#FFFFFF">
+                <animateMotion dur="4.5s" repeatCount="indefinite" path="M20 6 H980" />
+              </circle>
+            )}
           </svg>
 
           <ol className="grid gap-10 lg:grid-cols-5 lg:gap-5">
@@ -543,112 +578,24 @@ export function OverviewFinalCta() {
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(ellipse 55% 45% at 50% 40%, rgba(231,0,11,0.14) 0%, transparent 58%)',
+              'radial-gradient(ellipse 55% 45% at 50% 40%, rgba(231,0,11,0.1) 0%, transparent 58%), radial-gradient(ellipse 70% 50% at 50% 100%, rgba(255,255,255,0.03) 0%, transparent 50%)',
           }}
         />
-        {/* Soft signal constellation - no box placeholders */}
-        <svg
-          className="absolute inset-x-0 bottom-0 mx-auto h-40 w-[94%] max-w-5xl opacity-80"
-          viewBox="0 0 900 160"
-        >
-          <defs>
-            <filter id="cta-glow" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="3.5" result="b" />
-              <feMerge>
-                <feMergeNode in="b" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-            <linearGradient id="cta-wave" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor={RED} stopOpacity="0.15" />
-              <stop offset="45%" stopColor={RED} stopOpacity="1" />
-              <stop offset="100%" stopColor={RED} stopOpacity="0.2" />
-            </linearGradient>
-          </defs>
-
-          {/* Soft horizon arcs */}
-          <ellipse
-            cx="450"
-            cy="118"
-            rx="390"
-            ry="28"
-            fill="none"
-            stroke="rgba(245,245,242,0.08)"
-            strokeWidth="1"
-          />
-          <ellipse
-            cx="450"
-            cy="118"
-            rx="260"
-            ry="16"
-            fill="none"
-            stroke="rgba(245,245,242,0.06)"
-            strokeWidth="1"
-          />
-
-          {/* Smooth flowing signal */}
-          <motion.path
-            d="M40 105 C140 105, 180 58, 270 70 S380 125, 450 95 S560 45, 640 78 S760 120, 860 88"
-            fill="none"
-            stroke="url(#cta-wave)"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            filter="url(#cta-glow)"
-            initial={reduceMotion ? false : { pathLength: 0, opacity: 0 }}
-            whileInView={reduceMotion ? undefined : { pathLength: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.6, ease: EASE }}
-          />
-
-          {!reduceMotion && (
-            <path
-              d="M40 105 C140 105, 180 58, 270 70 S380 125, 450 95 S560 45, 640 78 S760 120, 860 88"
-              fill="none"
-              stroke={RED}
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeDasharray="8 18"
-              opacity="0.4"
-            />
-          )}
-
-          {/* Glowing nodes along the path */}
-          {[
-            [140, 98],
-            [270, 70],
-            [450, 95],
-            [640, 78],
-            [800, 92],
-          ].map(([cx, cy], i) => (
-            <motion.g
-              key={`${cx}-${cy}`}
-              initial={reduceMotion ? false : { opacity: 0 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.35 + i * 0.1, ease: EASE }}
-            >
-              <circle cx={cx} cy={cy} r="8" fill={RED} opacity="0.1" />
-              <circle cx={cx} cy={cy} r="3.5" fill="#fff" />
-              <circle cx={cx} cy={cy} r="2" fill={RED} />
-            </motion.g>
-          ))}
-
-          {!reduceMotion && (
-            <circle r="3" fill="#fff">
-              <animateMotion
-                dur="10s"
-                repeatCount="indefinite"
-                path="M40 105 C140 105, 180 58, 270 70 S380 125, 450 95 S560 45, 640 78 S760 120, 860 88"
-              />
-            </circle>
-          )}
-        </svg>
+        <IndustryCtaCentreMotion idPrefix="overview-cta-centre" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse 58% 52% at 50% 45%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.42) 48%, transparent 75%)',
+          }}
+        />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-[820px] px-5 py-16 text-center sm:px-6 sm:py-20 lg:px-10 lg:pb-28 lg:pt-20">
         <motion.h2
           id="industries-overview-cta-heading"
-          className="font-heading text-[2rem] font-extrabold leading-[1.15] text-[#F5F5F2] sm:text-5xl"
+          className="font-heading text-[2rem] font-extrabold leading-[1.15] tracking-[-0.01em] text-white sm:text-5xl"
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -657,8 +604,18 @@ export function OverviewFinalCta() {
           {cta.headline}
         </motion.h2>
 
+        <motion.span
+          className="mx-auto mt-6 block h-[2.5px] w-12 origin-center rounded-full"
+          style={{ backgroundColor: RED }}
+          aria-hidden="true"
+          initial={reduceMotion ? false : { scaleX: 0 }}
+          whileInView={reduceMotion ? undefined : { scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.08, ease: EASE }}
+        />
+
         <motion.p
-          className="mx-auto mt-6 max-w-xl font-body text-sm leading-relaxed text-[#8E8E8E] sm:text-base"
+          className="mx-auto mt-6 max-w-xl font-body text-sm font-medium leading-relaxed text-white/75 sm:text-base"
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -674,20 +631,32 @@ export function OverviewFinalCta() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.14, ease: EASE }}
         >
-          <Link
-            to={cta.primaryCta.href}
-            className="inline-flex items-center justify-center rounded-md px-7 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          <button
+            type="button"
+            onClick={() => scrollToContactForm()}
+            className="inline-flex items-center justify-center rounded-md px-7 py-3.5 font-heading text-sm font-extrabold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             style={{ backgroundColor: RED }}
           >
             {cta.primaryCta.label}
-          </Link>
-          <Link
-            to={cta.secondaryCta.href}
-            className="inline-flex items-center justify-center rounded-md border border-white/25 px-7 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:border-[#E7000B] hover:text-[#E7000B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollToContactForm()}
+            className="inline-flex items-center justify-center rounded-md border border-white/25 px-7 py-3.5 font-heading text-sm font-extrabold tracking-wide text-white uppercase transition-colors hover:border-[#E7000B] hover:text-[#E7000B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             {cta.secondaryCta.label}
-          </Link>
+          </button>
         </motion.div>
+
+        <motion.p
+          className="mt-16 font-heading text-sm font-semibold tracking-wide text-white/80 sm:text-[0.95rem]"
+          initial={reduceMotion ? false : { opacity: 0 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
+        >
+          Engineering the modern, secure, and resilient enterprise.
+        </motion.p>
       </div>
     </section>
   )

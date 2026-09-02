@@ -11,7 +11,7 @@ import ContactSection from '../home/ContactSection'
 const EASE = [0.16, 1, 0.3, 1]
 
 const SOLUTIONS = [
-  { label: 'Modernize the Core', to: '/#modernize-the-core' },
+  { label: 'Modernize the Core', to: '/solutions/modernize-the-core' },
   { label: 'Protect & Recover', to: '/#protect-and-recover' },
   { label: 'Make Data Actionable', to: '/#make-data-actionable' },
   { label: 'Build & Connect', to: '/#build-and-connect' },

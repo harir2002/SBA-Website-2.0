@@ -1,6 +1,7 @@
 import { useEffect, useId, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { SOLUTION_ACCENT } from '../../data/solutions/modernizeTheCore'
+import ScrollReveal, { ScrollStagger } from '../home/ScrollReveal'
 
 function useIsNarrow(breakpoint = 1024) {
   const [narrow, setNarrow] = useState(() =>
@@ -31,26 +32,19 @@ function PillarPanel({ pillar, open, onToggle, panelId, buttonId, reduceMotion }
           aria-expanded={open}
           aria-controls={panelId}
           onClick={onToggle}
-          className="flex min-h-11 w-full items-start justify-between gap-3 px-5 py-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          className="flex min-h-11 w-full items-start gap-3 px-5 py-5 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
           style={{ outlineColor: SOLUTION_ACCENT }}
         >
           <span>
-            <span className="block font-heading text-lg font-bold text-[#FFFFFF] sm:text-xl">
+            <span
+              className="block font-heading text-lg font-bold sm:text-xl"
+              style={{ color: SOLUTION_ACCENT }}
+            >
               {pillar.title}
             </span>
             <span className="mt-2 block font-body text-sm leading-relaxed text-[rgba(255,255,255,0.55)]">
               {pillar.summary}
             </span>
-          </span>
-          <span
-            className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 font-heading text-lg font-bold text-[#FFFFFF]"
-            aria-hidden="true"
-            style={{
-              backgroundColor: open ? SOLUTION_ACCENT : 'transparent',
-              borderColor: open ? SOLUTION_ACCENT : 'rgba(255,255,255,0.15)',
-            }}
-          >
-            {open ? '−' : '+'}
           </span>
         </button>
       </h3>
@@ -69,8 +63,15 @@ function PillarPanel({ pillar, open, onToggle, panelId, buttonId, reduceMotion }
           <ul className="space-y-4 border-t border-white/[0.08] px-5 pt-4 pb-6">
             {(pillar.capabilities || []).map((cap) => (
               <li key={cap.title}>
-                <p className="font-heading text-sm font-bold text-[#FFFFFF]">{cap.title}</p>
-                <p className="mt-1.5 font-body text-sm leading-relaxed text-[rgba(255,255,255,0.55)]">{cap.body}</p>
+                <p
+                  className="font-heading text-sm font-bold"
+                  style={{ color: SOLUTION_ACCENT }}
+                >
+                  {cap.title}
+                </p>
+                <p className="mt-1.5 font-body text-sm font-medium leading-relaxed text-white/70">
+                  {cap.body}
+                </p>
               </li>
             ))}
           </ul>
@@ -108,22 +109,25 @@ export default function SolutionPillars({ pillars }) {
       id="pillars"
       className="solution-section border-t border-white/[0.06] bg-[#000000]"
       aria-labelledby="solution-pillars-heading"
+      style={{ scrollMarginTop: '140px' }}
     >
-      <div className="mx-auto max-w-[1280px] px-5 py-16 sm:px-6 sm:py-20 lg:px-10 lg:py-24">
-        <p
-          className="font-heading text-[0.7rem] font-bold tracking-[0.22em] uppercase"
-          style={{ color: SOLUTION_ACCENT }}
-        >
-          {pillars.eyebrow}
-        </p>
-        <h2
-          id="solution-pillars-heading"
-          className="mt-3 max-w-3xl font-heading text-3xl font-extrabold leading-tight tracking-[-0.01em] text-[#FFFFFF] sm:text-4xl"
-        >
-          {pillars.headline}
-        </h2>
+      <div className="mx-auto max-w-[1280px] px-5 py-16 text-center sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+        <ScrollReveal y={32}>
+          <p
+            className="font-heading text-[0.7rem] font-bold tracking-[0.22em] uppercase"
+            style={{ color: SOLUTION_ACCENT }}
+          >
+            {pillars.eyebrow}
+          </p>
+          <h2
+            id="solution-pillars-heading"
+            className="mx-auto mt-3 max-w-3xl font-heading text-3xl font-extrabold leading-tight tracking-[-0.01em] text-balance text-[#FFFFFF] sm:text-4xl"
+          >
+            {pillars.headline}
+          </h2>
+        </ScrollReveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
+        <ScrollStagger className="mt-12 grid grid-cols-1 gap-5 text-left lg:grid-cols-3" stagger={0.12} y={28}>
           {items.map((pillar, i) => {
             const open = isNarrow ? openIndex === i : desktopOpen[i]
             return (
@@ -138,7 +142,7 @@ export default function SolutionPillars({ pillars }) {
               />
             )
           })}
-        </div>
+        </ScrollStagger>
       </div>
     </section>
   )

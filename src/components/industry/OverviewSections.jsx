@@ -7,6 +7,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { INDUSTRY_OVERVIEW } from '../../data/industriesContent'
 import IndustryCtaCentreMotion from './IndustryCtaCentreMotion'
 import { scrollToContactForm } from '../../utils/scrollToContactForm'
+import BrandMotto from '../shared/BrandMotto'
 
 const EASE = [0.16, 1, 0.3, 1]
 const RED = '#E7000B'
@@ -639,24 +640,18 @@ export function OverviewFinalCta() {
           >
             {cta.primaryCta.label}
           </button>
-          <button
-            type="button"
-            onClick={() => scrollToContactForm()}
-            className="inline-flex items-center justify-center rounded-md border border-white/25 px-7 py-3.5 font-heading text-sm font-extrabold tracking-wide text-white uppercase transition-colors hover:border-[#E7000B] hover:text-[#E7000B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-          >
-            {cta.secondaryCta.label}
-          </button>
+          {cta.secondaryCta ? (
+            <button
+              type="button"
+              onClick={() => scrollToContactForm()}
+              className="inline-flex items-center justify-center rounded-md border border-white/25 px-7 py-3.5 font-heading text-sm font-extrabold tracking-wide text-white uppercase transition-colors hover:border-[#E7000B] hover:text-[#E7000B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >
+              {cta.secondaryCta.label}
+            </button>
+          ) : null}
         </motion.div>
 
-        <motion.p
-          className="mt-16 font-heading text-sm font-semibold tracking-wide text-white/80 sm:text-[0.95rem]"
-          initial={reduceMotion ? false : { opacity: 0 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
-        >
-          Engineering the modern, secure, and resilient enterprise.
-        </motion.p>
+        <BrandMotto className="mt-16" delay={0.2} />
       </div>
     </section>
   )

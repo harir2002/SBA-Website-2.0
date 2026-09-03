@@ -10,6 +10,8 @@ export const SOLUTION_ACCENT = '#E7000B'
 export const MODERNIZE_THE_CORE = {
   slug: 'modernize-the-core',
   path: '/solutions/modernize-the-core',
+  template: 'modernize-the-core',
+  label: 'Modernize the Core',
   seoTitle:
     'Modernize the Core | Data Center, Hybrid Cloud & Infrastructure Transformation | SBA Info Solutions',
   metaDescription:
@@ -26,8 +28,8 @@ export const MODERNIZE_THE_CORE = {
     image: heroImage,
     imageAlt:
       'Abstract visualization of legacy infrastructure transforming into modular cloud-native platforms with SBA red data paths',
-    eyebrow: null,
-    title: 'Engineer a High-Performance, Resilient Technology Foundation.',
+    eyebrow: 'Modernize the Core',
+    title: 'Engineer a High-Performance, Resilient Technology Foundation',
     subtitle: 'Modernized around the workloads your business cannot afford to interrupt.',
     body: "Legacy systems shouldn't hold back tomorrow's ambitions. We re-engineer your technology foundation—from high-performance compute and storage to hybrid cloud and container platforms—delivering cloud-like agility, enterprise stability, and zero-downtime execution.",
     primaryCta: {
@@ -196,11 +198,10 @@ export const MODERNIZE_THE_CORE = {
   },
   cta: {
     eyebrow: 'READY TO MODERNIZE?',
-    headline: 'Build an Infrastructure Foundation That Never Slows Down.',
+    headline: 'Build an Infrastructure Foundation That Never Slows Down',
     body: 'Talk to our senior enterprise architects to assess your current workloads and design a modernization path tailored to your budget and uptime requirements.',
     submitLabel: 'Request a Technical Assessment',
-    tagline:
-      'SBA Info Solutions — Engineering the modern, secure, and resilient enterprise.',
+    tagline: 'Engineering the modern, secure, and intelligent enterprise.',
   },
 }
 

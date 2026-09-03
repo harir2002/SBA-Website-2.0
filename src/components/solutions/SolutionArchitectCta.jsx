@@ -2,19 +2,20 @@ import { motion, useReducedMotion } from 'framer-motion'
 import IndustryCtaCentreMotion from '../industry/IndustryCtaCentreMotion'
 import { SOLUTION_ACCENT } from '../../data/solutions/modernizeTheCore'
 import { scrollToContactForm } from '../../utils/scrollToContactForm'
+import BrandMotto from '../shared/BrandMotto'
 
 const EASE = [0.16, 1, 0.3, 1]
 
 /**
  * Final conversion section — scrolls to the shared footer contact form on this page.
  */
-export default function SolutionArchitectCta({ cta }) {
+export default function SolutionArchitectCta({ cta, sectionId = 'talk-to-an-architect' }) {
   const reduceMotion = useReducedMotion()
   if (!cta) return null
 
   return (
     <section
-      id="talk-to-an-architect"
+      id={sectionId}
       className="solution-section relative overflow-hidden bg-black"
       aria-labelledby="solution-cta-heading"
     >
@@ -97,17 +98,7 @@ export default function SolutionArchitectCta({ cta }) {
           </button>
         </motion.div>
 
-        {cta.tagline && (
-          <motion.p
-            className="mt-16 font-heading text-sm font-semibold tracking-wide text-white/80 sm:text-[0.95rem]"
-            initial={reduceMotion ? false : { opacity: 0 }}
-            whileInView={reduceMotion ? undefined : { opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.22, ease: EASE }}
-          >
-            {cta.tagline}
-          </motion.p>
-        )}
+        {cta.tagline ? <BrandMotto className="mt-16" /> : null}
       </div>
     </section>
   )

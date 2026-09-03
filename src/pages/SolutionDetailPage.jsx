@@ -1,6 +1,6 @@
 /**
  * Solution detail page — /solutions/:slug
- * Currently implements Modernize the Core blueprint.
+ * Templates: Modernize the Core, Protect and Recover, Make Data Actionable.
  */
 
 import { useEffect, useMemo } from 'react'
@@ -8,7 +8,7 @@ import { Link, useParams } from 'react-router-dom'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import usePageMeta from '../hooks/usePageMeta'
-import { getSolutionBySlug, SOLUTION_ACCENT } from '../data/solutions/modernizeTheCore'
+import { getSolutionBySlug, SOLUTION_ACCENT } from '../data/solutions'
 import SolutionScrollProgress from '../components/solutions/SolutionScrollProgress'
 import SolutionSubNav from '../components/solutions/SolutionSubNav'
 import SolutionHero from '../components/solutions/SolutionHero'
@@ -19,9 +19,50 @@ import SolutionJourney from '../components/solutions/SolutionJourney'
 import SolutionConnected from '../components/solutions/SolutionConnected'
 import SolutionArchitectCta from '../components/solutions/SolutionArchitectCta'
 
+/** Shared Engagement Journey visual for all solution pages. */
+function midSection(solution) {
+  if (solution.template === 'protect-and-recover' && solution.resilience) {
+    return (
+      <SolutionJourney
+        sectionId="resilience-assurance"
+        journey={{
+          eyebrow: solution.resilience.eyebrow,
+          headline: solution.resilience.headline,
+          steps: solution.resilience.steps,
+        }}
+      />
+    )
+  }
+
+  if (solution.template === 'make-data-actionable' && solution.blueprint) {
+    return (
+      <SolutionJourney
+        sectionId="data-to-ai-blueprint"
+        journey={{
+          eyebrow: solution.blueprint.eyebrow,
+          headline: solution.blueprint.headline,
+          steps: (solution.blueprint.stages || []).map((stage) => ({
+            title: stage.label,
+            body: stage.detail,
+          })),
+        }}
+      />
+    )
+  }
+
+  return <SolutionJourney journey={solution.journey} />
+}
+
+function ctaSectionId(solution) {
+  if (solution.template === 'protect-and-recover') return 'talk-to-a-security-expert'
+  if (solution.template === 'make-data-actionable') return 'talk-to-a-data-architect'
+  return 'talk-to-an-architect'
+}
+
 export default function SolutionDetailPage() {
   const { slug } = useParams()
   const solution = getSolutionBySlug(slug)
+  const accent = solution?.accent || SOLUTION_ACCENT
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -33,7 +74,7 @@ export default function SolutionDetailPage() {
         ? [
             { name: 'Home', path: '/' },
             { name: 'Solutions', path: '/#capabilities' },
-            { name: 'Modernize the Core', path: solution.path },
+            { name: solution.label || solution.slug, path: solution.path },
           ]
         : [],
     [solution],
@@ -68,18 +109,18 @@ export default function SolutionDetailPage() {
 
   return (
     <div className="solution-detail-page relative min-h-screen bg-black text-white">
-      <SolutionScrollProgress />
+      <SolutionScrollProgress accent={accent} />
       <Header />
 
       <main>
-        <SolutionHero hero={solution.hero} />
-        <SolutionSubNav anchors={solution.anchors} />
+        <SolutionHero hero={solution.hero} accent={accent} />
+        <SolutionSubNav anchors={solution.anchors} accent={accent} />
         <SolutionOverview overview={solution.overview} />
         <SolutionPillars pillars={solution.pillars} />
         <SolutionProof capabilities={solution.capabilities} />
-        <SolutionJourney journey={solution.journey} />
+        {midSection(solution)}
         <SolutionConnected whySba={solution.whySba} />
-        <SolutionArchitectCta cta={solution.cta} />
+        <SolutionArchitectCta cta={solution.cta} sectionId={ctaSectionId(solution)} />
       </main>
 
       <Footer />

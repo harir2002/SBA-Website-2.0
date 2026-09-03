@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { SHARED_INDUSTRY_CTA } from '../../data/industriesContent'
 import IndustryCtaCentreMotion from './IndustryCtaCentreMotion'
 import { scrollToContactForm } from '../../utils/scrollToContactForm'
+import BrandMotto from '../shared/BrandMotto'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -129,17 +130,7 @@ export default function IndustryCTA({ cta = SHARED_INDUSTRY_CTA, variant = 'defa
           ) : null}
         </motion.div>
 
-        {cta.signature && (
-          <motion.p
-            className="mt-16 font-heading text-sm font-semibold tracking-wide text-white/80 sm:text-[0.95rem]"
-            initial={reduceMotion ? false : { opacity: 0 }}
-            whileInView={reduceMotion ? undefined : { opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.22, ease: EASE }}
-          >
-            {cta.signature}
-          </motion.p>
-        )}
+        {cta.signature ? <BrandMotto className="mt-16" /> : null}
       </div>
     </section>
   )

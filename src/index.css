@@ -16,17 +16,27 @@ html {
   --header-height: 88px;
   --industry-subnav-height: 52px;
   --solution-subnav-height: 52px;
-  --site-content-max-width: 1240px;
+  --site-content-max-width: 1280px;
   --site-gutter: clamp(24px, 5vw, 80px);
-  --industry-hero-content-width: 760px;
+  /* Wide hero: minimal side gaps so headline can span the frame */
   --industry-hero-page-gutter: 24px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --industry-hero-page-gutter: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --industry-hero-page-gutter: 40px;
+  }
 }
 
 @media (max-width: 1024px) {
   :root {
     --site-gutter: clamp(28px, 5vw, 56px);
-    --industry-hero-content-width: 680px;
-    --industry-hero-page-gutter: 32px;
   }
 }
 
@@ -34,8 +44,7 @@ html {
   :root {
     --header-height: 72px;
     --site-gutter: 24px;
-    --industry-hero-content-width: 100%;
-    --industry-hero-page-gutter: 24px;
+    --industry-hero-page-gutter: 20px;
   }
 }
 
@@ -459,7 +468,7 @@ body {
   display: flex;
   align-items: stretch;
   width: 100%;
-  min-height: clamp(540px, 68vw, 760px);
+  min-height: clamp(640px, 100svh, 1080px);
   overflow: hidden;
   background: #000000;
   padding-top: 0;
@@ -508,8 +517,8 @@ body {
   transform-origin: center center;
   will-change: transform;
   animation: industryHeroSlowZoom 14s ease-out 0s 1 normal forwards;
-  /* Keep photo visible; light veil only for text contrast */
-  filter: brightness(0.92) contrast(1.04) saturate(0.95);
+  /* Even overall dim — no left blackout */
+  filter: brightness(0.72) contrast(1.04) saturate(0.94);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -542,22 +551,19 @@ body {
     );
 }
 
-/* Soft left veil only — do not black out the hero image */
+/* Soft full-frame veil — headline spans nearly full width */
 .industry-hero--detail .industry-hero__overlay {
   background:
     linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.48) 0%,
-      rgba(0, 0, 0, 0.32) 28%,
-      rgba(0, 0, 0, 0.16) 52%,
-      rgba(0, 0, 0, 0.06) 72%,
-      rgba(0, 0, 0, 0.02) 100%
+      180deg,
+      rgba(0, 0, 0, 0.32) 0%,
+      rgba(0, 0, 0, 0.26) 42%,
+      rgba(0, 0, 0, 0.42) 100%
     ),
     linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.12) 0%,
-      rgba(0, 0, 0, 0.06) 45%,
-      rgba(0, 0, 0, 0.18) 100%
+      0deg,
+      rgba(0, 0, 0, 0.18),
+      rgba(0, 0, 0, 0.18)
     );
 }
 
@@ -598,36 +604,66 @@ body {
 }
 
 .industry-hero__rule {
-  margin: 0 0 18px;
+  display: block;
+  flex-shrink: 0;
+  margin: 4px 0 20px;
+  height: 2px;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 999px;
+  transform-origin: left center;
+}
+
+.industry-hero__rule--red {
+  background-color: #e7000b;
+}
+
+.industry-hero__rule--white {
+  background-color: rgba(255, 255, 255, 0.55);
+  margin: 22px 0 0;
+}
+
+.industry-hero--detail .industry-hero__rule {
+  width: 100%;
+  max-width: 100%;
+  height: 2px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.industry-hero--detail .industry-hero__rule--red {
+  margin: 4px 0 22px;
+}
+
+.industry-hero--detail .industry-hero__rule--white {
+  margin: 22px 0 0;
 }
 
 /*
-  Detail-page heroes: one shared fixed content column.
-  Content length must never change width or horizontal position.
+  Detail-page heroes: wide left-aligned stack.
+  Minimal left/right gaps — headline uses almost full width.
 */
 .industry-hero--detail .industry-hero__content-shell {
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: center;
   padding-top: var(--header-height);
   padding-right: var(--industry-hero-page-gutter);
-  padding-bottom: 0;
+  padding-bottom: 48px;
   padding-left: var(--industry-hero-page-gutter);
   box-sizing: border-box;
 }
 
 .industry-hero--detail .industry-hero__content-column {
-  flex: 0 0 var(--industry-hero-content-width);
   box-sizing: border-box;
-  width: var(--industry-hero-content-width);
-  max-width: calc(100% - (2 * var(--industry-hero-page-gutter)));
+  width: 100%;
+  max-width: none;
   min-width: 0;
-  margin-top: 0;
-  margin-right: auto;
-  margin-bottom: 0;
-  margin-left: auto;
+  margin: 0;
   padding: 0;
 }
 
 .industry-hero--detail .industry-hero__content {
+  position: relative;
   width: 100%;
   max-width: none;
   min-width: 0;
@@ -648,25 +684,31 @@ body {
   text-align: left;
 }
 
+.industry-hero--detail .industry-hero__eyebrow {
+  margin: 0 0 16px;
+  color: #e7000b;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
+}
+
 .industry-hero--detail .industry-hero__title {
   width: 100%;
-  max-width: 100%;
-  margin-bottom: 18px;
-  text-wrap: balance;
+  max-width: none;
+  margin-bottom: 28px;
+  text-wrap: pretty;
 }
 
 .industry-hero--detail .industry-hero__subtitle {
-  max-width: 620px;
+  max-width: none;
 }
 
 .industry-hero--detail .industry-hero__body {
-  max-width: 600px;
+  max-width: none;
 }
 
 .industry-hero--detail .industry-hero__actions {
   display: flex;
   justify-content: flex-start;
-  margin-top: 20px;
+  margin-top: 0;
 }
 
 /* Industry-specific near-centre focal points */
@@ -688,7 +730,7 @@ body {
 
 @media (max-width: 1024px) {
   .industry-hero {
-    min-height: clamp(520px, 72vw, 680px);
+    min-height: clamp(580px, 92svh, 900px);
   }
 
   .industry-hero__image,
@@ -705,28 +747,34 @@ body {
   }
 
   .industry-hero--detail .industry-hero__content-column {
-    width: var(--industry-hero-content-width);
-    max-width: calc(100% - (2 * var(--industry-hero-page-gutter)));
-    margin-inline: auto;
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .industry-hero--detail .industry-hero__content {
+    max-width: none;
+    margin-inline: 0;
+    text-align: left;
   }
 
   .industry-hero--detail .industry-hero__title {
-    max-width: 100%;
+    max-width: none;
   }
 
   .industry-hero--detail .industry-hero__subtitle {
-    max-width: 560px;
+    max-width: none;
   }
 
   .industry-hero--detail .industry-hero__body {
-    max-width: 540px;
+    max-width: none;
   }
 }
 
 @media (max-width: 768px) {
   .industry-hero,
   .industry-overview-hero {
-    min-height: max(540px, 82svh);
+    min-height: max(580px, 100svh);
   }
 
   .industry-hero__image,
@@ -743,7 +791,7 @@ body {
   .industry-hero--detail.industry-hero--manufacturing .industry-hero__image,
   .industry-hero--detail.industry-hero--it-ites .industry-hero__image,
   .industry-hero--detail.industry-hero--diversified .industry-hero__image {
-    filter: brightness(0.88) contrast(1.04) saturate(0.95);
+    filter: brightness(0.68) contrast(1.04) saturate(0.94);
   }
 
   .industry-hero__overlay {
@@ -765,15 +813,14 @@ body {
     background:
       linear-gradient(
         180deg,
-        rgba(0, 0, 0, 0.28) 0%,
+        rgba(0, 0, 0, 0.38) 0%,
         rgba(0, 0, 0, 0.32) 45%,
-        rgba(0, 0, 0, 0.48) 100%
+        rgba(0, 0, 0, 0.52) 100%
       ),
       linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 0.4) 0%,
-        rgba(0, 0, 0, 0.2) 70%,
-        rgba(0, 0, 0, 0.1) 100%
+        0deg,
+        rgba(0, 0, 0, 0.24),
+        rgba(0, 0, 0, 0.24)
       );
   }
 
@@ -784,9 +831,10 @@ body {
 
   .industry-hero--detail .industry-hero__content-shell {
     justify-content: flex-start;
+    align-items: center;
     padding-top: var(--header-height);
     padding-right: var(--industry-hero-page-gutter);
-    padding-bottom: 24px;
+    padding-bottom: 40px;
     padding-left: var(--industry-hero-page-gutter);
   }
 
@@ -801,12 +849,13 @@ body {
     width: 100%;
     max-width: none;
     margin-inline: 0;
+    text-align: left;
   }
 
   .industry-hero--detail .industry-hero__title,
   .industry-hero--detail .industry-hero__subtitle,
   .industry-hero--detail .industry-hero__body {
-    max-width: 100%;
+    max-width: none;
   }
 }
 
@@ -842,8 +891,9 @@ body {
 }
 
 .industry-hero--detail .industry-hero__eyebrow {
-  font-weight: 800;
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+  font-weight: 700;
+  color: #e7000b;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.45);
 }
 
 .industry-hero--detail .industry-hero__title {
@@ -855,7 +905,6 @@ body {
 
 .industry-hero--detail .industry-hero__subtitle {
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.95);
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
 }
 
@@ -878,7 +927,7 @@ body {
   flex-wrap: wrap;
   align-items: center;
   gap: 12px;
-  margin-top: 22px;
+  margin-top: 28px;
   padding-bottom: 8px;
 }
 

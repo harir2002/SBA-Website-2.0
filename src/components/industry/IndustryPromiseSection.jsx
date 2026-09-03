@@ -117,11 +117,11 @@ export default function IndustryPromiseSection({ promise, accent = '#E7000B' }) 
         }}
       />
 
-      <div className="relative z-10 mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-5 py-14 sm:px-6 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:px-10 lg:py-20">
-        <div>
+      <div className="relative z-10 mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 px-5 py-14 text-center sm:px-6 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:px-10 lg:py-20 lg:text-left">
+        <div className="mx-auto max-w-xl lg:mx-0 lg:max-w-none">
           <motion.h2
             id="industry-promise-heading"
-            className="font-heading text-3xl font-extrabold leading-tight tracking-[-0.01em] text-white sm:text-4xl"
+            className="font-heading text-3xl font-extrabold leading-tight tracking-[-0.01em] text-balance text-white sm:text-4xl"
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             viewport={{ once: true }}

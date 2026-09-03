@@ -1,0 +1,22 @@
+import { MODERNIZE_THE_CORE, SOLUTION_ACCENT } from './modernizeTheCore'
+import { PROTECT_AND_RECOVER, PROTECT_ACCENT } from './protectAndRecover'
+import { MAKE_DATA_ACTIONABLE, MAKE_DATA_ACCENT } from './makeDataActionable'
+
+export {
+  MODERNIZE_THE_CORE,
+  SOLUTION_ACCENT,
+  PROTECT_AND_RECOVER,
+  PROTECT_ACCENT,
+  MAKE_DATA_ACTIONABLE,
+  MAKE_DATA_ACCENT,
+}
+
+const SOLUTIONS = {
+  [MODERNIZE_THE_CORE.slug]: MODERNIZE_THE_CORE,
+  [PROTECT_AND_RECOVER.slug]: PROTECT_AND_RECOVER,
+  [MAKE_DATA_ACTIONABLE.slug]: MAKE_DATA_ACTIONABLE,
+}
+
+export function getSolutionBySlug(slug) {
+  return SOLUTIONS[slug] || null
+}

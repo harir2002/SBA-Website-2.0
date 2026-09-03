@@ -2,18 +2,27 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import IndustryHeroVisual from './IndustryHeroVisual'
+import { scrollToContactForm } from '../../utils/scrollToContactForm'
 
 const EASE = [0.16, 1, 0.3, 1]
 
-function CtaLink({ cta, primary, accent }) {
+function CtaLink({ cta, primary, accent, withArrow = false }) {
   if (!cta) return null
   const className = primary
-    ? 'inline-flex items-center justify-center rounded-md px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
+    ? 'inline-flex items-center justify-center gap-2 rounded-md px-7 py-3.5 font-heading text-sm font-extrabold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
     : 'inline-flex items-center justify-center rounded-md border border-white/30 px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white'
 
-  const secondaryClass = !primary
-    ? `${className} hover:opacity-90`
-    : className
+  const secondaryClass = !primary ? `${className} hover:opacity-90` : className
+  const label = (
+    <>
+      {cta.label}
+      {withArrow && primary ? (
+        <span aria-hidden="true" className="text-[0.7em] leading-none">
+          ▶
+        </span>
+      ) : null}
+    </>
+  )
 
   if (cta.href?.startsWith('#')) {
     const isContact = cta.href === '#contact'
@@ -26,7 +35,7 @@ function CtaLink({ cta, primary, accent }) {
           isContact
             ? (e) => {
                 e.preventDefault()
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                scrollToContactForm()
               }
             : undefined
         }
@@ -47,7 +56,7 @@ function CtaLink({ cta, primary, accent }) {
               }
         }
       >
-        {cta.label}
+        {label}
       </a>
     )
   }
@@ -73,8 +82,44 @@ function CtaLink({ cta, primary, accent }) {
             }
       }
     >
-      {cta.label}
+      {label}
     </Link>
+  )
+}
+
+/** Compact hero stack matching reference: eyebrow → headline → CTA */
+function HeroCopyCompact({ hero, accent, reduceMotion }) {
+  return (
+    <>
+      <motion.p
+        className="industry-hero__eyebrow font-heading text-base font-bold tracking-wide sm:text-lg"
+        style={{ color: accent }}
+        initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: EASE }}
+      >
+        {hero.eyebrow}
+      </motion.p>
+
+      <motion.h1
+        id="industry-hero-heading"
+        className="industry-hero__title font-heading text-[2.35rem] font-black leading-[1.05] tracking-[-0.025em] text-white sm:text-5xl md:text-6xl lg:text-[3.75rem]"
+        initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, delay: 0.05, ease: EASE }}
+      >
+        {hero.headline}
+      </motion.h1>
+
+      <motion.div
+        className="industry-hero__actions"
+        initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
+      >
+        <CtaLink cta={hero.primaryCta} primary accent={accent} withArrow />
+      </motion.div>
+    </>
   )
 }
 
@@ -105,7 +150,8 @@ function HeroCopy({ hero, accent, reduceMotion }) {
 
       {hero.subheadline && (
         <motion.p
-          className="industry-hero__subtitle font-heading text-base font-extrabold text-white sm:text-lg"
+          className="industry-hero__subtitle font-heading text-base font-extrabold sm:text-lg"
+          style={{ color: accent }}
           initial={reduceMotion ? false : { opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: EASE }}
@@ -113,15 +159,6 @@ function HeroCopy({ hero, accent, reduceMotion }) {
           {hero.subheadline}
         </motion.p>
       )}
-
-      <motion.span
-        className="industry-hero__rule block h-[2px] w-14 origin-left rounded-full"
-        style={{ backgroundColor: accent }}
-        aria-hidden="true"
-        initial={reduceMotion ? false : { scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 0.55, delay: 0.15, ease: EASE }}
-      />
 
       <div className="industry-hero__body text-white">
         {paragraphs.map((p) => (
@@ -143,10 +180,8 @@ function HeroCopy({ hero, accent, reduceMotion }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.24, ease: EASE }}
       >
-        <CtaLink cta={hero.primaryCta} primary accent={accent} />
-        {hero.secondaryCta ? (
-          <CtaLink cta={hero.secondaryCta} accent={accent} />
-        ) : null}
+        <CtaLink cta={hero.primaryCta} primary accent={accent} withArrow />
+        {hero.secondaryCta ? <CtaLink cta={hero.secondaryCta} accent={accent} /> : null}
       </motion.div>
     </>
   )
@@ -224,7 +259,7 @@ export default function IndustryHero({ hero, id = 'overview', accent = '#E7000B'
         <div className="industry-hero__content-shell">
           <div className="industry-hero__content-column">
             <div className="industry-hero__content">
-              <HeroCopy hero={hero} accent={accent} reduceMotion={reduceMotion} />
+              <HeroCopyCompact hero={hero} accent={accent} reduceMotion={reduceMotion} />
             </div>
           </div>
         </div>

@@ -14,10 +14,10 @@ export default function IndustryUseCaseGrid({ useCases }) {
       className="relative bg-black"
       aria-labelledby="industry-usecases-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-5 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
+      <div className="mx-auto max-w-[1280px] px-5 py-14 text-center sm:px-6 sm:py-16 lg:px-10 lg:py-20">
         <motion.h2
           id="industry-usecases-heading"
-          className="max-w-3xl font-heading text-3xl font-extrabold leading-tight text-[#F5F5F2] sm:text-4xl"
+          className="mx-auto max-w-3xl font-heading text-3xl font-extrabold leading-tight text-balance text-[#F5F5F2] sm:text-4xl"
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -27,7 +27,7 @@ export default function IndustryUseCaseGrid({ useCases }) {
         </motion.h2>
 
         {isGrid ? (
-          <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-10 grid gap-5 text-left sm:grid-cols-2 lg:grid-cols-3">
             {useCases.items.map((item, i) => (
               <motion.li
                 key={item.title}
@@ -48,7 +48,7 @@ export default function IndustryUseCaseGrid({ useCases }) {
             ))}
           </ul>
         ) : (
-          <ul className="mt-10 space-y-4">
+          <ul className="mt-10 space-y-4 text-left">
             {useCases.items.map((item, i) => (
               <motion.li
                 key={typeof item === 'string' ? item : item.title}

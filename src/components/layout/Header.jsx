@@ -13,8 +13,8 @@ const INDUSTRIES = INDUSTRY_NAV
 
 const CAPABILITIES = [
   { label: 'Modernize the Core', id: 'modernize-the-core', path: '/solutions/modernize-the-core' },
-  { label: 'Protect and Recover', id: 'protect-and-recover' },
-  { label: 'Make Data Actionable', id: 'make-data-actionable' },
+  { label: 'Protect and Recover', id: 'protect-and-recover', path: '/solutions/protect-and-recover' },
+  { label: 'Make Data Actionable', id: 'make-data-actionable', path: '/solutions/make-data-actionable' },
   { label: 'Build and Connect', id: 'build-and-connect' },
   { label: 'Operate with Assurance', id: 'engineered-for-your-industry' },
   { label: 'Accelerate Business AI', id: 'accelerate-business-ai' },

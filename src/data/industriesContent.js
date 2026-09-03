@@ -121,7 +121,7 @@ export const INDUSTRY_OVERVIEW = {
     headline: 'Find the right path forward for your industry.',
     body: 'Talk to SBA about the technology, security, resilience, data, and AI priorities shaping your organisation’s next chapter.',
     primaryCta: { label: "Let's Connect", href: '#contact' },
-    secondaryCta: { label: 'Explore Our Capabilities', href: '/#capabilities' },
+    secondaryCta: null,
   },
 }
 
@@ -131,7 +131,7 @@ export const SHARED_INDUSTRY_CTA = {
   body: 'Talk to SBA about modernising the foundation, protecting critical operations, activating intelligence, and creating the connected capabilities your organisation needs next.',
   primaryCta: { label: "Let's Connect", href: '#contact' },
   secondaryCta: null,
-  signature: 'Engineering the modern, secure, and resilient enterprise.',
+  signature: 'Engineering the modern, secure, and intelligent enterprise.',
 }
 
 export const INDUSTRY_ANCHORS = [
@@ -153,7 +153,7 @@ export const INDUSTRY_PAGES = {
       'Modernise financial technology foundations, strengthen cyber resilience, and maintain secure, always-on BFSI operations with SBA.',
     hero: {
       eyebrow: 'BFSI',
-      headline: 'Built for financial operations that cannot pause.',
+      headline: 'Built for financial operations that cannot pause',
       subheadline: 'Modernise critical systems. Protect trust. Maintain continuity.',
       body: 'SBA helps financial institutions modernise critical systems, protect sensitive data, strengthen cyber resilience, and maintain continuity across high-volume, always-on operations.',
       primaryCta: { label: "Let's Connect", href: '#contact' },
@@ -258,7 +258,7 @@ export const INDUSTRY_PAGES = {
       'Modernise ERP and infrastructure, secure production environments, and improve manufacturing resilience with SBA.',
     hero: {
       eyebrow: 'MANUFACTURING',
-      headline: 'Keep production, supply chains, and operations moving as one.',
+      headline: 'Keep production, supply chains, and operations moving as one',
       subheadline: 'Secure the plant. Modernise the core. Build operational resilience.',
       body: 'SBA helps manufacturers connect and protect ERP, production, engineering, supply-chain, and operational environments—building a more resilient foundation for continuous performance.',
       primaryCta: { label: "Let's Connect", href: '#contact' },
@@ -405,7 +405,7 @@ export const INDUSTRY_PAGES = {
       'Build digital velocity with cloud, data, DevOps, modern infrastructure, and managed technology operations from SBA.',
     hero: {
       eyebrow: 'IT / ITES',
-      headline: 'Build digital velocity without creating operational drag.',
+      headline: 'Build digital velocity without creating operational drag',
       subheadline: 'Modern platforms. Secure delivery. Always-on operations.',
       body: 'SBA helps IT and IT-enabled service organisations modernise platforms, accelerate cloud and data initiatives, automate delivery, and maintain secure, reliable operations as demand grows.',
       primaryCta: { label: "Let's Connect", href: '#contact' },
@@ -552,7 +552,7 @@ export const INDUSTRY_PAGES = {
       'Apply modern infrastructure, practical AI, connected workflows, cyber resilience, and managed operations to complex enterprise environments.',
     hero: {
       eyebrow: 'DIVERSIFIED ENTERPRISES',
-      headline: 'Technology engineered around the way your organisation operates.',
+      headline: 'Technology engineered around the way your organisation operates',
       subheadline: 'Modern infrastructure. Practical AI. Secure operations.',
       body: 'SBA brings infrastructure, practical AI, security, digital engineering, and managed operations together for complex environments that need to stay secure, resilient, and ready to evolve.',
       primaryCta: { label: "Let's Connect", href: '#contact' },

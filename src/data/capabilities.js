@@ -53,7 +53,7 @@ export const CAPABILITIES = [
     sectionDescription:
       'Secure every layer of the enterprise — and maintain a tested, accountable path to recover critical business services when disruption occurs.',
     ctaShort: 'Explore Cyber Resilience',
-    link: '/capabilities/protect-and-recover',
+    link: '/solutions/protect-and-recover',
     image: getImage('Protect and Recover'),
     alt: 'Protect and Recover visual',
     objectPosition: '70% center',
@@ -69,7 +69,7 @@ export const CAPABILITIES = [
     sectionDescription:
       'Turn fragmented enterprise data into trusted insight, intelligent automation, and governed AI embedded in everyday business workflows.',
     ctaShort: 'Explore Data Solutions',
-    link: '/capabilities/make-data-actionable',
+    link: '/solutions/make-data-actionable',
     image: getImage('Make Data Actionable'),
     alt: 'Make Data Actionable visual',
     objectPosition: '92% 48%',

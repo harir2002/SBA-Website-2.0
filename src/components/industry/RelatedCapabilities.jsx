@@ -19,10 +19,10 @@ export default function RelatedCapabilities({ capabilityIds = [] }) {
       aria-labelledby="related-capabilities-heading"
       style={{ scrollMarginTop: '100px' }}
     >
-      <div className="mx-auto max-w-[1280px] px-5 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
+      <div className="mx-auto max-w-[1280px] px-5 py-14 text-center sm:px-6 sm:py-16 lg:px-10 lg:py-20">
         <motion.h2
           id="related-capabilities-heading"
-          className="font-heading text-3xl font-extrabold text-[#F5F5F2] sm:text-4xl"
+          className="mx-auto max-w-3xl font-heading text-3xl font-extrabold text-balance text-[#F5F5F2] sm:text-4xl"
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -31,7 +31,7 @@ export default function RelatedCapabilities({ capabilityIds = [] }) {
           Explore the capabilities behind the outcome.
         </motion.h2>
 
-        <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-10 grid gap-4 text-left sm:grid-cols-2 lg:grid-cols-3">
           {items.map((cap, i) => (
             <motion.li
               key={cap.id}

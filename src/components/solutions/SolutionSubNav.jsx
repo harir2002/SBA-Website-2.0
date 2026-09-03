@@ -4,7 +4,7 @@ import { SOLUTION_ACCENT } from '../../data/solutions/modernizeTheCore'
 /**
  * Sticky in-page solution sub-nav with shared IntersectionObserver + rAF scroll-spy.
  */
-export default function SolutionSubNav({ anchors = [] }) {
+export default function SolutionSubNav({ anchors = [], accent = SOLUTION_ACCENT }) {
   const [active, setActive] = useState(anchors[0]?.id)
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function SolutionSubNav({ anchors = [] }) {
 
   return (
     <nav
-      className="solution-subnav sticky top-[var(--header-height,88px)] z-40 border-b border-white/[0.08] bg-[#000000]/95 backdrop-blur-md"
+      className="solution-subnav sticky top-[var(--header-height,88px)] z-40 border-b border-white/[0.08] bg-black/95 backdrop-blur-md"
       aria-label="On this page"
     >
       <div className="mx-auto max-w-[1280px] px-5 sm:px-6 lg:px-10">
@@ -76,10 +76,10 @@ export default function SolutionSubNav({ anchors = [] }) {
                 )}
                 <a
                   href={`#${item.id}`}
-                  className="solution-subnav__link whitespace-nowrap rounded-md px-2.5 py-2.5 font-heading text-xs font-semibold tracking-wide transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:text-sm"
+                  className="solution-subnav__link whitespace-nowrap rounded-md px-2.5 py-2.5 font-heading text-sm font-semibold tracking-wide transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:text-base"
                   style={{
-                    color: isActive ? SOLUTION_ACCENT : 'rgba(255,255,255,0.55)',
-                    outlineColor: SOLUTION_ACCENT,
+                    color: isActive ? accent : 'rgba(255,255,255,0.55)',
+                    outlineColor: accent,
                   }}
                   aria-current={isActive ? 'location' : undefined}
                   onClick={() => setActive(item.id)}

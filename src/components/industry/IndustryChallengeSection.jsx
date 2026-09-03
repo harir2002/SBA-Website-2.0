@@ -12,7 +12,7 @@ export default function IndustryChallengeSection({ challenges, accent = '#E7000B
       className="relative bg-black"
       aria-labelledby="industry-challenges-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-5 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
+      <div className="mx-auto max-w-[1280px] px-5 py-14 text-center sm:px-6 sm:py-16 lg:px-10 lg:py-20">
         <motion.p
           className="font-heading text-xs font-bold tracking-[0.28em] uppercase"
           style={{ color: accent }}
@@ -26,7 +26,7 @@ export default function IndustryChallengeSection({ challenges, accent = '#E7000B
 
         <motion.h2
           id="industry-challenges-heading"
-          className="mt-3 max-w-3xl font-heading text-3xl font-extrabold leading-tight text-[#F5F5F2] sm:text-4xl"
+          className="mx-auto mt-3 max-w-3xl font-heading text-3xl font-extrabold leading-tight text-balance text-[#F5F5F2] sm:text-4xl"
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -36,7 +36,7 @@ export default function IndustryChallengeSection({ challenges, accent = '#E7000B
         </motion.h2>
 
         <motion.span
-          className="mt-6 block h-[2px] w-12 origin-left rounded-full"
+          className="mx-auto mt-6 block h-[2px] w-12 origin-center rounded-full"
           style={{ backgroundColor: accent }}
           aria-hidden="true"
           initial={reduceMotion ? false : { scaleX: 0 }}
@@ -45,7 +45,7 @@ export default function IndustryChallengeSection({ challenges, accent = '#E7000B
           transition={{ duration: 0.5, delay: 0.08, ease: EASE }}
         />
 
-        <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+        <ul className="mt-10 grid gap-4 text-left sm:grid-cols-2">
           {challenges.items.map((item, i) => (
             <motion.li
               key={item.title}

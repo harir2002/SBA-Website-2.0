@@ -91,10 +91,10 @@ export default function BfsiOperationsPillars() {
       className="industry-solution-areas bfsi-operations relative bg-black"
       aria-labelledby="solution-areas-heading"
     >
-      <div className="mx-auto max-w-[1280px] px-5 py-14 sm:px-6 sm:py-16 lg:px-10 lg:py-20">
+      <div className="mx-auto max-w-[1280px] px-5 py-14 text-center sm:px-6 sm:py-16 lg:px-10 lg:py-20">
         <motion.h2
           id="solution-areas-heading"
-          className="max-w-4xl font-heading text-3xl font-extrabold leading-tight text-white sm:text-4xl"
+          className="mx-auto max-w-4xl font-heading text-3xl font-extrabold leading-tight text-balance text-white sm:text-4xl"
           initial={reduceMotion ? false : { opacity: 0, y: 16 }}
           whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -103,7 +103,7 @@ export default function BfsiOperationsPillars() {
           Driving Mission-Critical Operations in BFSI
         </motion.h2>
 
-        <div className="bfsi-pillars mt-10">
+        <div className="bfsi-pillars mt-10 text-left">
           {PILLARS.map((pillar, i) => (
             <motion.article
               key={pillar.title}

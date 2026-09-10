@@ -189,15 +189,7 @@ export default function IntelligenceVideoPlaceholder() {
                 <PosterAmbient reduceMotion={reduceMotion} />
 
                 {/* Top meta */}
-                <div className="absolute top-4 right-4 left-4 z-20 flex items-start justify-between gap-3">
-                  <div className="text-left">
-                    <p className="font-heading text-[0.65rem] font-bold tracking-[0.22em] text-primary-red uppercase">
-                      SBA Corporate Film
-                    </p>
-                    <p className="mt-1 hidden font-body text-xs text-white/55 sm:block">
-                      How we engineer resilient, intelligent enterprises
-                    </p>
-                  </div>
+                <div className="absolute top-4 right-4 left-4 z-20 flex items-start justify-end gap-3">
                   <div className="flex items-center gap-2">
                     {durationLabel ? (
                       <span className="rounded border border-white/15 bg-black/40 px-2 py-1 font-heading text-[0.65rem] font-semibold tracking-wide text-white/70 tabular-nums">

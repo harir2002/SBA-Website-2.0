@@ -9,7 +9,6 @@ import ScrollReveal from './ScrollReveal'
 
 const VIDEO_SRC = encodeURI('/SBA Corporate Video.mp4')
 const EASE = [0.16, 1, 0.3, 1]
-const ACCENT = '#E7000B'
 
 function formatDuration(seconds) {
   if (!Number.isFinite(seconds) || seconds <= 0) return null
@@ -18,7 +17,7 @@ function formatDuration(seconds) {
   return `${m}:${String(s).padStart(2, '0')}`
 }
 
-function PosterAmbient({ reduceMotion }) {
+function PosterAmbient() {
   return (
     <div className="pointer-events-none absolute inset-0" aria-hidden="true">
       {/* Atmosphere */}
@@ -38,43 +37,6 @@ function PosterAmbient({ reduceMotion }) {
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#video-poster-grid)" />
-      </svg>
-
-      {/* Orbital rings around play area */}
-      <svg
-        className="absolute top-1/2 left-1/2 h-[min(320px,70%)] w-[min(320px,70%)] -translate-x-1/2 -translate-y-1/2 opacity-50"
-        viewBox="0 0 320 320"
-        fill="none"
-      >
-        {[70, 105, 145].map((r, i) => (
-          <circle
-            key={r}
-            cx="160"
-            cy="160"
-            r={r}
-            stroke={ACCENT}
-            strokeWidth="1"
-            strokeOpacity={0.45 - i * 0.1}
-          />
-        ))}
-        {!reduceMotion ? (
-          <>
-            <circle r="2.4" fill="#FFFFFF" opacity="0.9">
-              <animateMotion
-                dur="9s"
-                repeatCount="indefinite"
-                path="M90 160 A70 70 0 1 1 230 160 A70 70 0 1 1 90 160"
-              />
-            </circle>
-            <circle r="2" fill={ACCENT}>
-              <animateMotion
-                dur="13s"
-                repeatCount="indefinite"
-                path="M55 160 A105 105 0 1 1 265 160 A105 105 0 1 1 55 160"
-              />
-            </circle>
-          </>
-        ) : null}
       </svg>
 
       {/* Corner brackets */}
@@ -150,11 +112,11 @@ export default function IntelligenceVideoPlaceholder() {
 
         <ScrollReveal delay={0.12} y={28}>
           <motion.div
-            className="group relative z-20 mx-auto w-full max-w-3xl overflow-hidden rounded-xl border border-white/15 bg-[#0a0a0a] transition-[border-color,box-shadow] duration-300 hover:border-primary-red/45 hover:shadow-[0_0_48px_rgba(231,0,11,0.18)]"
+            className="group relative z-20 mx-auto w-full max-w-3xl overflow-hidden rounded-xl border border-white/[0.16] bg-[#080809] transition-[border-color,box-shadow] duration-500 hover:border-primary-red/55 hover:shadow-[0_0_72px_rgba(231,0,11,0.24)]"
             style={{ aspectRatio: '16 / 9' }}
             data-placeholder="hero-video"
-            whileHover={reduceMotion ? undefined : { scale: 1.01 }}
-            transition={{ duration: 0.35, ease: EASE }}
+            whileHover={reduceMotion ? undefined : { scale: 1.006 }}
+            transition={{ duration: 0.45, ease: EASE }}
           >
             <video
               ref={videoRef}
@@ -184,58 +146,58 @@ export default function IntelligenceVideoPlaceholder() {
                 type="button"
                 onClick={handlePlayClick}
                 aria-label="Play SBA corporate video"
-                className="absolute inset-0 z-10 flex flex-col items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-red"
+                className="absolute inset-0 z-10 flex flex-col items-center justify-center overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-red"
               >
-                <PosterAmbient reduceMotion={reduceMotion} />
+                <PosterAmbient />
 
                 {/* Top meta */}
-                <div className="absolute top-4 right-4 left-4 z-20 flex items-start justify-end gap-3">
+                <div className="absolute top-5 right-5 left-5 z-20 flex items-start justify-between gap-3 sm:top-7 sm:right-7 sm:left-7">
+                  <span className="rounded-full border border-white/15 bg-black/30 px-3 py-1.5 font-heading text-[0.6rem] font-bold tracking-[0.22em] text-white/65 uppercase backdrop-blur-sm">
+                    SBA IN MOTION
+                  </span>
                   <div className="flex items-center gap-2">
                     {durationLabel ? (
-                      <span className="rounded border border-white/15 bg-black/40 px-2 py-1 font-heading text-[0.65rem] font-semibold tracking-wide text-white/70 tabular-nums">
+                      <span className="rounded-full border border-white/15 bg-black/30 px-3 py-1.5 font-heading text-[0.6rem] font-semibold tracking-wide text-white/70 tabular-nums backdrop-blur-sm">
                         {durationLabel}
                       </span>
                     ) : null}
-                    <span className="font-heading text-xs font-bold tracking-[0.2em] text-white/45 uppercase">
-                      SBA
-                    </span>
                   </div>
                 </div>
 
                 {/* Play control */}
-                <span className="relative z-20 flex flex-col items-center gap-4">
-                  <span className="relative flex h-16 w-16 items-center justify-center sm:h-[4.75rem] sm:w-[4.75rem]">
+                <span className="relative z-20 flex flex-col items-center">
+                  <span className="relative flex h-[5rem] w-[5rem] items-center justify-center sm:h-24 sm:w-24">
                     {!reduceMotion && (
                       <>
                         <span
-                          className="sba-play-pulse absolute inset-0 rounded-full bg-primary-red/40"
+                          className="sba-play-pulse absolute inset-[-12px] rounded-full border border-primary-red/40"
                           aria-hidden="true"
                         />
                         <span
-                          className="sba-play-pulse sba-play-pulse--delay absolute inset-0 rounded-full bg-primary-red/25"
+                          className="sba-play-pulse sba-play-pulse--delay absolute inset-[-27px] rounded-full border border-primary-red/20"
                           aria-hidden="true"
                         />
                       </>
                     )}
-                    <span className="relative flex h-full w-full items-center justify-center rounded-full bg-primary-red shadow-[0_8px_32px_rgba(231,0,11,0.45)] transition-transform duration-200 group-hover:scale-110">
+                    <span className="relative flex h-full w-full items-center justify-center rounded-full border border-white/20 bg-primary-red shadow-[0_10px_36px_rgba(231,0,11,0.5)] transition-[transform,background-color] duration-300 group-hover:scale-110 group-hover:bg-[#ff1d28]">
                       <svg
                         viewBox="0 0 24 24"
-                        className="ml-1 h-7 w-7 fill-white sm:h-8 sm:w-8"
+                        className="ml-1 h-8 w-8 fill-white sm:h-9 sm:w-9"
                         aria-hidden="true"
                       >
                         <path d="M8 5v14l11-7z" />
                       </svg>
                     </span>
                   </span>
-                  <span className="font-heading text-xs font-bold tracking-[0.18em] text-white/80 uppercase sm:text-sm">
-                    Watch the film
-                  </span>
                 </span>
 
-                {/* Bottom hint */}
-                <p className="absolute right-4 bottom-4 left-4 z-20 text-center font-body text-[0.7rem] text-white/40 sm:text-left">
-                  Modern infrastructure · Cyber resilience · Data intelligence
-                </p>
+                <div className="absolute right-5 bottom-5 left-5 z-20 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-heading text-[0.58rem] font-bold tracking-[0.16em] text-white/45 uppercase sm:right-7 sm:bottom-7 sm:left-7 sm:justify-start">
+                  <span>Modernize</span>
+                  <span className="h-1 w-1 rounded-full bg-primary-red" aria-hidden="true" />
+                  <span>Protect</span>
+                  <span className="h-1 w-1 rounded-full bg-primary-red" aria-hidden="true" />
+                  <span>Activate intelligence</span>
+                </div>
               </button>
             ) : null}
           </motion.div>

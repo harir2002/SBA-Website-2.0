@@ -257,19 +257,24 @@ body {
 }
 
 .sba-logo-box {
+  box-sizing: border-box;
+  padding: 10px 14px;
+  overflow: visible;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .sba-logo-box:hover {
-  transform: scale(1.06);
+  transform: scale(1.04);
 }
 
 .sba-logo-img {
-  max-width: 160px;
-  max-height: 56px;
+  display: block;
+  max-width: 100%;
+  max-height: 44px;
   width: auto;
   height: auto;
   object-fit: contain;
+  object-position: center;
   /* White asset backgrounds → black; dark logo art → light (fits black page) */
   filter: grayscale(1) invert(1);
   opacity: 0.85;
@@ -283,9 +288,12 @@ body {
 }
 
 @media (min-width: 640px) {
+  .sba-logo-box {
+    padding: 12px 16px;
+  }
+
   .sba-logo-img {
-    max-width: 180px;
-    max-height: 64px;
+    max-height: 52px;
   }
 }
 
@@ -492,19 +500,6 @@ body {
   object-fit: cover;
   object-position: center center;
   filter: brightness(1.04) contrast(1.02) saturate(0.96);
-  transform: scale(1.01);
-  transform-origin: center center;
-}
-
-/* Detail pages only: one-shot cinematic push-in on the image layer */
-@keyframes industryHeroSlowZoom {
-  from {
-    transform: scale(1.01);
-  }
-
-  to {
-    transform: scale(1.035);
-  }
 }
 
 .industry-hero--detail {
@@ -513,20 +508,8 @@ body {
 }
 
 .industry-hero--detail .industry-hero__image {
-  transform: scale(1.01);
-  transform-origin: center center;
-  will-change: transform;
-  animation: industryHeroSlowZoom 14s ease-out 0s 1 normal forwards;
   /* Even overall dim — no left blackout */
   filter: brightness(0.72) contrast(1.04) saturate(0.94);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .industry-hero--detail .industry-hero__image {
-    animation: none;
-    transform: scale(1.01);
-    will-change: auto;
-  }
 }
 
 .industry-hero__overlay {
@@ -1035,4 +1018,238 @@ body {
   .industry-card:focus-visible .industry-card__image {
     transform: none;
   }
+}
+
+/* ─── Life at SBA carousel (Careers) ─────────────────────────── */
+
+.life-at-sba__media {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+}
+
+.life-at-sba__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: none;
+  filter: none;
+  z-index: 0;
+}
+
+.life-at-sba__slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.life-at-sba__image,
+.life-at-sba__slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: none;
+  filter: none;
+  image-rendering: auto;
+}
+
+@media (max-width: 1024px) {
+  .life-at-sba__media {
+    max-width: 540px;
+  }
+}
+
+@media (max-width: 768px) {
+  .life-at-sba__media {
+    width: 100%;
+    max-width: none;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .life-at-sba__slide {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* ─── Careers hero ───────────────────────────────────────────── */
+
+.careers-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #000000;
+}
+
+.careers-hero__image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transform: none;
+  filter: none;
+}
+
+.careers-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.84) 0%,
+      rgba(0, 0, 0, 0.7) 30%,
+      rgba(0, 0, 0, 0.42) 50%,
+      rgba(0, 0, 0, 0.14) 72%,
+      rgba(0, 0, 0, 0.04) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.22) 0%,
+      rgba(0, 0, 0, 0.14) 58%,
+      rgba(0, 0, 0, 0.28) 100%
+    );
+}
+
+@media (max-width: 1024px) {
+  .careers-hero {
+    min-height: 100svh;
+  }
+
+  .careers-hero__image {
+    object-position: 54% center;
+  }
+}
+
+@media (max-width: 768px) {
+  .careers-hero {
+    min-height: 100svh;
+  }
+
+  .careers-hero__image {
+    object-position: 56% center;
+  }
+
+  .careers-hero__overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.82) 0%,
+        rgba(0, 0, 0, 0.58) 58%,
+        rgba(0, 0, 0, 0.16) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.18) 0%,
+        rgba(0, 0, 0, 0.34) 100%
+      );
+  }
+}
+
+/* ─── Insights & Case Studies heroes ─────────────────────────── */
+
+.insights-hero,
+.case-studies-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(420px, 54vw, 620px);
+  overflow: hidden;
+  background: #000000;
+}
+
+.insights-hero__image,
+.case-studies-hero__image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 56% center;
+  transform: none;
+  filter: none;
+}
+
+.insights-hero__overlay,
+.case-studies-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.84) 0%,
+      rgba(0, 0, 0, 0.68) 30%,
+      rgba(0, 0, 0, 0.40) 51%,
+      rgba(0, 0, 0, 0.13) 74%,
+      rgba(0, 0, 0, 0.04) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.18) 0%,
+      rgba(0, 0, 0, 0.24) 100%
+    );
+}
+
+@media (max-width: 1024px) {
+  .insights-hero__image,
+  .case-studies-hero__image {
+    object-position: 53% center;
+  }
+}
+
+@media (max-width: 768px) {
+  .insights-hero,
+  .case-studies-hero {
+    min-height: max(440px, 66svh);
+  }
+
+  .insights-hero__image,
+  .case-studies-hero__image {
+    object-position: 52% center;
+  }
+}
+
+.insight-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+  transform: none;
+  filter: none;
+}
+
+.insight-detail__hero-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+  object-position: center;
+  transform: none;
+  filter: none;
 }

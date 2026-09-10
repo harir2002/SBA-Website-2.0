@@ -165,7 +165,7 @@ export const ABOUT_LEADERSHIP = [
   {
     id: 'venkatesh',
     name: 'Venkatesh Anantha Narayanan',
-    role: 'Chief Growth Officer',
+    role: 'Chief Technology Officer',
     photo: '/images/leadership/Venkatesh A.jpg',
     linkedin: 'https://www.linkedin.com/in/venkatesh-anantha-narayanan-13321a393',
     profile:
@@ -196,7 +196,7 @@ export const ABOUT_ECOSYSTEM = [
   {
     id: 'infra',
     label: 'Modern Infrastructure & Hybrid Cloud',
-    logos: [
+    logos: [ 
       'AWS.png',
       'Azure.png',
       'google.png',

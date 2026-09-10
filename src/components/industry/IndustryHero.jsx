@@ -92,7 +92,7 @@ function HeroCopyCompact({ hero, accent, reduceMotion }) {
   return (
     <>
       <motion.p
-        className="industry-hero__eyebrow font-heading text-base font-bold tracking-wide sm:text-lg"
+        className="industry-hero__eyebrow font-heading text-sm font-bold tracking-wide sm:text-base lg:text-lg"
         style={{ color: accent }}
         initial={reduceMotion ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ function HeroCopyCompact({ hero, accent, reduceMotion }) {
 
       <motion.h1
         id="industry-hero-heading"
-        className="industry-hero__title font-heading text-[2.35rem] font-black leading-[1.05] tracking-[-0.025em] text-white sm:text-5xl md:text-6xl lg:text-[3.75rem]"
+        className="industry-hero__title font-heading text-[1.625rem] font-extrabold leading-[1.18] tracking-[-0.02em] text-white sm:text-[1.75rem] md:text-[2.125rem] lg:text-[2.5rem]"
         initial={reduceMotion ? false : { opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, delay: 0.05, ease: EASE }}

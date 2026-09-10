@@ -80,16 +80,16 @@ export default function LogoMarquee({
       </div>
 
       <div
-        className="sba-logo-marquee-viewport relative w-full overflow-hidden pb-10 sm:pb-12"
+        className="sba-logo-marquee-viewport relative w-full overflow-hidden py-3 pb-10 sm:py-4 sm:pb-12"
         style={{
           maskImage:
-            'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+            'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
           WebkitMaskImage:
-            'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+            'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
         }}
       >
         <div
-          className={`sba-logo-marquee-track flex flex-row items-center gap-4 px-3 sm:gap-6 ${
+          className={`sba-logo-marquee-track flex flex-row items-center gap-4 px-4 sm:gap-6 sm:px-6 ${
             isReverse ? 'sba-logo-marquee-track--reverse' : ''
           }`}
           style={{ '--marquee-duration': `${duration}s` }}

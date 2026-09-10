@@ -43,6 +43,10 @@ export default function usePageMeta({
   description,
   path,
   breadcrumbs,
+  ogType = 'website',
+  ogImage,
+  jsonLd,
+  jsonLdId = 'page-content-ld',
 }) {
   useEffect(() => {
     const origin = typeof window !== 'undefined' ? window.location.origin : ''
@@ -54,8 +58,12 @@ export default function usePageMeta({
     upsertMeta('property', 'og:title', title)
     upsertMeta('property', 'og:description', description)
     upsertMeta('property', 'og:url', url)
-    upsertMeta('property', 'og:type', 'website')
-    upsertMeta('property', 'og:image', `${origin}/src/assets/sba-logo.png`)
+    upsertMeta('property', 'og:type', ogType)
+    upsertMeta(
+      'property',
+      'og:image',
+      ogImage || `${origin}/src/assets/sba-logo.png`,
+    )
     upsertLink('canonical', url)
 
     if (breadcrumbs?.length) {
@@ -78,8 +86,29 @@ export default function usePageMeta({
       url: origin,
     })
 
+    if (jsonLd) {
+      upsertJsonLd(jsonLdId, {
+        ...jsonLd,
+        mainEntityOfPage: url,
+        url,
+      })
+    }
+
     return () => {
       document.title = prevTitle || 'SBA Info Solutions'
+      if (jsonLd) {
+        document.getElementById(jsonLdId)?.remove()
+      }
     }
-  }, [title, description, path, breadcrumbs])
+  }, [
+    title,
+    description,
+    path,
+    breadcrumbs,
+    ogType,
+    ogImage,
+    jsonLdId,
+    // Serialize so inline jsonLd objects don't retrigger every render
+    JSON.stringify(jsonLd),
+  ])
 }

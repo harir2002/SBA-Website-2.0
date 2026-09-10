@@ -15,14 +15,18 @@ import AboutValues from '../components/about/AboutValues'
 import AboutLeadership from '../components/about/AboutLeadership'
 import AboutEcosystem from '../components/about/AboutEcosystem'
 import AboutFinalCta from '../components/about/AboutFinalCta'
+import usePageMeta from '../hooks/usePageMeta'
 
 export default function AboutPage() {
+  usePageMeta({
+    title: 'About | SBA Info Solutions',
+    description:
+      'Learn about SBA Info Solutions and our enterprise engineering approach to modern infrastructure, cybersecurity, data, AI, and managed operations.',
+    path: '/about',
+  })
+
   useEffect(() => {
     window.scrollTo(0, 0)
-    document.title = 'About | SBA Info Solutions'
-    return () => {
-      document.title = 'SBA Info Solutions'
-    }
   }, [])
 
   return (

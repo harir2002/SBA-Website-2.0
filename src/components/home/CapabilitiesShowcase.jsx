@@ -16,8 +16,8 @@ import CapabilityDetailGrid from './CapabilityDetailGrid'
 import VideoCapabilitiesBridge from './VideoCapabilitiesBridge'
 
 const EASE = [0.16, 1, 0.3, 1]
-const BADGE = 'w-14 h-14 sm:w-16 sm:h-16'
-const RAIL_W = 'w-14 sm:w-16'
+const BADGE = 'h-[3.75rem] w-[3.75rem] sm:h-[4.25rem] sm:w-[4.25rem]'
+const RAIL_W = 'w-[3.75rem] sm:w-[4.25rem]'
 
 const BADGE_ICONS = {
   'modernize-the-core': {
@@ -85,12 +85,12 @@ function CapabilityBlock({ cap, index, reduceMotion }) {
               aria-hidden="true"
             />
           )}
-          <span className="absolute inset-0 overflow-hidden rounded-full">
+          <span className="absolute inset-[2%] overflow-hidden rounded-full bg-black">
             {icon ? (
               <img
                 src={icon.src}
                 alt={icon.alt}
-                className="absolute inset-0 h-full w-full object-cover"
+                className="h-full w-full object-contain"
                 loading="lazy"
                 decoding="async"
               />

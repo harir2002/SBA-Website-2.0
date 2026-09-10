@@ -29,19 +29,13 @@ export const MODERNIZE_THE_CORE = {
     imageAlt:
       'Abstract visualization of legacy infrastructure transforming into modular cloud-native platforms with SBA red data paths',
     eyebrow: 'Modernize the Core',
-    title: 'Engineer a High-Performance, Resilient Technology Foundation',
-    subtitle: 'Modernized around the workloads your business cannot afford to interrupt.',
-    body: "Legacy systems shouldn't hold back tomorrow's ambitions. We re-engineer your technology foundation—from high-performance compute and storage to hybrid cloud and container platforms—delivering cloud-like agility, enterprise stability, and zero-downtime execution.",
+    title:
+      'Engineer a high-performance, resilient technology foundation — modernized around the workloads your business cannot afford to interrupt',
     primaryCta: {
       label: "Let's Connect",
       href: '#contact',
     },
     secondaryCta: null,
-    credibility: [
-      { value: '30+', label: 'Years of Enterprise Trust' },
-      { value: '300+', label: 'Enterprise Clients' },
-      { value: 'Enduring', label: 'Client Partnerships' },
-    ],
   },
   overview: {
     eyebrow: 'THE MODERNIZATION CHALLENGE',
@@ -73,59 +67,59 @@ export const MODERNIZE_THE_CORE = {
     headline: 'Three architectural pillars for a modern enterprise foundation.',
     items: [
       {
-        title: 'Data Center & Hybrid Cloud',
+        title: 'Datacenter and Hybrid Cloud',
         summary:
           'Scalable compute, storage, and landing zones built for enterprise scale.',
         capabilities: [
           {
             title: 'Compute, Storage & HCI Modernization',
-            body: 'Right-sized, high-density infrastructure optimized for core applications, relational databases, real-time analytics, and virtual workloads.',
+            body: 'Right-sized infrastructure for core applications, databases, analytics, and virtual workloads',
           },
           {
             title: 'Data Center Transformation',
-            body: 'End-to-end upgrades spanning high-performance servers, SAN/NAS storage, virtualization layers, rack architectures, smart power/cooling, and network readiness.',
+            body: 'Servers, storage, virtualization, network readiness, racks, power, and migration planning',
           },
           {
             title: 'Hybrid Cloud Enablement',
-            body: 'Seamlessly connect on-premises data centers with AWS, Azure, and GCP for controlled scalability, workload flexibility, and unified governance.',
+            body: 'Connect on-premises environments with public cloud for controlled scalability and flexibility',
           },
         ],
       },
       {
-        title: 'Platforms & Workload Mobility',
+        title: 'Platforms and Workload Mobility',
         summary:
           'Containerized scale and automated application migration without disruption.',
         capabilities: [
           {
             title: 'Virtualization & Container Platforms',
-            body: 'Enterprise-grade platform engineering utilizing VMware, Nutanix, Kubernetes, and Red Hat OpenShift.',
+            body: 'VMware, HCI, Kubernetes, OpenShift, and production-ready platform engineering',
           },
           {
             title: 'Workload Migration & Transformation',
-            body: 'Frictionless migrations across operating systems, complex databases (Oracle/SQL/PostgreSQL), storage fabrics, and cloud platforms.',
+            body: 'OS, application, storage, database, and platform migrations with phased transition planning',
           },
           {
             title: 'Cloud Foundation & Automation',
-            body: 'Secure cloud landing zones, Infrastructure as Code (IaC), automated deployment pipelines, and centralized compliance guardrails.',
+            body: 'Landing zones, infrastructure automation, connectivity, policy guardrails, and workload deployment patterns',
           },
         ],
       },
       {
-        title: 'Reliability & Resilience Engineering',
+        title: 'Reliability and Resilience Engineering',
         summary:
           'Built-in observability, capacity design, and continuous operational health.',
         capabilities: [
           {
             title: 'Performance, Capacity & Availability Design',
-            body: 'High-availability architectures engineered around workload behavior, transactional velocity, and business criticality.',
+            body: 'Architecture aligned to workload behaviour, business growth, and service criticality',
           },
           {
-            title: 'Full-Stack Observability & Health',
-            body: 'Deep telemetry and proactive health monitoring across servers, SAN storage, clusters, and hybrid cloud environments.',
+            title: 'Observability & Infrastructure Health',
+            body: 'Monitoring across servers, storage, platforms, clusters, and hybrid environments',
           },
           {
             title: 'Continuity-Ready Architecture',
-            body: 'High-availability clustering, cross-site disaster recovery integration, aggressive RPO/RTO alignment, and operational runbooks.',
+            body: 'Availability engineering, disaster-recovery integration, recovery objectives, and operational runbooks',
           },
         ],
       },
@@ -153,25 +147,54 @@ export const MODERNIZE_THE_CORE = {
       },
     ],
   },
-  journey: {
+  mid: {
     eyebrow: 'THE SBA ENGAGEMENT JOURNEY',
-    headline: 'Modernization engineered from discovery to continuous optimization.',
+    headline: 'Modernization engineered from discovery to continuous optimization',
+    mapLabel: 'Modernization Capability Map',
+    cycleLabel: 'Engagement journey',
+    sectionId: 'engagement-journey',
+    zones: [
+      {
+        id: 'compute-storage',
+        label: 'Compute & Storage',
+        detail:
+          'Right-size servers, all-flash storage, and hyperconverged platforms for core applications, databases, and virtual workloads',
+      },
+      {
+        id: 'hybrid-cloud',
+        label: 'Hybrid Cloud',
+        detail:
+          'Build unified landing zones, policy guardrails, and controlled workload mobility between on-premises and public cloud',
+      },
+      {
+        id: 'containers-platforms',
+        label: 'Containers & Platforms',
+        detail:
+          'Engineer VMware, HCI, Kubernetes, and OpenShift platforms for scalable, production-ready workload hosting',
+      },
+      {
+        id: 'day-2-ops',
+        label: 'Day-2 Operations',
+        detail:
+          'Continuously tune capacity, observability, availability design, and operational handover after migration',
+      },
+    ],
     steps: [
       {
         title: 'Workload & Infrastructure Discovery',
-        body: 'Comprehensive assessment of compute utilization, storage IOPS, application dependencies, network latency, and licensing debt.',
+        body: 'Comprehensive assessment of compute utilization, storage IOPS, application dependencies, network latency, and licensing debt',
       },
       {
         title: 'Target Architecture & Migration Blueprint',
-        body: 'Designing the right-sized hybrid landing zone, HCI configuration, container platform, and phased wave-migration plan.',
+        body: 'Designing the right-sized hybrid landing zone, HCI configuration, container platform, and phased wave-migration plan',
       },
       {
         title: 'Zero-Impact Deployment & Migration',
-        body: 'Safe execution using automated migration tooling, parallel testing, automated rollbacks, and data integrity validation.',
+        body: 'Safe execution using automated migration tooling, parallel testing, automated rollbacks, and data integrity validation',
       },
       {
         title: 'Day-2 Governance & Optimization',
-        body: 'Continuous health telemetry, capacity tuning, performance optimization, and operational handover.',
+        body: 'Continuous health telemetry, capacity tuning, performance optimization, and operational handover',
       },
     ],
   },
@@ -182,17 +205,17 @@ export const MODERNIZE_THE_CORE = {
       {
         title: 'Protect and Recover',
         body: 'Complement core infrastructure with immutable backup, disaster recovery, and perimeter zero-trust security.',
-        href: null,
+        href: '/solutions/protect-and-recover',
       },
       {
         title: 'Operate with Assurance',
         body: '24x7 infrastructure monitoring, database administration, and SLA-driven L1-L3 support.',
-        href: null,
+        href: '/solutions/operate-with-assurance',
       },
       {
         title: 'Build and Connect',
         body: 'Modernize application codebases into cloud-native microservices running on your new infrastructure.',
-        href: null,
+        href: '/solutions/build-and-connect',
       },
     ],
   },
@@ -201,7 +224,7 @@ export const MODERNIZE_THE_CORE = {
     headline: 'Build an Infrastructure Foundation That Never Slows Down',
     body: 'Talk to our senior enterprise architects to assess your current workloads and design a modernization path tailored to your budget and uptime requirements.',
     submitLabel: 'Request a Technical Assessment',
-    tagline: 'Engineering the modern, secure, and intelligent enterprise.',
+    tagline: true,
   },
 }
 

@@ -1,5 +1,5 @@
 /**
- * Header — About, Solutions, Industries, Insights (Case Studies + Insights), Contact.
+ * Header — About, Solutions, Industries, Insights, Careers, Contact.
  * CTA: Let's Connect
  */
 
@@ -15,15 +15,15 @@ const CAPABILITIES = [
   { label: 'Modernize the Core', id: 'modernize-the-core', path: '/solutions/modernize-the-core' },
   { label: 'Protect and Recover', id: 'protect-and-recover', path: '/solutions/protect-and-recover' },
   { label: 'Make Data Actionable', id: 'make-data-actionable', path: '/solutions/make-data-actionable' },
-  { label: 'Build and Connect', id: 'build-and-connect' },
-  { label: 'Operate with Assurance', id: 'engineered-for-your-industry' },
-  { label: 'Accelerate Business AI', id: 'accelerate-business-ai' },
+  { label: 'Build and Connect', id: 'build-and-connect', path: '/solutions/build-and-connect' },
+  { label: 'Operate with Assurance', id: 'operate-with-assurance', path: '/solutions/operate-with-assurance' },
+  { label: 'Accelerate Business AI', id: 'accelerate-business-ai', path: '/solutions/accelerate-business-ai' },
 ]
 
-/** Combined Case Studies + Insights dropdown (shared homepage section). */
+/** Case Studies + Insights — shared content library, separate listing routes. */
 const INSIGHTS_MENU = [
-  { label: 'Case Studies', id: 'insights' },
-  { label: 'Insights', id: 'insights' },
+  { label: 'Case Studies', id: 'case-studies', path: '/case-studies' },
+  { label: 'Insights', id: 'insights', path: '/insights' },
 ]
 
 const navLinkClass =
@@ -147,6 +147,9 @@ export default function Header() {
     } else if (
       location.pathname.startsWith('/industries') ||
       location.pathname.startsWith('/solutions') ||
+      location.pathname.startsWith('/insights') ||
+      location.pathname.startsWith('/careers') ||
+      location.pathname === '/case-studies' ||
       location.pathname === '/about' ||
       location.pathname === '/contact'
     ) {
@@ -156,8 +159,11 @@ export default function Header() {
 
   const handleSearch = (event) => {
     event.preventDefault()
-    if (!query.trim()) return
+    const q = query.trim()
+    if (!q) return
     setSearchOpen(false)
+    closeMenus()
+    navigate(`/search?q=${encodeURIComponent(q)}`)
   }
 
   const closeMenus = () => {
@@ -253,6 +259,16 @@ export default function Header() {
 
           <button
             type="button"
+            onClick={() => goTo({ id: 'careers', label: 'Careers', path: '/careers' })}
+            className={`${navLinkClass}${
+              location.pathname === '/careers' ? ' text-primary-red' : ''
+            }`}
+          >
+            Careers
+          </button>
+
+          <button
+            type="button"
             onClick={() => {
               closeMenus()
               navigate('/contact')
@@ -277,6 +293,12 @@ export default function Header() {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search…"
                   autoFocus
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') {
+                      setSearchOpen(false)
+                      setQuery('')
+                    }
+                  }}
                   className="w-36 rounded-md border border-white/15 bg-[#16181f] px-2.5 py-1.5 font-body text-sm text-white outline-none placeholder:text-white/40 focus:border-primary-red lg:w-44"
                 />
                 <button
@@ -437,6 +459,18 @@ export default function Header() {
             <li>
               <button
                 type="button"
+                onClick={() => goTo({ id: 'careers', label: 'Careers', path: '/careers' })}
+                className={`font-heading text-base font-semibold hover:text-primary-red ${
+                  location.pathname === '/careers' ? 'text-primary-red' : 'text-white/80'
+                }`}
+              >
+                Careers
+              </button>
+            </li>
+
+            <li>
+              <button
+                type="button"
                 onClick={() => {
                   closeMenus()
                   navigate('/contact')
@@ -452,7 +486,11 @@ export default function Header() {
                 onSubmit={(e) => { handleSearch(e); setOpen(false) }}
                 className="flex gap-2"
               >
+                <label htmlFor="header-search-mobile" className="sr-only">
+                  Search
+                </label>
                 <input
+                  id="header-search-mobile"
                   type="search"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}

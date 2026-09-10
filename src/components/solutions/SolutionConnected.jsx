@@ -1,18 +1,30 @@
 import { Link } from 'react-router-dom'
 import { SOLUTION_ACCENT } from '../../data/solutions/modernizeTheCore'
 import ScrollReveal, { ScrollStagger } from '../home/ScrollReveal'
+import SolutionAmbientGraphics from './SolutionAmbientGraphics'
 
 export default function SolutionConnected({ whySba }) {
   if (!whySba) return null
 
+  const offerings = whySba.offerings || []
+  const count = offerings.length
+  const gridClass =
+    count >= 5
+      ? 'mt-12 grid grid-cols-1 gap-5 text-left sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
+      : count === 4
+        ? 'mt-12 grid grid-cols-1 gap-5 text-left sm:grid-cols-2 lg:grid-cols-4'
+        : 'mt-12 grid grid-cols-1 gap-5 text-left md:grid-cols-3'
+
   return (
     <section
       id="why-sba"
-      className="solution-section border-t border-white/[0.06] bg-[#000000]"
+      className="solution-section relative overflow-x-hidden border-t border-white/[0.06] bg-[#000000]"
       aria-labelledby="solution-why-heading"
       style={{ scrollMarginTop: '140px' }}
     >
-      <div className="mx-auto max-w-[1280px] px-5 py-16 text-center sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+      <SolutionAmbientGraphics variant="orbit" id="why-orbit" />
+
+      <div className="relative z-10 mx-auto max-w-[1280px] px-5 py-16 text-center sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <ScrollReveal y={32}>
           <p
             className="font-heading text-[0.7rem] font-bold tracking-[0.22em] uppercase"
@@ -28,16 +40,30 @@ export default function SolutionConnected({ whySba }) {
           </h2>
         </ScrollReveal>
 
-        <ScrollStagger className="mt-12 grid grid-cols-1 gap-5 text-left md:grid-cols-3" stagger={0.12} y={28}>
-          {(whySba.offerings || []).map((card) => {
+        <ScrollStagger className={gridClass} stagger={0.1} y={28}>
+          {offerings.map((card) => {
             const className =
-              'flex h-full flex-col rounded-xl border border-white/[0.08] bg-[#0A0A0A] p-6 transition-[box-shadow,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-[rgba(231,0,11,0.35)] hover:shadow-[0_12px_40px_rgba(231,0,11,0.12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
+              'group flex h-full flex-col rounded-xl border border-white/[0.08] bg-[#0A0A0A] p-6 transition-[box-shadow,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-[rgba(231,0,11,0.35)] hover:shadow-[0_12px_40px_rgba(231,0,11,0.12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
             const inner = (
               <>
                 <h3 className="font-heading text-lg font-bold text-[#FFFFFF]">{card.title}</h3>
-                <p className="mt-3 font-body text-sm leading-relaxed text-[rgba(255,255,255,0.55)]">
+                <p className="mt-3 flex-1 font-body text-sm leading-relaxed text-[rgba(255,255,255,0.55)]">
                   {card.body}
                 </p>
+                {card.href ? (
+                  <span
+                    className="mt-5 inline-flex min-h-11 items-center gap-2 font-heading text-sm font-extrabold tracking-wide uppercase transition-colors"
+                    style={{ color: SOLUTION_ACCENT }}
+                  >
+                    Explore
+                    <span
+                      aria-hidden="true"
+                      className="transition-transform duration-200 group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </span>
+                ) : null}
               </>
             )
 
@@ -48,6 +74,7 @@ export default function SolutionConnected({ whySba }) {
                     to={card.href}
                     className={className}
                     style={{ outlineColor: SOLUTION_ACCENT }}
+                    aria-label={`Explore ${card.title}`}
                   >
                     {inner}
                   </Link>

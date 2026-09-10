@@ -19,9 +19,10 @@ import 'swiper/css'
 const HERO_AUTO_PLAY_INTERVAL = 5000
 const EASE = [0.16, 1, 0.3, 1]
 
-function HeroTextBlock({ slide, reduceMotion, isActive }) {
+function HeroTextBlock({ slide, reduceMotion, isActive, headingLevel = 'h2' }) {
   const title = slide.title || slide.heading
   const description = slide.description || slide.subtext
+  const HeadingTag = headingLevel
   const content = (
     <>
       {slide.eyebrow && (
@@ -29,12 +30,12 @@ function HeroTextBlock({ slide, reduceMotion, isActive }) {
           {slide.eyebrow}
         </p>
       )}
-      <h2
+      <HeadingTag
         className="font-heading font-extrabold leading-[1.12] text-white"
         style={{ fontSize: 'clamp(1.5rem, 3.2vw, 3rem)' }}
       >
         {title}
-      </h2>
+      </HeadingTag>
       {description && (
         <p
           className="mt-4 font-body leading-relaxed text-white/75"
@@ -505,7 +506,11 @@ export default function HeroCarousel({
                   <div className="hero-fullbleed-overlay" aria-hidden="true" />
                   <div className="hero-fullbleed-content">
                     {label && <p className="hero-fullbleed-label">{label}</p>}
-                    <h1 className="hero-fullbleed-heading">{title}</h1>
+                    {index === 0 ? (
+                      <h1 className="hero-fullbleed-heading">{title}</h1>
+                    ) : (
+                      <h2 className="hero-fullbleed-heading">{title}</h2>
+                    )}
                     {(slide.ctaShort || slide.cta) && slide.link && (
                       <div className="hero-fullbleed-cta-wrap">
                         <FullBleedCTA
@@ -528,6 +533,7 @@ export default function HeroCarousel({
                     slide={slide}
                     reduceMotion={reduceMotion}
                     isActive={activeIndex === index}
+                    headingLevel={index === 0 ? 'h1' : 'h2'}
                   />
                 </div>
                 <div className="hero-image-col">

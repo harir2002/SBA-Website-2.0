@@ -1,9 +1,10 @@
 /**
  * Solution detail page — /solutions/:slug
- * Templates: Modernize the Core, Protect and Recover, Make Data Actionable.
+ * Shared structure for all solutions:
+ * Hero → Overview → Pillars → Capabilities → Mid (zones + steps) → Why SBA → CTA
  */
 
-import { useEffect, useMemo } from 'react'
+import { useLayoutEffect, useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
@@ -15,56 +16,27 @@ import SolutionHero from '../components/solutions/SolutionHero'
 import SolutionOverview from '../components/solutions/SolutionOverview'
 import SolutionPillars from '../components/solutions/SolutionPillars'
 import SolutionProof from '../components/solutions/SolutionProof'
-import SolutionJourney from '../components/solutions/SolutionJourney'
+import SolutionEngineeringBlueprint from '../components/solutions/SolutionEngineeringBlueprint'
 import SolutionConnected from '../components/solutions/SolutionConnected'
 import SolutionArchitectCta from '../components/solutions/SolutionArchitectCta'
+import { getConnectedOfferings } from '../data/solutions/connectedOfferings'
 
-/** Shared Engagement Journey visual for all solution pages. */
-function midSection(solution) {
-  if (solution.template === 'protect-and-recover' && solution.resilience) {
-    return (
-      <SolutionJourney
-        sectionId="resilience-assurance"
-        journey={{
-          eyebrow: solution.resilience.eyebrow,
-          headline: solution.resilience.headline,
-          steps: solution.resilience.steps,
-        }}
-      />
-    )
-  }
-
-  if (solution.template === 'make-data-actionable' && solution.blueprint) {
-    return (
-      <SolutionJourney
-        sectionId="data-to-ai-blueprint"
-        journey={{
-          eyebrow: solution.blueprint.eyebrow,
-          headline: solution.blueprint.headline,
-          steps: (solution.blueprint.stages || []).map((stage) => ({
-            title: stage.label,
-            body: stage.detail,
-          })),
-        }}
-      />
-    )
-  }
-
-  return <SolutionJourney journey={solution.journey} />
-}
-
-function ctaSectionId(solution) {
-  if (solution.template === 'protect-and-recover') return 'talk-to-a-security-expert'
-  if (solution.template === 'make-data-actionable') return 'talk-to-a-data-architect'
-  return 'talk-to-an-architect'
+const CTA_SECTION_IDS = {
+  'protect-and-recover': 'talk-to-a-security-expert',
+  'make-data-actionable': 'talk-to-a-data-architect',
+  'build-and-connect': 'talk-to-an-engineering-lead',
+  'operate-with-assurance': 'talk-to-an-operations-lead',
+  'accelerate-business-ai': 'talk-to-an-ai-specialist',
+  'modernize-the-core': 'talk-to-an-architect',
 }
 
 export default function SolutionDetailPage() {
   const { slug } = useParams()
   const solution = getSolutionBySlug(slug)
   const accent = solution?.accent || SOLUTION_ACCENT
+  const mid = solution?.mid
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.scrollTo(0, 0)
   }, [slug])
 
@@ -73,7 +45,7 @@ export default function SolutionDetailPage() {
       solution
         ? [
             { name: 'Home', path: '/' },
-            { name: 'Solutions', path: '/#capabilities' },
+            { name: 'Solutions', path: '/solutions' },
             { name: solution.label || solution.slug, path: solution.path },
           ]
         : [],
@@ -112,15 +84,32 @@ export default function SolutionDetailPage() {
       <SolutionScrollProgress accent={accent} />
       <Header />
 
-      <main>
+      <main key={slug}>
         <SolutionHero hero={solution.hero} accent={accent} />
         <SolutionSubNav anchors={solution.anchors} accent={accent} />
         <SolutionOverview overview={solution.overview} />
         <SolutionPillars pillars={solution.pillars} />
         <SolutionProof capabilities={solution.capabilities} />
-        {midSection(solution)}
-        <SolutionConnected whySba={solution.whySba} />
-        <SolutionArchitectCta cta={solution.cta} sectionId={ctaSectionId(solution)} />
+        {mid ? (
+          <SolutionEngineeringBlueprint
+            engineering={mid}
+            accent={accent}
+            sectionId={mid.sectionId || 'engagement-journey'}
+            headingId={`${mid.sectionId || 'engagement-journey'}-heading`}
+            mapLabel={mid.mapLabel || 'Capability Map'}
+            cycleLabel={mid.cycleLabel || 'Engagement journey'}
+          />
+        ) : null}
+        <SolutionConnected
+          whySba={{
+            ...solution.whySba,
+            offerings: getConnectedOfferings(solution.slug),
+          }}
+        />
+        <SolutionArchitectCta
+          cta={solution.cta}
+          sectionId={CTA_SECTION_IDS[solution.slug] || 'talk-to-an-architect'}
+        />
       </main>
 
       <Footer />

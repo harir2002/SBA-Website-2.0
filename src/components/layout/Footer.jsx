@@ -12,18 +12,18 @@ const EASE = [0.16, 1, 0.3, 1]
 
 const SOLUTIONS = [
   { label: 'Modernize the Core', to: '/solutions/modernize-the-core' },
-  { label: 'Protect & Recover', to: '/#protect-and-recover' },
-  { label: 'Make Data Actionable', to: '/#make-data-actionable' },
-  { label: 'Build & Connect', to: '/#build-and-connect' },
-  { label: 'Operate with Assurance', to: '/#engineered-for-your-industry' },
-  { label: 'Accelerate Business AI', to: '/#accelerate-business-ai' },
+  { label: 'Protect & Recover', to: '/solutions/protect-and-recover' },
+  { label: 'Make Data Actionable', to: '/solutions/make-data-actionable' },
+  { label: 'Build & Connect', to: '/solutions/build-and-connect' },
+  { label: 'Operate with Assurance', to: '/solutions/operate-with-assurance' },
+  { label: 'Accelerate Business AI', to: '/solutions/accelerate-business-ai' },
 ]
 
 const EXPLORE = [
   { label: 'Industries', to: '/industries' },
-  { label: 'Our Solutions', to: '/#capabilities' },
+  { label: 'Our Solutions', to: '/solutions' },
   { label: 'About SBA', to: '/about' },
-  { label: 'Careers', to: '/#careers' },
+  { label: 'Careers', to: '/careers' },
   { label: 'Contact Us', to: '/contact' },
 ]
 

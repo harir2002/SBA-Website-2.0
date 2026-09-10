@@ -1,5 +1,6 @@
 import { SOLUTION_ACCENT } from '../../data/solutions/modernizeTheCore'
 import ScrollReveal, { ScrollStagger } from '../home/ScrollReveal'
+import SolutionAmbientGraphics from './SolutionAmbientGraphics'
 
 export default function SolutionProof({ capabilities }) {
   if (!capabilities) return null
@@ -7,11 +8,13 @@ export default function SolutionProof({ capabilities }) {
   return (
     <section
       id="capabilities"
-      className="solution-section border-t border-white/[0.06] bg-[#000000]"
+      className="solution-section relative overflow-x-hidden border-t border-white/[0.06] bg-[#000000]"
       aria-labelledby="solution-capabilities-heading"
       style={{ scrollMarginTop: '140px' }}
     >
-      <div className="mx-auto max-w-[1280px] px-5 py-16 text-center sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+      <SolutionAmbientGraphics variant="signal" id="proof-signal" />
+
+      <div className="relative z-10 mx-auto max-w-[1280px] px-5 py-16 text-center sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <ScrollReveal y={32}>
           <p
             className="font-heading text-[0.7rem] font-bold tracking-[0.22em] uppercase"
@@ -27,11 +30,11 @@ export default function SolutionProof({ capabilities }) {
           </h2>
         </ScrollReveal>
 
-        <ScrollStagger className="mt-12 grid grid-cols-1 gap-5 text-left md:grid-cols-2" stagger={0.1} y={28}>
+        <ScrollStagger className="mt-12 grid grid-cols-1 gap-5 text-left md:grid-cols-2 md:items-stretch" stagger={0.1} y={28}>
           {(capabilities.scenarios || []).map((scenario) => (
             <article
               key={scenario.title}
-              className="rounded-xl border border-white/[0.08] bg-[#0A0A0A] p-6 transition-[box-shadow,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-[rgba(231,0,11,0.35)] hover:shadow-[0_12px_40px_rgba(231,0,11,0.12)]"
+              className="flex h-full flex-col rounded-xl border border-white/[0.08] bg-[#0A0A0A] p-6 transition-[box-shadow,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-[rgba(231,0,11,0.35)] hover:shadow-[0_12px_40px_rgba(231,0,11,0.12)]"
             >
               <h3
                 className="font-heading text-lg font-bold sm:text-xl"
@@ -39,7 +42,7 @@ export default function SolutionProof({ capabilities }) {
               >
                 {scenario.title}
               </h3>
-              <p className="mt-3 font-body text-sm leading-relaxed text-[rgba(255,255,255,0.55)] sm:text-[0.95rem]">
+              <p className="mt-3 flex-1 font-body text-sm leading-relaxed text-[rgba(255,255,255,0.55)] sm:text-[0.95rem]">
                 {scenario.body}
               </p>
             </article>

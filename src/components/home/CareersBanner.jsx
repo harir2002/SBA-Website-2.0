@@ -2,13 +2,10 @@
  * CareersBanner — full-bleed original team photo with left-aligned CTA.
  */
 
+import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 
 const EASE = [0.16, 1, 0.3, 1]
-
-function scrollTo(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-}
 
 export default function CareersBanner() {
   const reduceMotion = useReducedMotion()
@@ -161,9 +158,8 @@ export default function CareersBanner() {
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.55, delay: 0.24, ease: EASE }}
         >
-          <button
-            type="button"
-            onClick={() => scrollTo('contact')}
+          <Link
+            to="/careers"
             className="group mt-5 inline-flex items-center justify-center gap-2 rounded-md border-[1.75px] border-primary-red bg-primary-red px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 ease-out hover:scale-[1.03] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             Join the SBA Team
@@ -173,7 +169,7 @@ export default function CareersBanner() {
             >
               →
             </span>
-          </button>
+          </Link>
         </motion.div>
       </div>
     </section>

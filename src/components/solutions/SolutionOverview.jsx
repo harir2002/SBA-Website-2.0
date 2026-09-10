@@ -1,5 +1,6 @@
 import { SOLUTION_ACCENT } from '../../data/solutions/modernizeTheCore'
 import ScrollReveal, { ScrollStagger } from '../home/ScrollReveal'
+import SolutionAmbientGraphics from './SolutionAmbientGraphics'
 
 export default function SolutionOverview({ overview }) {
   if (!overview) return null
@@ -7,11 +8,13 @@ export default function SolutionOverview({ overview }) {
   return (
     <section
       id="overview"
-      className="solution-section bg-[#000000]"
+      className="solution-section relative overflow-x-hidden bg-[#000000]"
       aria-labelledby="solution-overview-heading"
       style={{ scrollMarginTop: '140px' }}
     >
-      <div className="mx-auto max-w-[1280px] px-5 py-16 text-center sm:px-6 sm:py-20 lg:px-10 lg:py-24">
+      <SolutionAmbientGraphics variant="network" id="overview-net" />
+
+      <div className="relative z-10 mx-auto max-w-[1280px] px-5 py-16 text-center sm:px-6 sm:py-20 lg:px-10 lg:py-24">
         <ScrollReveal y={32}>
           <p
             className="font-heading text-[0.7rem] font-bold tracking-[0.22em] uppercase"
@@ -45,7 +48,7 @@ export default function SolutionOverview({ overview }) {
                   className="font-heading text-[0.65rem] font-bold tracking-[0.18em] uppercase"
                   style={{ color: SOLUTION_ACCENT }}
                 >
-                  SBA Resolution
+                  {overview.resolutionLabel || 'SBA Resolution'}
                 </p>
                 <p className="mt-2 font-body text-sm font-medium leading-relaxed text-[#FFFFFF]/85">
                   {card.resolution}

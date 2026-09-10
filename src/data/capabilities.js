@@ -85,7 +85,7 @@ export const CAPABILITIES = [
     sectionDescription:
       'Reduce digital friction by modernizing critical applications, delivering secure digital products, and connecting workflows across the enterprise.',
     ctaShort: 'Explore Digital Engineering',
-    link: '/capabilities/build-and-connect',
+    link: '/solutions/build-and-connect',
     image: getImage('Build and Connect'),
     alt: 'Build and Connect visual',
     objectPosition: '65% center',
@@ -101,7 +101,7 @@ export const CAPABILITIES = [
     sectionDescription:
       'Keep users productive, platforms available, and recovery capabilities ready through SLA-backed operations, intelligent automation, and clear accountability.',
     ctaShort: 'Explore Industry Solutions',
-    link: '/capabilities/engineered-for-your-industry',
+    link: '/solutions/operate-with-assurance',
     image: getImage('Engineered for Your Industry'),
     alt: 'Operate with Assurance visual',
     objectPosition: 'right center',
@@ -118,7 +118,7 @@ export const CAPABILITIES = [
     sectionDescription:
       'Choose a focused use case, deploy with speed, and extend through SBA’s connected foundation of data, engineering, security, and managed operations.',
     ctaShort: 'Explore AI Solutions',
-    link: '/capabilities/accelerate-business-ai',
+    link: '/solutions/accelerate-business-ai',
     image: getImage('Accelerate Business AI'),
     alt: 'Accelerate Business AI visual',
     objectPosition: '68% center',

@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import CapabilityCarousel from '../components/home/CapabilityCarousel'
@@ -11,14 +10,15 @@ import LogoMarquee from '../components/home/LogoMarquee'
 import PageScrollProgress from '../components/home/PageScrollProgress'
 import { CUSTOMER_LOGOS } from '../data/customerLogos'
 import { PARTNER_LOGOS } from '../data/partnerLogos'
+import usePageMeta from '../hooks/usePageMeta'
 
 export default function HomeV2() {
-  useEffect(() => {
-    document.title = 'Home | SBA Info Solutions'
-    return () => {
-      document.title = 'SBA Info Solutions'
-    }
-  }, [])
+  usePageMeta({
+    title: 'Home | SBA Info Solutions',
+    description:
+      'SBA Info Solutions engineers modern, secure, and resilient enterprise technology across infrastructure, cloud, cybersecurity, data, AI, and managed operations.',
+    path: '/',
+  })
 
   return (
     <div className="home-v2 min-h-screen bg-black text-white">

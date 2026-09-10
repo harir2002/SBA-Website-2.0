@@ -165,7 +165,7 @@ export default function TrustMetrics() {
           >
             We partner with industry leaders to modernize core systems, protect
             business continuity, and activate AI-driven intelligence so they can{' '}
-            <span className="text-primary-red">operate at the speed of their best ideas</span>.
+            <span className="text-primary-red">operate at the speed of their best ideas</span>
           </h2>
         </motion.div>
 

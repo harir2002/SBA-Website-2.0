@@ -50,7 +50,7 @@ export default function CapabilitiesGrid() {
 
   return (
     <section
-      id="capabilities"
+      id="capabilities-grid"
       className="relative scroll-mt-[72px] overflow-hidden bg-black"
       aria-labelledby="capabilities-heading"
     >

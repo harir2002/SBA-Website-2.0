@@ -209,21 +209,6 @@ export default function AboutLeadership() {
             </motion.button>
           ))}
         </div>
-
-        <motion.div
-          className="mt-10"
-          initial={reduceMotion ? false : { opacity: 0 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45, ease: EASE }}
-        >
-          <a
-            href="#leadership"
-            className="inline-flex items-center rounded-md border border-primary-red px-5 py-2.5 font-heading text-sm font-bold tracking-wide text-primary-red uppercase no-underline transition-colors hover:bg-primary-red hover:text-white"
-          >
-            Meet Our Leadership
-          </a>
-        </motion.div>
       </div>
 
       <AnimatePresence>

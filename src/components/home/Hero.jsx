@@ -1,10 +1,7 @@
+import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
 import CapabilityDiagram from './CapabilityDiagram'
 import Background3D from './Background3D'
-
-function scrollTo(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-}
 
 export default function Hero() {
   const reduceMotion = useReducedMotion()
@@ -55,18 +52,18 @@ export default function Hero() {
             transition={{ duration: 0.55, delay: 0.24 }}
             className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
           >
-            <button
-              onClick={() => scrollTo('contact')}
+            <Link
+              to="/contact#enquiry"
               className="inline-flex items-center justify-center rounded-md bg-primary-red px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-opacity hover:opacity-90"
             >
               Let's Connect
-            </button>
-            <button
-              onClick={() => scrollTo('capabilities')}
+            </Link>
+            <Link
+              to="/solutions"
               className="inline-flex items-center justify-center rounded-md border border-white bg-transparent px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:bg-white/5"
             >
               Explore our Solutions
-            </button>
+            </Link>
           </motion.div>
         </div>
 

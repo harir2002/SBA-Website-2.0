@@ -1,10 +1,10 @@
-﻿/**
+/**
  * AboutFinalCta — clean closing brand CTA (no decorative boxes / wave overlays).
  */
 
 import { Link } from 'react-router-dom'
 import { motion, useReducedMotion } from 'framer-motion'
-import { scrollToContactForm } from '../../utils/scrollToContactForm'
+import BrandMotto from '../shared/BrandMotto'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -79,30 +79,21 @@ export default function AboutFinalCta() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2, ease: EASE }}
         >
-          <button
-            type="button"
-            onClick={() => scrollToContactForm()}
+          <Link
+            to="/contact#enquiry"
             className="inline-flex items-center justify-center rounded-md bg-primary-red px-7 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             Let's Connect
-          </button>
+          </Link>
           <Link
-            to="/#capabilities"
+            to="/solutions"
             className="inline-flex items-center justify-center rounded-md border border-white/25 px-7 py-3.5 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:border-primary-red hover:text-primary-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             Explore our Solutions
           </Link>
         </motion.div>
 
-        <motion.p
-          className="mt-16 font-heading text-sm font-medium tracking-wide text-white/40 sm:text-[0.95rem]"
-          initial={reduceMotion ? false : { opacity: 0 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.28, ease: EASE }}
-        >
-          Engineering the modern, secure, and resilient enterprise.
-        </motion.p>
+        <BrandMotto className="mt-16" />
       </div>
     </section>
   )

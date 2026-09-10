@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { ABOUT_PROOF } from '../../data/aboutContent'
 import SolutionsOrbitPanel from '../shared/SolutionsOrbitPanel'
 import ProofStats from '../shared/ProofStats'
-import { scrollToContactForm } from '../../utils/scrollToContactForm'
+import BrandMotto from '../shared/BrandMotto'
 
 const EASE = [0.16, 1, 0.3, 1]
 
@@ -45,14 +45,7 @@ export default function AboutHero() {
             Built to keep enterprises moving forward.
           </motion.h1>
 
-          <motion.p
-            className="mt-4 max-w-xl font-heading text-base font-semibold text-white/70 sm:text-lg"
-            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.14, ease: EASE }}
-          >
-            Engineering the modern, secure, and resilient enterprise.
-          </motion.p>
+          <BrandMotto className="mt-4" align="left" showRule={false} delay={0.14} />
 
           <motion.p
             className="mt-5 max-w-xl font-body text-sm leading-relaxed text-white/55 sm:text-base"
@@ -72,18 +65,17 @@ export default function AboutHero() {
             transition={{ duration: 0.5, delay: 0.28, ease: EASE }}
           >
             <Link
-              to="/#capabilities"
+              to="/solutions"
               className="inline-flex items-center justify-center rounded-md bg-primary-red px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Explore our Solutions
             </Link>
-            <button
-              type="button"
-              onClick={() => scrollToContactForm()}
+            <Link
+              to="/contact#enquiry"
               className="inline-flex items-center justify-center rounded-md border border-white/30 px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:border-primary-red hover:text-primary-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Let's Connect
-            </button>
+            </Link>
           </motion.div>
 
           <ProofStats items={ABOUT_PROOF} className="mt-10" />

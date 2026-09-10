@@ -1,6 +1,9 @@
 import { MODERNIZE_THE_CORE, SOLUTION_ACCENT } from './modernizeTheCore'
 import { PROTECT_AND_RECOVER, PROTECT_ACCENT } from './protectAndRecover'
 import { MAKE_DATA_ACTIONABLE, MAKE_DATA_ACCENT } from './makeDataActionable'
+import { BUILD_AND_CONNECT, BUILD_CONNECT_ACCENT } from './buildAndConnect'
+import { OPERATE_WITH_ASSURANCE, OPERATE_ACCENT } from './operateWithAssurance'
+import { ACCELERATE_BUSINESS_AI, ACCELERATE_ACCENT } from './accelerateBusinessAi'
 
 export {
   MODERNIZE_THE_CORE,
@@ -9,14 +12,27 @@ export {
   PROTECT_ACCENT,
   MAKE_DATA_ACTIONABLE,
   MAKE_DATA_ACCENT,
+  BUILD_AND_CONNECT,
+  BUILD_CONNECT_ACCENT,
+  OPERATE_WITH_ASSURANCE,
+  OPERATE_ACCENT,
+  ACCELERATE_BUSINESS_AI,
+  ACCELERATE_ACCENT,
 }
 
 const SOLUTIONS = {
   [MODERNIZE_THE_CORE.slug]: MODERNIZE_THE_CORE,
   [PROTECT_AND_RECOVER.slug]: PROTECT_AND_RECOVER,
   [MAKE_DATA_ACTIONABLE.slug]: MAKE_DATA_ACTIONABLE,
+  [BUILD_AND_CONNECT.slug]: BUILD_AND_CONNECT,
+  [OPERATE_WITH_ASSURANCE.slug]: OPERATE_WITH_ASSURANCE,
+  [ACCELERATE_BUSINESS_AI.slug]: ACCELERATE_BUSINESS_AI,
 }
 
 export function getSolutionBySlug(slug) {
   return SOLUTIONS[slug] || null
+}
+
+export function getAllSolutions() {
+  return Object.values(SOLUTIONS)
 }

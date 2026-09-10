@@ -15,81 +15,78 @@ function scrollToHash(href) {
 }
 
 /**
- * Shared solution hero format:
- * red eyebrow → full-width H1 → single red CTA with ▶
+ * Shared solution hero — matches Industry detail compact format:
+ * red eyebrow → large H1 → single red CTA with ▶
  */
 export default function SolutionHero({ hero, accent = SOLUTION_ACCENT }) {
   const reduceMotion = useReducedMotion()
   if (!hero) return null
 
   const eyebrow = hero.eyebrow || 'Solutions'
-  const enter = (delay = 0) =>
-    reduceMotion
-      ? {}
-      : {
-          initial: { opacity: 0, y: 28 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.7, delay, ease: EASE },
-        }
+  const title = hero.title || ''
+  const ctaLabel = hero.primaryCta?.label || "Let's Connect"
+  const ctaHref = hero.primaryCta?.href || '#contact'
 
   return (
     <section
-      className="solution-hero relative isolate min-h-[100svh] overflow-hidden bg-black"
+      className="industry-hero industry-hero--detail solution-hero"
       aria-labelledby="solution-hero-heading"
+      style={{ scrollMarginTop: '100px' }}
     >
       {hero.image ? (
-        <motion.img
+        <img
           src={hero.image}
           alt={hero.imageAlt || ''}
-          className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+          className="industry-hero__image"
           decoding="async"
           fetchPriority="high"
-          initial={reduceMotion ? false : { scale: 1.06, opacity: 0.7 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.1, ease: EASE }}
         />
       ) : null}
 
-      <div
-        className="pointer-events-none absolute inset-0 -z-10"
-        aria-hidden="true"
-        style={{
-          background:
-            'linear-gradient(180deg, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.26) 42%, rgba(0,0,0,0.42) 100%), linear-gradient(0deg, rgba(0,0,0,0.18), rgba(0,0,0,0.18))',
-        }}
-      />
+      <div className="industry-hero__overlay" aria-hidden="true" />
 
-      <div className="relative flex min-h-[100svh] w-full flex-col justify-center px-5 py-16 pt-[calc(var(--header-height,88px)+1.25rem)] sm:px-8 lg:px-10">
-        <div className="w-full max-w-none text-left">
-          <motion.p
-            className="font-heading text-base font-bold tracking-wide sm:text-lg lg:text-xl"
-            style={{ color: accent }}
-            {...enter(0.05)}
-          >
-            {eyebrow}
-          </motion.p>
-
-          <motion.h1
-            id="solution-hero-heading"
-            className="mt-4 w-full font-heading text-[2.35rem] font-black leading-[1.05] tracking-[-0.025em] text-white sm:text-5xl md:text-6xl lg:text-[3.75rem]"
-            {...enter(0.15)}
-          >
-            {hero.title}
-          </motion.h1>
-
-          <motion.div className="mt-8" {...enter(0.28)}>
-            <button
-              type="button"
-              onClick={() => scrollToHash(hero.primaryCta?.href || '#contact')}
-              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-7 py-3.5 font-heading text-sm font-extrabold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-              style={{ backgroundColor: accent }}
+      <div className="industry-hero__content-shell">
+        <div className="industry-hero__content-column">
+          <div className="industry-hero__content">
+            <motion.p
+              className="industry-hero__eyebrow font-heading text-sm font-bold tracking-wide sm:text-base lg:text-lg"
+              style={{ color: accent }}
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: EASE }}
             >
-              {hero.primaryCta?.label || "Let's Connect"}
-              <span aria-hidden="true" className="text-[0.7em] leading-none">
-                ▶
-              </span>
-            </button>
-          </motion.div>
+              {eyebrow}
+            </motion.p>
+
+            <motion.h1
+              id="solution-hero-heading"
+              className="industry-hero__title font-heading text-[1.625rem] font-extrabold leading-[1.18] tracking-[-0.02em] text-white sm:text-[1.75rem] md:text-[2.125rem] lg:text-[2.5rem]"
+              initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.05, ease: EASE }}
+            >
+              {title}
+            </motion.h1>
+
+            <motion.div
+              className="industry-hero__actions"
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15, ease: EASE }}
+            >
+              <button
+                type="button"
+                onClick={() => scrollToHash(ctaHref)}
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md px-7 py-3.5 font-heading text-sm font-extrabold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.02] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                style={{ backgroundColor: accent }}
+              >
+                {ctaLabel}
+                <span aria-hidden="true" className="text-[0.7em] leading-none">
+                  ▶
+                </span>
+              </button>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -8,24 +8,12 @@ import { motion, useReducedMotion } from 'framer-motion'
 
 const EASE = [0.16, 1, 0.3, 1]
 
-const INTEREST_OPTIONS = [
-  'Modernize the Core',
-  'Protect and Recover',
-  'Make Data Actionable',
-  'Build and Connect',
-  'Operate with Assurance',
-  'Accelerate Business AI',
-  'General Inquiry',
-]
-
 const INITIAL = {
   name: '',
   email: '',
   company: '',
   phone: '',
-  interest: '',
   message: '',
-  consent: false,
 }
 
 function FormField({
@@ -66,9 +54,8 @@ function validate(form) {
     errors.email = 'Enter a valid email address.'
   }
   if (!form.company.trim()) errors.company = 'Company is required.'
-  if (!form.interest) errors.interest = 'Select an area of interest.'
+  if (!form.phone.trim()) errors.phone = 'Phone number is required.'
   if (!form.message.trim()) errors.message = 'Message is required.'
-  if (!form.consent) errors.consent = 'Please agree to the policies to continue.'
   return errors
 }
 
@@ -258,10 +245,6 @@ export default function ContactSection({ variant = 'page' }) {
           color: #E7000B;
         }
 
-        .sba-form-consent {
-          margin-top: 28px;
-        }
-
         .sba-form-actions {
           margin-top: 22px;
         }
@@ -323,10 +306,17 @@ export default function ContactSection({ variant = 'page' }) {
             role="status"
           >
             <p className="font-heading text-lg font-bold text-white">
-              Thank you! We&apos;ll be in touch.
+              Thank you — we have received your enquiry.
             </p>
             <p className="mt-2 font-body text-sm text-white/55">
-              Your message has been captured for this preview.
+              Our team will follow up shortly. For a faster response, email{' '}
+              <a
+                href="mailto:hr@sbainfo.in"
+                className="font-semibold text-primary-red underline-offset-2 hover:underline"
+              >
+                hr@sbainfo.in
+              </a>
+              .
             </p>
             <button
               type="button"
@@ -388,6 +378,7 @@ export default function ContactSection({ variant = 'page' }) {
               <FormField
                 label="Phone Number"
                 htmlFor="phone"
+                required
                 error={errors.phone}
                 hasValue={Boolean(form.phone.trim())}
               >
@@ -398,7 +389,6 @@ export default function ContactSection({ variant = 'page' }) {
                   autoComplete="tel"
                   value={form.phone}
                   onChange={handleChange}
-                  placeholder="Optional"
                 />
               </FormField>
 
@@ -420,32 +410,6 @@ export default function ContactSection({ variant = 'page' }) {
               </FormField>
 
               <FormField
-                label="Area of Interest"
-                htmlFor="interest"
-                required
-                error={errors.interest}
-                hasValue={Boolean(form.interest)}
-                className="sba-form-field--full"
-              >
-                <select
-                  id="interest"
-                  name="interest"
-                  value={form.interest}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="" disabled>
-                    Select an option
-                  </option>
-                  {INTEREST_OPTIONS.map((opt) => (
-                    <option key={opt} value={opt}>
-                      {opt}
-                    </option>
-                  ))}
-                </select>
-              </FormField>
-
-              <FormField
                 label="Message"
                 htmlFor="message"
                 required
@@ -462,26 +426,6 @@ export default function ContactSection({ variant = 'page' }) {
                   onChange={handleChange}
                 />
               </FormField>
-            </div>
-
-            <div className="sba-form-consent">
-              <label className="flex cursor-pointer items-start gap-3">
-                <input
-                  type="checkbox"
-                  name="consent"
-                  checked={form.consent}
-                  onChange={handleChange}
-                  className="mt-1 h-4 w-4 shrink-0 accent-[#E7000B]"
-                />
-                <span className="font-body text-sm leading-relaxed text-white/65">
-                  I agree to the Privacy Policy and Cookie Policy.
-                </span>
-              </label>
-              {errors.consent ? (
-                <p className="sba-form-error" role="alert">
-                  {errors.consent}
-                </p>
-              ) : null}
             </div>
 
             <div className="sba-form-actions">

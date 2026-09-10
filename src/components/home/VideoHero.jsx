@@ -10,10 +10,6 @@ import { useReducedMotion } from 'framer-motion'
 const VIDEO_SRC = '/videos/hero-bg.mp4'
 const POSTER_SRC = '/images/hero-fallback.png'
 
-function scrollTo(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-}
-
 export default function VideoHero() {
   const reduceMotion = useReducedMotion()
   const videoRef = useRef(null)
@@ -134,19 +130,14 @@ export default function VideoHero() {
           business continuity, and activate AI-driven intelligence.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={() => scrollTo('contact')}
+          <Link
+            to="/contact#enquiry"
             className="inline-flex items-center justify-center rounded-lg bg-primary-red px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-[transform,filter] duration-200 hover:scale-[1.03] hover:brightness-110"
           >
             Let's Connect
-          </button>
+          </Link>
           <Link
-            to="/#capabilities"
-            onClick={(e) => {
-              e.preventDefault()
-              scrollTo('capabilities')
-            }}
+            to="/solutions"
             className="inline-flex items-center justify-center rounded-lg border border-white/30 px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase no-underline transition-colors hover:border-primary-red/50 hover:text-primary-red"
           >
             Our Solutions

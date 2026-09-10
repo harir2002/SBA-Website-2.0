@@ -6,10 +6,13 @@
 export const INDUSTRY_NAV = [
   { label: 'Industries Overview', path: '/industries' },
   { label: 'BFSI', path: '/industries/bfsi' },
-  { label: 'Manufacturing', path: '/industries/manufacturing' },
   { label: 'IT/ITES', path: '/industries/it-ites' },
+  { label: 'Manufacturing', path: '/industries/manufacturing' },
   { label: 'Diversified Enterprises', path: '/industries/diversified-enterprises' },
 ]
+
+/** Same four sectors, same order as the header dropdown (excluding Overview). */
+export const INDUSTRY_SECTORS = INDUSTRY_NAV.filter((item) => item.path !== '/industries')
 
 /** Detail-page PNG hero (public/images/industries/*-hero.png). */
 function industryHeroPng(stem, heroImageAlt) {
@@ -61,6 +64,14 @@ export const INDUSTRY_OVERVIEW = {
       ...industryCardImage('bfsi-hero', 'BFSI technology and financial operations'),
     },
     {
+      slug: 'it-ites',
+      title: 'IT/ITES',
+      body:
+        'Modern cloud, data, DevOps, and managed operations for businesses that need speed without instability.',
+      cta: 'Explore IT/ITES',
+      ...industryCardImage('it-ites-hero', 'IT and IT-enabled services technology'),
+    },
+    {
       slug: 'manufacturing',
       title: 'Manufacturing',
       body:
@@ -70,14 +81,6 @@ export const INDUSTRY_OVERVIEW = {
         'manufacturing-hero',
         'Manufacturing technology and connected operations',
       ),
-    },
-    {
-      slug: 'it-ites',
-      title: 'IT/ITES',
-      body:
-        'Modern cloud, data, DevOps, and managed operations for businesses that need speed without instability.',
-      cta: 'Explore IT/ITES',
-      ...industryCardImage('it-ites-hero', 'IT and IT-enabled services technology'),
     },
     {
       slug: 'diversified-enterprises',

@@ -32,7 +32,8 @@ export const MAKE_DATA_ACTIONABLE = {
     imageAlt:
       'Enterprise data topology transforming fragmented data into governed decision intelligence',
     eyebrow: 'Make Data Actionable',
-    title: 'Turn Fragmented Enterprise Data into Actionable Intelligence',
+    title:
+      'Turn fragmented enterprise data into trusted insight, intelligent automation, and governed AI embedded in everyday business workflows',
     primaryCta: {
       label: "Let's Connect",
       href: '#contact',
@@ -146,37 +147,54 @@ export const MAKE_DATA_ACTIONABLE = {
       },
     ],
   },
-  blueprint: {
+  mid: {
     eyebrow: 'THE SBA DATA-TO-INTELLIGENCE LIFECYCLE',
-    headline: 'From disconnected data to governed intelligence in four stages.',
-    stages: [
+    headline: 'From disconnected data to governed intelligence in four stages',
+    mapLabel: 'Data-to-AI Blueprint',
+    cycleLabel: 'Intelligence lifecycle',
+    sectionId: 'data-to-ai-blueprint',
+    zones: [
       {
         id: 'data-fabric',
-        navLabel: 'Data Fabric',
         label: 'Ingest & Unify',
         detail:
-          'Connecting distributed databases, structured transactions, and unstructured documents into an governed data platform.',
+          'Connecting distributed databases, structured transactions, and unstructured documents into a governed data platform',
       },
       {
         id: 'ingestion-engine',
-        navLabel: 'Ingestion Engine',
         label: 'Transform & Enrich',
         detail:
-          'Cleaning, cataloging, vectorizing, and enforcing data quality policies across all pipeline stages.',
+          'Cleaning, cataloging, vectorizing, and enforcing data quality policies across all pipeline stages',
       },
       {
         id: 'decision-intelligence',
-        navLabel: 'Decision Intelligence',
         label: 'Analyze & Predict',
         detail:
-          'Deploying self-service analytics models, real-time streaming dashboards, and predictive operational telemetry.',
+          'Deploying self-service analytics models, real-time streaming dashboards, and predictive operational telemetry',
       },
       {
         id: 'agentic-copilots',
-        navLabel: 'Agentic Copilots',
         label: 'Activate & Automate',
         detail:
-          'Embedding task-specific AI copilots and autonomous agentic workflows directly into everyday enterprise tools.',
+          'Embedding task-specific AI copilots and autonomous agentic workflows directly into everyday enterprise tools',
+      },
+    ],
+    steps: [
+      {
+        title: 'Ingest & Unify',
+        body: 'Connecting distributed databases, structured transactions, and unstructured documents into a governed data platform',
+      },
+      {
+        title: 'Transform & Enrich',
+        body: 'Cleaning, cataloging, vectorizing, and enforcing data quality policies across all pipeline stages',
+      },
+      {
+        title: 'Analyze & Predict',
+        body: 'Deploying self-service analytics models, real-time streaming dashboards, and predictive operational telemetry',
+      },
+      {
+        title: 'Activate & Automate',
+        body: 'Embedding task-specific AI copilots and autonomous agentic workflows directly into everyday enterprise tools',
       },
     ],
   },
@@ -197,7 +215,7 @@ export const MAKE_DATA_ACTIONABLE = {
       {
         title: 'Accelerate Business AI',
         body: 'Leverage ready-made AI platforms like Conversax, Pravaah, and Ethana for immediate time-to-value.',
-        href: null,
+        href: '/solutions/accelerate-business-ai',
       },
     ],
   },
@@ -205,6 +223,7 @@ export const MAKE_DATA_ACTIONABLE = {
     eyebrow: 'ACTIVATE YOUR DATA',
     headline: 'Turn Enterprise Information into Your Strongest Competitive Advantage.',
     body: 'Speak with our data engineers and AI architects to map out a clear blueprint from fragmented data sources to production-grade, governed enterprise AI.',
+    submitLabel: 'Request a Data Assessment',
     tagline: true,
   },
 }

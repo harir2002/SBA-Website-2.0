@@ -83,7 +83,7 @@ export default function ContactHero({ onStart }) {
                 Let's Connect
               </button>
               <Link
-                to="/#capabilities"
+                to="/solutions"
                 className="inline-flex items-center justify-center rounded-md border border-white/30 px-6 py-3 font-heading text-sm font-bold tracking-wide text-white uppercase transition-colors hover:border-primary-red hover:text-primary-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
               >
                 Explore our Solutions

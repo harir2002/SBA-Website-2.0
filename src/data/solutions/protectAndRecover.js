@@ -31,7 +31,8 @@ export const PROTECT_AND_RECOVER = {
     imageAlt:
       'Layered enterprise cyber-resilience architecture with immutable recovery vault',
     eyebrow: 'Protect and Recover',
-    title: 'Secure Every Layer. Guarantee Business Continuity',
+    title:
+      'Secure every layer of the enterprise — and maintain a tested, accountable path to recover critical business services when disruption occurs',
     primaryCta: {
       label: "Let's Connect",
       href: '#contact',
@@ -148,51 +149,54 @@ export const PROTECT_AND_RECOVER = {
       },
     ],
   },
-  resilience: {
+  mid: {
     eyebrow: 'THE SBA RECOVERY ASSURANCE FRAMEWORK',
-    headline: 'Engineer recovery before disruption occurs.',
+    headline: 'Engineer recovery before disruption occurs',
+    mapLabel: 'Cyber Resilience Architecture Map',
+    cycleLabel: 'Resilience cycle',
+    sectionId: 'resilience-assurance',
     zones: [
       {
         id: 'perimeter',
         label: 'Perimeter',
         detail:
-          'Zero-trust access, identity governance, network segmentation, and hardened application boundaries reduce attack pathways.',
+          'Zero-trust access, identity governance, network segmentation, and hardened application boundaries reduce attack pathways',
       },
       {
         id: 'detection',
         label: 'Detection',
         detail:
-          '24x7 monitoring, endpoint telemetry, log analytics, threat hunting, and containment playbooks identify and stop suspicious activity fast.',
+          '24x7 monitoring, endpoint telemetry, log analytics, threat hunting, and containment playbooks identify and stop suspicious activity fast',
       },
       {
         id: 'immutable-vault',
         label: 'Immutable Vault',
         detail:
-          'Air-gapped, write-locked data protection preserves verified recovery points beyond the reach of production compromise.',
+          'Air-gapped, write-locked data protection preserves verified recovery points beyond the reach of production compromise',
       },
       {
         id: 'ire',
         label: 'Isolated Recovery Environment',
         detail:
-          'A clean, controlled restoration environment enables validated recovery without reinfecting production systems.',
+          'A clean, controlled restoration environment enables validated recovery without reinfecting production systems',
       },
     ],
     steps: [
       {
         title: 'Posture Assessment & Threat Modeling',
-        body: 'Identifying critical data paths, compliance requirements, RTO/RPO mandates, and vulnerable legacy perimeters.',
+        body: 'Identifying critical data paths, compliance requirements, RTO/RPO mandates, and vulnerable legacy perimeters',
       },
       {
         title: 'Zero-Trust & Vault Architecture',
-        body: 'Implementing micro-segmentation, identity controls, and immutable, write-locked air-gapped data vaults.',
+        body: 'Implementing micro-segmentation, identity controls, and immutable, write-locked air-gapped data vaults',
       },
       {
         title: 'Automated DR Orchestration',
-        body: 'Scripting non-disruptive failovers, recovery runbooks, and isolated clean-room restoration pipelines.',
+        body: 'Scripting non-disruptive failovers, recovery runbooks, and isolated clean-room restoration pipelines',
       },
       {
         title: 'Continuous Resilience Drills',
-        body: 'Regular simulated recovery drills and executive readiness reporting to prove recovery capabilities ahead of real-world crises.',
+        body: 'Regular simulated recovery drills and executive readiness reporting to prove recovery capabilities ahead of real-world crises',
       },
     ],
   },
@@ -208,12 +212,12 @@ export const PROTECT_AND_RECOVER = {
       {
         title: 'Operate with Assurance',
         body: '24x7 Managed SOC, threat monitoring, and SLA-backed backup administration.',
-        href: null,
+        href: '/solutions/operate-with-assurance',
       },
       {
         title: 'Accelerate Business AI (Ethana)',
         body: 'Protect AI pipelines, guard against prompt injection, and enforce AI governance and PII masking.',
-        href: null,
+        href: '/solutions/accelerate-business-ai',
       },
     ],
   },
@@ -221,6 +225,7 @@ export const PROTECT_AND_RECOVER = {
     eyebrow: 'STRENGTHEN YOUR CYBER POSTURE',
     headline: 'Be Prepared to Withstand Disruption and Recover Immediately.',
     body: 'Connect with our senior cybersecurity and resilience architects for an objective assessment of your backup immutability, zero-trust readiness, and disaster-recovery capabilities.',
+    submitLabel: 'Request a Security Assessment',
     tagline: true,
   },
 }
